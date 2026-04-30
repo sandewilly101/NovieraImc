@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI 3D Render Engine</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300&family=Outfit:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg: #0b0c0f;
+  --panel: #111318;
+  --panel2: #161820;
+  --border: #1e2130;
+  --border2: #252840;
+  --accent: #5b8fff;
+  --accent2: #a78bfa;
+  --gold: #f5c842;
+  --green: #4ade80;
+  --red: #f87171;
+  --text: #d4d8f0;
+  --text2: #7880a0;
+  --text3: #3a3f5a;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html,body { width:100%; height:100%; overflow:hidden; background:var(--bg); color:var(--text); font-family:'Outfit',sans-serif; }
+
+/* ── Layout ── */
+#app { display:flex; width:100vw; height:100vh; }
+#sidebar-left { width:260px; min-width:260px; background:var(--panel); border-right:1px solid var(--border); display:flex; flex-direction:column; overflow:hidden; z-index:10; }
+#viewport { flex:1; position:relative; overflow:hidden; background:#060709; }
+#sidebar-right { width:280px; min-width:280px; background:var(--panel); border-left:1px solid var(--border); display:flex; flex-direction:column; overflow:hidden; z-index:10; }
+
+/* ── Topbar ── */
+#topbar { display:flex; align-items:center; gap:8px; padding:10px 16px; background:var(--panel); border-bottom:1px solid var(--border); position:absolute; top:0; left:0; right:0; z-index:20; height:48px; }
+#logo { font-family:'DM Mono',monospace; font-size:13px; color:var(--accent); letter-spacing:0.05em; white-space:nowrap; }
+#logo span { color:var(--accent2); }
+.spacer { flex:1; }
+.topbtn { background:var(--panel2); border:1px solid var(--border); color:var(--text2); padding:5px 12px; border-radius:4px; font-size:11px; font-family:'DM Mono',monospace; letter-spacing:0.05em; cursor:pointer; transition:all 0.15s; white-space:nowrap; }
+.topbtn:hover { border-color:var(--accent); color:var(--accent); }
+.topbtn.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+.topbtn.primary:hover { background:#4a7aff; }
+.topbtn.rec { background:#7f1d1d; border-color:var(--red); color:var(--red); }
+.topbtn.rec.active { background:var(--red); color:#fff; animation:pulse-rec 1s infinite; }
+@keyframes pulse-rec { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+#canvas-wrap { position:absolute; inset:0; top:48px; }
+canvas#main { display:block; width:100%; height:100%; }
+
+/* ── Panel sections ── */
+.panel-header { padding:12px 16px 8px; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text3); font-family:'DM Mono',monospace; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.panel-header .ph-action { color:var(--accent); cursor:pointer; font-size:9px; }
+.section { border-bottom:1px solid var(--border); }
+.section-title { padding:8px 16px; font-size:10px; color:var(--text2); font-family:'DM Mono',monospace; letter-spacing:0.1em; display:flex; align-items:center; gap:6px; cursor:pointer; user-select:none; }
+.section-title .dot { width:6px; height:6px; border-radius:50%; background:var(--text3); flex-shrink:0; }
+.section-title .dot.on { background:var(--green); box-shadow:0 0 6px var(--green); }
+.section-content { padding:10px 16px; display:flex; flex-direction:column; gap:8px; }
+
+/* ── Upload zone ── */
+#drop-zone { margin:12px; border:1.5px dashed var(--border2); border-radius:8px; padding:20px 12px; text-align:center; cursor:pointer; transition:all 0.2s; background:rgba(91,143,255,0.02); }
+#drop-zone:hover, #drop-zone.drag-over { border-color:var(--accent); background:rgba(91,143,255,0.06); }
+#drop-zone .dz-icon { font-size:24px; margin-bottom:6px; opacity:0.5; }
+#drop-zone .dz-title { font-size:12px; color:var(--text2); margin-bottom:3px; }
+#drop-zone .dz-sub { font-size:10px; color:var(--text3); font-family:'DM Mono',monospace; }
+#file-input { display:none; }
+
+/* ── Model list ── */
+#model-list { padding:6px 12px; display:flex; flex-direction:column; gap:4px; max-height:140px; overflow-y:auto; }
+.model-item { display:flex; align-items:center; gap:8px; padding:6px 10px; border-radius:5px; background:var(--panel2); border:1px solid var(--border); font-size:11px; cursor:pointer; transition:all 0.15s; }
+.model-item:hover { border-color:var(--border2); }
+.model-item.active { border-color:var(--accent); background:rgba(91,143,255,0.08); }
+.model-item .mi-name { flex:1; color:var(--text); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.model-item .mi-type { font-family:'DM Mono',monospace; font-size:9px; color:var(--text3); }
+.model-item .mi-del { color:var(--text3); cursor:pointer; font-size:14px; line-height:1; padding:0 2px; }
+.model-item .mi-del:hover { color:var(--red); }
+
+/* ── Controls ── */
+.ctrl-row { display:flex; align-items:center; gap:8px; }
+.ctrl-label { font-size:10px; color:var(--text2); font-family:'DM Mono',monospace; white-space:nowrap; min-width:70px; }
+.ctrl-label.sm { min-width:50px; }
+input[type=range] { flex:1; -webkit-appearance:none; height:3px; background:var(--border2); border-radius:2px; outline:none; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance:none; width:12px; height:12px; border-radius:50%; background:var(--accent); cursor:pointer; box-shadow:0 0 8px rgba(91,143,255,0.5); }
+input[type=range]::-webkit-slider-thumb:hover { background:#7aaaff; }
+.val-display { font-size:10px; font-family:'DM Mono',monospace; color:var(--accent); min-width:32px; text-align:right; }
+
+input[type=color] { width:28px; height:20px; border:1px solid var(--border2); border-radius:3px; background:none; cursor:pointer; padding:1px; }
+input[type=number] { background:var(--panel2); border:1px solid var(--border); color:var(--text); font-family:'DM Mono',monospace; font-size:10px; padding:3px 6px; border-radius:3px; width:60px; outline:none; }
+input[type=number]:focus { border-color:var(--accent); }
+
+select { background:var(--panel2); border:1px solid var(--border); color:var(--text); font-family:'DM Mono',monospace; font-size:10px; padding:4px 6px; border-radius:3px; outline:none; cursor:pointer; flex:1; }
+select:focus { border-color:var(--accent); }
+
+.toggle-row { display:flex; align-items:center; gap:8px; }
+.toggle { width:32px; height:16px; border-radius:8px; background:var(--border2); position:relative; cursor:pointer; transition:background 0.2s; flex-shrink:0; }
+.toggle.on { background:var(--accent); }
+.toggle::after { content:''; position:absolute; left:2px; top:2px; width:12px; height:12px; border-radius:50%; background:#fff; transition:left 0.2s; }
+.toggle.on::after { left:18px; }
+.toggle-label { font-size:11px; color:var(--text2); flex:1; }
+
+/* ── Lights panel ── */
+.light-item { background:var(--panel2); border:1px solid var(--border); border-radius:5px; padding:8px 10px; display:flex; flex-direction:column; gap:6px; }
+.light-header { display:flex; align-items:center; gap:6px; font-size:11px; color:var(--text); }
+.light-icon { font-size:14px; }
+.light-name { flex:1; }
+.light-del { color:var(--text3); cursor:pointer; font-size:13px; }
+.light-del:hover { color:var(--red); }
+
+/* ── HDR ── */
+.hdr-grid { display:grid; grid-template-columns:1fr 1fr; gap:6px; }
+.hdr-item { background:var(--panel2); border:1.5px solid var(--border); border-radius:5px; padding:8px; text-align:center; cursor:pointer; transition:all 0.15s; font-size:10px; color:var(--text2); }
+.hdr-item:hover { border-color:var(--border2); }
+.hdr-item.active { border-color:var(--accent); color:var(--accent); background:rgba(91,143,255,0.06); }
+.hdr-item .hdr-preview { width:100%; height:36px; border-radius:3px; margin-bottom:5px; background-size:cover; background-position:center; }
+
+/* ── Camera ── */
+.cam-presets { display:flex; gap:4px; flex-wrap:wrap; }
+.cam-btn { background:var(--panel2); border:1px solid var(--border); color:var(--text2); padding:4px 8px; border-radius:3px; font-size:10px; font-family:'DM Mono',monospace; cursor:pointer; transition:all 0.15s; }
+.cam-btn:hover, .cam-btn.active { border-color:var(--accent); color:var(--accent); }
+
+/* ── AI Panel ── */
+.ai-badge { display:inline-flex; align-items:center; gap:4px; background:linear-gradient(135deg, rgba(91,143,255,0.15), rgba(167,139,250,0.15)); border:1px solid rgba(91,143,255,0.3); border-radius:4px; padding:2px 7px; font-size:9px; font-family:'DM Mono',monospace; color:var(--accent2); letter-spacing:0.1em; }
+.ai-badge::before { content:'✦'; font-size:8px; }
+
+.ai-status { font-size:10px; font-family:'DM Mono',monospace; color:var(--text3); padding:8px 0 2px; line-height:1.6; }
+.ai-status.thinking { color:var(--accent2); }
+.ai-status.done { color:var(--green); }
+
+#ai-suggest-btn { width:100%; padding:8px; background:linear-gradient(135deg, rgba(91,143,255,0.1), rgba(167,139,250,0.1)); border:1px solid rgba(91,143,255,0.2); color:var(--accent2); border-radius:5px; cursor:pointer; font-size:11px; font-family:'DM Mono',monospace; letter-spacing:0.05em; transition:all 0.2s; }
+#ai-suggest-btn:hover { background:linear-gradient(135deg, rgba(91,143,255,0.2), rgba(167,139,250,0.2)); border-color:rgba(91,143,255,0.4); }
+
+/* ── Progress / render ── */
+#render-progress { display:none; position:absolute; bottom:60px; left:50%; transform:translateX(-50%); background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:12px 20px; min-width:280px; text-align:center; z-index:30; }
+#render-progress .rp-title { font-size:11px; color:var(--text2); margin-bottom:8px; font-family:'DM Mono',monospace; letter-spacing:0.1em; }
+#render-progress .rp-bar-wrap { background:var(--border); border-radius:4px; height:4px; overflow:hidden; }
+#render-progress .rp-bar { height:100%; background:linear-gradient(90deg, var(--accent), var(--accent2)); width:0%; transition:width 0.3s; border-radius:4px; }
+#render-progress .rp-info { font-size:10px; color:var(--text3); margin-top:6px; font-family:'DM Mono',monospace; }
+
+/* ── Overlay notifications ── */
+#notif { position:absolute; top:60px; right:16px; z-index:50; display:flex; flex-direction:column; gap:6px; pointer-events:none; }
+.notif-item { background:var(--panel); border:1px solid var(--border2); border-radius:6px; padding:8px 14px; font-size:11px; font-family:'DM Mono',monospace; color:var(--text); animation:slideIn 0.3s ease; max-width:260px; }
+.notif-item.success { border-color:var(--green); color:var(--green); }
+.notif-item.info { border-color:var(--accent); color:var(--accent); }
+.notif-item.ai { border-color:var(--accent2); color:var(--accent2); }
+@keyframes slideIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+
+/* ── Viewport overlay ── */
+#viewport-overlay { position:absolute; top:60px; left:10px; pointer-events:none; z-index:5; }
+.vo-stat { font-size:9px; font-family:'DM Mono',monospace; color:rgba(91,143,255,0.4); line-height:1.8; }
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar { width:4px; }
+::-webkit-scrollbar-track { background:transparent; }
+::-webkit-scrollbar-thumb { background:var(--border2); border-radius:2px; }
+
+/* ── Sidebar scroll ── */
+.sidebar-scroll { flex:1; overflow-y:auto; overflow-x:hidden; }
+
+/* ── Timeline ── */
+#timeline { position:absolute; bottom:0; left:0; right:0; height:52px; background:var(--panel); border-top:1px solid var(--border); display:flex; align-items:center; padding:0 16px; gap:12px; z-index:20; }
+#timeline-track { flex:1; height:20px; background:var(--panel2); border:1px solid var(--border); border-radius:4px; position:relative; overflow:hidden; cursor:pointer; }
+#timeline-fill { height:100%; background:linear-gradient(90deg, rgba(91,143,255,0.3), rgba(167,139,250,0.3)); width:0%; transition:width 0.1s linear; }
+#timeline-head { position:absolute; top:0; bottom:0; width:2px; background:var(--accent); left:0; }
+.tl-label { font-size:9px; font-family:'DM Mono',monospace; color:var(--text3); white-space:nowrap; }
+.tl-time { font-size:11px; font-family:'DM Mono',monospace; color:var(--text2); min-width:40px; }
+
+/* Loading overlay */
+#loading { position:absolute; inset:0; background:var(--bg); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:200; transition:opacity 0.5s; }
+#loading .ld-logo { font-family:'DM Mono',monospace; font-size:20px; color:var(--accent); margin-bottom:16px; letter-spacing:0.1em; }
+#loading .ld-bar { width:200px; height:2px; background:var(--border); border-radius:1px; overflow:hidden; }
+#loading .ld-fill { height:100%; background:linear-gradient(90deg,var(--accent),var(--accent2)); animation:ldanim 1.5s ease-in-out infinite; }
+@keyframes ldanim { 0%{width:0%;margin-left:0} 50%{width:60%;margin-left:20%} 100%{width:0%;margin-left:100%} }
+#loading .ld-text { font-size:10px; font-family:'DM Mono',monospace; color:var(--text3); margin-top:12px; letter-spacing:0.15em; }
+</style>
+</head>
+<body>
+
+<div id="loading">
+  <div class="ld-logo">RENDER·AI</div>
+  <div class="ld-bar"><div class="ld-fill"></div></div>
+  <div class="ld-text">Initializing 3D Engine…</div>
+</div>
+
+<div id="app">
+
+<!-- LEFT SIDEBAR -->
+<div id="sidebar-left">
+  <div class="panel-header">
+    <span>Scene Objects</span>
+    <span class="ph-action" onclick="addDefaultObject()">+ Add</span>
+  </div>
+
+  <!-- Upload -->
+  <div id="drop-zone" onclick="document.getElementById('file-input').click()" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+    <div class="dz-icon">⬆</div>
+    <div class="dz-title">Drop 3D Model Here</div>
+    <div class="dz-sub">OBJ · GLTF · GLB · FBX · STL</div>
+  </div>
+  <input type="file" id="file-input" accept=".obj,.gltf,.glb,.fbx,.stl" multiple onchange="handleFiles(this.files)">
+  <div id="model-list"></div>
+
+  <div class="sidebar-scroll">
+    <!-- Environment -->
+    <div class="section">
+      <div class="section-title" onclick="toggleSection('env')">
+        <span class="dot on" id="dot-env"></span>
+        Environment
+      </div>
+      <div class="section-content" id="sec-env">
+        <div class="ctrl-row">
+          <span class="ctrl-label">Ground</span>
+          <div class="toggle on" id="tog-ground" onclick="toggleGround()"></div>
+          <span class="toggle-label" style="font-size:10px;color:var(--text3)">Plane</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Grid</span>
+          <div class="toggle" id="tog-grid" onclick="toggleGrid()"></div>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Shadows</span>
+          <div class="toggle on" id="tog-shadow" onclick="toggleShadow()"></div>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">BG Color</span>
+          <input type="color" id="bg-color" value="#0b0c14" onchange="changeBg(this.value)">
+          <span style="font-size:10px;color:var(--text3);font-family:'DM Mono',monospace">Scene BG</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Fog</span>
+          <input type="range" min="0" max="100" value="0" id="fog-range" oninput="updateFog(this.value)" style="flex:1">
+          <span class="val-display" id="fog-val">0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Camera -->
+    <div class="section">
+      <div class="section-title" onclick="toggleSection('cam')">
+        <span class="dot on" id="dot-cam"></span>
+        Camera
+      </div>
+      <div class="section-content" id="sec-cam">
+        <div class="ctrl-row">
+          <span class="ctrl-label">FOV</span>
+          <input type="range" min="20" max="120" value="60" id="fov-range" oninput="updateFOV(this.value)">
+          <span class="val-display" id="fov-val">60°</span>
+        </div>
+        <div style="font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;margin-top:2px;">Auto Move Presets</div>
+        <div class="cam-presets">
+          <div class="cam-btn" onclick="setCamAnim('orbit')">Orbit</div>
+          <div class="cam-btn" onclick="setCamAnim('flythrough')">Fly-Through</div>
+          <div class="cam-btn" onclick="setCamAnim('crane')">Crane</div>
+          <div class="cam-btn" onclick="setCamAnim('dolly')">Dolly</div>
+          <div class="cam-btn active" onclick="setCamAnim('none')">Manual</div>
+        </div>
+        <div class="ctrl-row" style="margin-top:4px;">
+          <span class="ctrl-label">Speed</span>
+          <input type="range" min="1" max="100" value="30" id="cam-speed" oninput="updateCamSpeed(this.value)">
+          <span class="val-display" id="cam-speed-val">0.3</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Post FX -->
+    <div class="section">
+      <div class="section-title" onclick="toggleSection('fx')">
+        <span class="dot" id="dot-fx"></span>
+        Post FX
+      </div>
+      <div class="section-content" id="sec-fx">
+        <div class="ctrl-row">
+          <span class="ctrl-label">Bloom</span>
+          <input type="range" min="0" max="100" value="0" id="bloom-range" oninput="updateBloom(this.value)">
+          <span class="val-display" id="bloom-val">0</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Exposure</span>
+          <input type="range" min="10" max="300" value="100" id="exposure-range" oninput="updateExposure(this.value)">
+          <span class="val-display" id="exposure-val">1.0</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Contrast</span>
+          <input type="range" min="50" max="200" value="100" id="contrast-range" oninput="updateContrast(this.value)">
+          <span class="val-display" id="contrast-val">1.0</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Vignette</span>
+          <input type="range" min="0" max="100" value="0" id="vignette-range" oninput="updateVignette(this.value)">
+          <span class="val-display" id="vignette-val">0</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- VIEWPORT -->
+<div id="viewport">
+  <div id="topbar">
+    <div id="logo">RENDER<span>·AI</span></div>
+    <div style="width:1px;height:20px;background:var(--border);margin:0 4px;"></div>
+    <button class="topbtn" onclick="resetCamera()">⟲ Reset</button>
+    <button class="topbtn" onclick="frameSelected()">⊡ Frame</button>
+    <button class="topbtn" onclick="toggleWireframe()">⬡ Wire</button>
+    <div class="spacer"></div>
+    <div id="ai-badge-top" class="ai-badge">AI Assist</div>
+    <div class="spacer"></div>
+    <button class="topbtn" id="rec-btn" onclick="toggleRecord()">⏺ Capture</button>
+    <button class="topbtn primary" onclick="exportFrame()">⬇ Export PNG</button>
+  </div>
+  <div id="canvas-wrap">
+    <canvas id="main"></canvas>
+  </div>
+  <div id="viewport-overlay">
+    <div class="vo-stat" id="vo-fps">FPS: --</div>
+    <div class="vo-stat" id="vo-polys">Polys: --</div>
+    <div class="vo-stat" id="vo-cam">Cam: --</div>
+    <div class="vo-stat" id="vo-mode">Mode: Manual</div>
+  </div>
+  <div id="render-progress">
+    <div class="rp-title">RENDERING SEQUENCE</div>
+    <div class="rp-bar-wrap"><div class="rp-bar" id="rp-bar"></div></div>
+    <div class="rp-info" id="rp-info">Frame 0 / 0</div>
+  </div>
+  <div id="notif"></div>
+  <div id="timeline">
+    <span class="tl-label">TIMELINE</span>
+    <span class="tl-time" id="tl-time">0:00</span>
+    <div id="timeline-track" onclick="seekTimeline(event)">
+      <div id="timeline-fill"></div>
+      <div id="timeline-head"></div>
+    </div>
+    <span class="tl-time" id="tl-dur">0:10</span>
+    <span class="tl-label" id="tl-fps-label">30fps</span>
+  </div>
+</div>
+
+<!-- RIGHT SIDEBAR -->
+<div id="sidebar-right">
+  <div class="panel-header">
+    <span>Lighting & AI</span>
+    <span class="ai-badge" style="font-size:8px;">v2.4</span>
+  </div>
+  <div class="sidebar-scroll">
+
+    <!-- AI Lighting -->
+    <div class="section">
+      <div class="section-title">
+        <span class="dot on" style="background:var(--accent2);box-shadow:0 0 6px var(--accent2);"></span>
+        AI Smart Lighting
+      </div>
+      <div class="section-content">
+        <div class="ctrl-row">
+          <span class="ctrl-label sm">Scene Type</span>
+          <select id="scene-type" onchange="aiAnalyze()">
+            <option value="auto">Auto Detect</option>
+            <option value="interior">Interior / Room</option>
+            <option value="exterior">Exterior / House</option>
+            <option value="product">Product Shot</option>
+            <option value="portrait">Portrait</option>
+            <option value="landscape">Landscape</option>
+            <option value="night">Night Scene</option>
+            <option value="studio">Studio</option>
+          </select>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label sm">Time of Day</span>
+          <select id="time-of-day" onchange="aiAnalyze()">
+            <option value="auto">AI Choose</option>
+            <option value="dawn">Dawn</option>
+            <option value="morning">Morning</option>
+            <option value="noon">Noon</option>
+            <option value="golden">Golden Hour</option>
+            <option value="dusk">Dusk</option>
+            <option value="night">Night</option>
+          </select>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label sm">Mood</span>
+          <select id="mood" onchange="aiAnalyze()">
+            <option value="auto">AI Choose</option>
+            <option value="dramatic">Dramatic</option>
+            <option value="warm">Warm & Cozy</option>
+            <option value="cool">Cool & Modern</option>
+            <option value="cinematic">Cinematic</option>
+            <option value="natural">Natural</option>
+            <option value="dark">Dark & Moody</option>
+          </select>
+        </div>
+        <button id="ai-suggest-btn" onclick="runAILighting()">✦ Generate AI Lighting Setup</button>
+        <div class="ai-status" id="ai-status">Ready — configure scene type and click Generate</div>
+      </div>
+    </div>
+
+    <!-- HDR -->
+    <div class="section">
+      <div class="section-title" onclick="toggleSection('hdr')">
+        <span class="dot" id="dot-hdr"></span>
+        HDRI Environment
+      </div>
+      <div class="section-content" id="sec-hdr">
+        <div class="hdr-grid" id="hdr-grid">
+          <!-- populated by JS -->
+        </div>
+        <div class="ctrl-row" style="margin-top:4px;">
+          <span class="ctrl-label">Intensity</span>
+          <input type="range" min="0" max="300" value="100" id="hdr-intensity" oninput="updateHDRIntensity(this.value)">
+          <span class="val-display" id="hdr-int-val">1.0</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label">Rotation</span>
+          <input type="range" min="0" max="360" value="0" id="hdr-rotation" oninput="updateHDRRotation(this.value)">
+          <span class="val-display" id="hdr-rot-val">0°</span>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle on" id="tog-hdr-bg" onclick="toggleHDRBg()"></div>
+          <span class="toggle-label">Show as background</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lights -->
+    <div class="section">
+      <div class="section-title">
+        <span class="dot on" id="dot-lights"></span>
+        Scene Lights
+        <span style="flex:1"></span>
+        <span class="ph-action" style="font-size:9px;margin-right:0;" onclick="addLight()">+ Add</span>
+      </div>
+      <div class="section-content" id="lights-list">
+        <!-- populated by JS -->
+      </div>
+    </div>
+
+    <!-- Material -->
+    <div class="section">
+      <div class="section-title">
+        <span class="dot" id="dot-mat"></span>
+        Selected Material
+      </div>
+      <div class="section-content" id="mat-panel">
+        <div style="font-size:10px;color:var(--text3);font-family:'DM Mono',monospace;">Click an object to edit material</div>
+        <div id="mat-controls" style="display:none;flex-direction:column;gap:8px;">
+          <div class="ctrl-row">
+            <span class="ctrl-label">Color</span>
+            <input type="color" id="mat-color" value="#888888" onchange="updateMatColor(this.value)">
+            <span style="font-size:10px;color:var(--text3);margin-left:4px;font-family:'DM Mono',monospace">Albedo</span>
+          </div>
+          <div class="ctrl-row">
+            <span class="ctrl-label">Metalness</span>
+            <input type="range" min="0" max="100" value="0" id="mat-metal" oninput="updateMatMetal(this.value)">
+            <span class="val-display" id="mat-metal-val">0.0</span>
+          </div>
+          <div class="ctrl-row">
+            <span class="ctrl-label">Roughness</span>
+            <input type="range" min="0" max="100" value="70" id="mat-rough" oninput="updateMatRough(this.value)">
+            <span class="val-display" id="mat-rough-val">0.7</span>
+          </div>
+          <div class="ctrl-row">
+            <span class="ctrl-label">Emissive</span>
+            <input type="color" id="mat-emissive" value="#000000" onchange="updateMatEmissive(this.value)">
+            <input type="range" min="0" max="500" value="0" id="mat-emissive-int" oninput="updateMatEmissiveInt(this.value)" style="flex:1">
+            <span class="val-display" id="mat-emissive-val">0</span>
+          </div>
+          <div class="ctrl-row">
+            <span class="ctrl-label">Opacity</span>
+            <input type="range" min="0" max="100" value="100" id="mat-opacity" oninput="updateMatOpacity(this.value)">
+            <span class="val-display" id="mat-opacity-val">1.0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Video Export -->
+    <div class="section">
+      <div class="section-title">
+        <span class="dot" id="dot-vid"></span>
+        Video Export
+      </div>
+      <div class="section-content">
+        <div class="ctrl-row">
+          <span class="ctrl-label sm">Duration</span>
+          <input type="number" min="1" max="60" value="10" id="vid-duration" style="width:50px;" oninput="updateDuration(this.value)">
+          <span style="font-size:10px;color:var(--text3);margin-left:4px;font-family:'DM Mono',monospace">seconds</span>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label sm">FPS</span>
+          <select id="vid-fps" onchange="updateFPS(this.value)">
+            <option value="24">24 fps</option>
+            <option value="30" selected>30 fps</option>
+            <option value="60">60 fps</option>
+          </select>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label sm">Res</span>
+          <select id="vid-res">
+            <option value="720">HD 720p</option>
+            <option value="1080" selected>FHD 1080p</option>
+          </select>
+        </div>
+        <div class="ctrl-row">
+          <span class="ctrl-label sm">Camera</span>
+          <select id="vid-cam-anim">
+            <option value="orbit">Orbital</option>
+            <option value="flythrough">Fly-Through</option>
+            <option value="crane">Crane Shot</option>
+            <option value="dolly">Dolly</option>
+          </select>
+        </div>
+        <button class="topbtn primary" style="width:100%;margin-top:4px;" onclick="startVideoCapture()">▶ Render Video Sequence</button>
+        <div style="font-size:9px;color:var(--text3);font-family:'DM Mono',monospace;text-align:center;margin-top:4px;">Exports PNG frames → ZIP</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+<!-- Load Three.js + addons from CDN -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+
+<script>
+'use strict';
+
+// ───────────────────────────────────────────────────────
+// ENGINE STATE
+// ───────────────────────────────────────────────────────
+let scene, camera, renderer, controls;
+let clock, frameId;
+let models = [];           // {id, name, object, type}
+let lights = [];           // {id, name, type, light, helper}
+let selectedObject = null;
+let activeHDR = null;
+let wireframeMode = false;
+let groundMesh = null, gridHelper = null;
+let shadowEnabled = true;
+let camAnimation = 'none';
+let camSpeed = 0.003;
+let camAngle = 0;
+let camAnimTime = 0;
+let recording = false;
+let recordFrames = [];
+let vidDuration = 10, vidFPS = 30;
+let totalFrames = 0, currentFrame = 0;
+let renderMode = false;
+let postFX = { bloom: 0, exposure: 1.0, contrast: 1.0, vignette: 0 };
+let fpsCounter = 0, fpsTime = 0, currentFPS = 0;
+let fogDensity = 0;
+let hdrBgVisible = true;
+let hdrIntensity = 1.0, hdrRotation = 0;
+let modelCounter = 0, lightCounter = 0;
+let canvas2d, ctx2d; // post-process canvas
+
+// HDR environments (simulated via gradient sky)
+const HDRS = [
+  { name:'Studio', id:'studio', colors:['#1a1a2e','#16213e','#0f3460'], sun:[0.3,0.8,0.5] },
+  { name:'Outdoor', id:'outdoor', colors:['#87ceeb','#98d8c8','#f0e68c'], sun:[1.0,0.95,0.7] },
+  { name:'Golden Hr', id:'golden', colors:['#ff7043','#ff8c00','#ffd700'], sun:[1.0,0.7,0.2] },
+  { name:'Night', id:'night', colors:['#0a0a1a','#0d1b2a','#1a237e'], sun:[0.1,0.2,0.5] },
+  { name:'Overcast', id:'overcast', colors:['#b0bec5','#cfd8dc','#eceff1'], sun:[0.7,0.75,0.8] },
+  { name:'Sunset', id:'sunset', colors:['#ff6e40','#ff3d00','#7b1fa2'], sun:[0.9,0.4,0.2] },
+  { name:'Midday', id:'midday', colors:['#e3f2fd','#bbdefb','#ffffff'], sun:[1.0,1.0,0.95] },
+  { name:'Cyberpunk', id:'cyber', colors:['#0d0221','#0a0a2a','#1a0030'], sun:[0.0,0.8,1.0] },
+];
+
+// ───────────────────────────────────────────────────────
+// INIT
+// ───────────────────────────────────────────────────────
+function init() {
+  const canvas = document.getElementById('main');
+  const wrap = document.getElementById('canvas-wrap');
+
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x0b0c14);
+
+  camera = new THREE.PerspectiveCamera(60, wrap.clientWidth / (wrap.clientHeight), 0.01, 2000);
+  camera.position.set(5, 4, 8);
+
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, preserveDrawingBuffer: true });
+  renderer.setSize(wrap.clientWidth, wrap.clientHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.0;
+  renderer.outputEncoding = THREE.sRGBEncoding;
+
+  controls = new THREE.OrbitControls(camera, canvas);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.07;
+  controls.minDistance = 0.5;
+  controls.maxDistance = 500;
+
+  clock = new THREE.Clock();
+
+  // Ground
+  addGround();
+
+  // Default lights
+  addDefaultLights();
+
+  // HDR grid
+  buildHDRGrid();
+
+  // Apply first HDR
+  applyHDR(HDRS[0]);
+
+  // Default scene objects
+  addDefaultScene();
+
+  // Canvas2D for post-processing overlay
+  canvas2d = document.createElement('canvas');
+  canvas2d.style.position = 'absolute';
+  canvas2d.style.inset = '0';
+  canvas2d.style.pointerEvents = 'none';
+  canvas2d.style.top = '48px';
+  document.getElementById('viewport').appendChild(canvas2d);
+  ctx2d = canvas2d.getContext('2d');
+
+  resizeAll();
+  window.addEventListener('resize', resizeAll);
+
+  // Mouse picking
+  canvas.addEventListener('click', onCanvasClick);
+  canvas.addEventListener('dblclick', frameSelected);
+
+  // Drag on viewport
+  const wrap2 = document.getElementById('canvas-wrap');
+  wrap2.addEventListener('dragover', handleDragOver);
+  wrap2.addEventListener('drop', handleDrop);
+
+  animate();
+
+  // Hide loading
+  setTimeout(() => {
+    const ld = document.getElementById('loading');
+    ld.style.opacity = '0';
+    setTimeout(() => ld.style.display = 'none', 500);
+    notify('Engine ready — drag & drop 3D models to begin', 'info');
+  }, 1200);
+}
+
+function resizeAll() {
+  const wrap = document.getElementById('canvas-wrap');
+  const w = wrap.clientWidth, h = wrap.clientHeight;
+  camera.aspect = w / h;
+  camera.updateProjectionMatrix();
+  renderer.setSize(w, h);
+  if (canvas2d) { canvas2d.width = w; canvas2d.height = h; }
+}
+
+// ───────────────────────────────────────────────────────
+// ANIMATE LOOP
+// ───────────────────────────────────────────────────────
+function animate() {
+  frameId = requestAnimationFrame(animate);
+  const delta = clock.getDelta();
+  const elapsed = clock.getElapsedTime();
+
+  // FPS
+  fpsCounter++;
+  fpsTime += delta;
+  if (fpsTime >= 0.5) {
+    currentFPS = Math.round(fpsCounter / fpsTime);
+    fpsCounter = 0; fpsTime = 0;
+    document.getElementById('vo-fps').textContent = `FPS: ${currentFPS}`;
+  }
+
+  // Camera animation
+  if (camAnimation !== 'none') {
+    animateCamera(elapsed, delta);
+  }
+
+  controls.update();
+  renderer.render(scene, camera);
+
+  // Post FX overlay
+  drawPostFX();
+
+  // Update timeline
+  if (recording) {
+    camAnimTime += delta;
+    const pct = Math.min(camAnimTime / vidDuration, 1.0);
+    document.getElementById('timeline-fill').style.width = (pct * 100) + '%';
+    document.getElementById('timeline-head').style.left = (pct * 100) + '%';
+    const secs = Math.floor(camAnimTime);
+    document.getElementById('tl-time').textContent = `0:${String(secs).padStart(2,'0')}`;
+  }
+
+  // Camera info
+  const p = camera.position;
+  document.getElementById('vo-cam').textContent = `Cam: ${p.x.toFixed(1)}, ${p.y.toFixed(1)}, ${p.z.toFixed(1)}`;
+  document.getElementById('vo-mode').textContent = `Mode: ${camAnimation === 'none' ? 'Manual' : camAnimation}`;
+}
+
+function animateCamera(t, delta) {
+  const radius = Math.max(8, getSceneRadius() * 2);
+  if (camAnimation === 'orbit') {
+    camAngle += camSpeed * delta * 60;
+    camera.position.x = Math.sin(camAngle) * radius;
+    camera.position.z = Math.cos(camAngle) * radius;
+    camera.position.y = radius * 0.5 + Math.sin(t * 0.3) * 1.5;
+    camera.lookAt(0, 0, 0);
+  } else if (camAnimation === 'flythrough') {
+    const path = t * camSpeed * 30;
+    camera.position.x = Math.sin(path * 0.5) * radius * 0.8;
+    camera.position.y = 2 + Math.sin(path * 0.7) * 3;
+    camera.position.z = Math.cos(path * 0.3) * radius * 0.8;
+    const target = new THREE.Vector3(Math.sin(path * 0.5 + 0.5) * 2, 1, Math.cos(path * 0.5 + 0.5) * 2);
+    camera.lookAt(target);
+  } else if (camAnimation === 'crane') {
+    camAngle += camSpeed * delta * 20;
+    const liftT = (Math.sin(t * camSpeed * 30) + 1) / 2;
+    camera.position.x = Math.sin(camAngle) * radius;
+    camera.position.z = Math.cos(camAngle) * radius;
+    camera.position.y = 1 + liftT * radius * 0.8;
+    camera.lookAt(0, liftT * 2, 0);
+  } else if (camAnimation === 'dolly') {
+    const d = radius * 0.5 + Math.sin(t * camSpeed * 15) * radius * 0.5;
+    camera.position.z = d;
+    camera.position.x = Math.sin(t * camSpeed * 10) * 3;
+    camera.position.y = 2;
+    camera.lookAt(0, 1, 0);
+  }
+}
+
+function getSceneRadius() {
+  if (models.length === 0) return 5;
+  const box = new THREE.Box3();
+  models.forEach(m => box.expandByObject(m.object));
+  const s = new THREE.Vector3();
+  box.getSize(s);
+  return Math.max(s.x, s.y, s.z) / 2;
+}
+
+// ───────────────────────────────────────────────────────
+// POST FX
+// ───────────────────────────────────────────────────────
+function drawPostFX() {
+  if (!ctx2d) return;
+  const w = canvas2d.width, h = canvas2d.height;
+  ctx2d.clearRect(0, 0, w, h);
+
+  // Vignette
+  if (postFX.vignette > 0) {
+    const grd = ctx2d.createRadialGradient(w/2, h/2, h*0.2, w/2, h/2, h*0.8);
+    grd.addColorStop(0, 'rgba(0,0,0,0)');
+    grd.addColorStop(1, `rgba(0,0,0,${postFX.vignette * 0.7})`);
+    ctx2d.fillStyle = grd;
+    ctx2d.fillRect(0, 0, w, h);
+  }
+
+  // Bloom hint (canvas approximation)
+  if (postFX.bloom > 0) {
+    ctx2d.filter = `blur(${postFX.bloom * 8}px)`;
+    ctx2d.globalAlpha = postFX.bloom * 0.15;
+    ctx2d.drawImage(renderer.domElement, 0, 0, w, h);
+    ctx2d.filter = 'none';
+    ctx2d.globalAlpha = 1.0;
+  }
+}
+
+// ───────────────────────────────────────────────────────
+// DEFAULT SCENE
+// ───────────────────────────────────────────────────────
+function addDefaultScene() {
+  // Simple house-like structure
+  const group = new THREE.Group();
+
+  // Walls
+  const wallMat = new THREE.MeshStandardMaterial({ color: 0xd4c5a9, roughness: 0.8, metalness: 0.0 });
+  const wallGeo = new THREE.BoxGeometry(6, 3, 5);
+  const walls = new THREE.Mesh(wallGeo, wallMat);
+  walls.position.y = 1.5;
+  walls.castShadow = true; walls.receiveShadow = true;
+  group.add(walls);
+
+  // Roof
+  const roofMat = new THREE.MeshStandardMaterial({ color: 0x8b4513, roughness: 0.9 });
+  const roofGeo = new THREE.ConeGeometry(4.5, 2, 4);
+  const roof = new THREE.Mesh(roofGeo, roofMat);
+  roof.rotation.y = Math.PI / 4;
+  roof.position.y = 4;
+  roof.castShadow = true;
+  group.add(roof);
+
+  // Door
+  const doorMat = new THREE.MeshStandardMaterial({ color: 0x5c4033, roughness: 0.7 });
+  const door = new THREE.Mesh(new THREE.BoxGeometry(0.8, 1.5, 0.1), doorMat);
+  door.position.set(0, 0.75, 2.55);
+  group.add(door);
+
+  // Windows
+  const winMat = new THREE.MeshStandardMaterial({ color: 0x88bbff, roughness: 0.1, metalness: 0.5, transparent: true, opacity: 0.7 });
+  [-2, 2].forEach(x => {
+    const win = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.1), winMat);
+    win.position.set(x, 2, 2.55);
+    group.add(win);
+  });
+
+  // Chimney
+  const chimMat = new THREE.MeshStandardMaterial({ color: 0x8b6060, roughness: 0.9 });
+  const chim = new THREE.Mesh(new THREE.BoxGeometry(0.6, 1.5, 0.6), chimMat);
+  chim.position.set(1.5, 4.5, 0);
+  chim.castShadow = true;
+  group.add(chim);
+
+  scene.add(group);
+  const id = ++modelCounter;
+  models.push({ id, name: 'Sample House', object: group, type: 'BUILT-IN' });
+  refreshModelList();
+}
+
+function addGround() {
+  const geo = new THREE.PlaneGeometry(100, 100, 20, 20);
+  const mat = new THREE.MeshStandardMaterial({ color: 0x2a2e38, roughness: 0.9, metalness: 0.0 });
+  groundMesh = new THREE.Mesh(geo, mat);
+  groundMesh.rotation.x = -Math.PI / 2;
+  groundMesh.receiveShadow = true;
+  scene.add(groundMesh);
+}
+
+function addDefaultLights() {
+  // Sun
+  const sun = new THREE.DirectionalLight(0xfff4e0, 1.5);
+  sun.position.set(10, 20, 10);
+  sun.castShadow = true;
+  sun.shadow.mapSize.width = 2048;
+  sun.shadow.mapSize.height = 2048;
+  sun.shadow.camera.near = 0.1;
+  sun.shadow.camera.far = 200;
+  sun.shadow.camera.left = -30;
+  sun.shadow.camera.right = 30;
+  sun.shadow.camera.top = 30;
+  sun.shadow.camera.bottom = -30;
+  sun.shadow.bias = -0.001;
+  scene.add(sun);
+
+  const helper = new THREE.DirectionalLightHelper(sun, 1);
+  helper.visible = false;
+  scene.add(helper);
+  lights.push({ id: ++lightCounter, name: 'Sun', type: 'directional', light: sun, helper, color: '#fff4e0', intensity: 1.5 });
+
+  // Ambient
+  const amb = new THREE.AmbientLight(0x334466, 0.5);
+  scene.add(amb);
+  lights.push({ id: ++lightCounter, name: 'Ambient', type: 'ambient', light: amb, helper: null, color: '#334466', intensity: 0.5 });
+
+  refreshLightsList();
+}
+
+// ───────────────────────────────────────────────────────
+// MODEL LOADING
+// ───────────────────────────────────────────────────────
+function handleDragOver(e) { e.preventDefault(); e.stopPropagation(); document.getElementById('drop-zone').classList.add('drag-over'); }
+function handleDragLeave(e) { document.getElementById('drop-zone').classList.remove('drag-over'); }
+function handleDrop(e) {
+  e.preventDefault(); e.stopPropagation();
+  document.getElementById('drop-zone').classList.remove('drag-over');
+  const files = e.dataTransfer?.files || e.target.files;
+  if (files) handleFiles(files);
+}
+function handleFiles(files) {
+  Array.from(files).forEach(file => loadModelFile(file));
+}
+
+function loadModelFile(file) {
+  const ext = file.name.split('.').pop().toLowerCase();
+  const url = URL.createObjectURL(file);
+  notify(`Loading ${file.name}…`, 'info');
+
+  const onLoad = (object) => {
+    // Center and scale
+    const box = new THREE.Box3().setFromObject(object);
+    const center = new THREE.Vector3();
+    box.getCenter(center);
+    const size = new THREE.Vector3();
+    box.getSize(size);
+    const maxDim = Math.max(size.x, size.y, size.z);
+    const scale = maxDim > 0 ? 6 / maxDim : 1;
+    object.position.sub(center.multiplyScalar(scale));
+    object.scale.setScalar(scale);
+    object.position.y = 0;
+
+    object.traverse(child => {
+      if (child.isMesh) {
+        child.castShadow = true;
+        child.receiveShadow = true;
+        if (!child.material) child.material = new THREE.MeshStandardMaterial({ color: 0xaaaaaa });
+      }
+    });
+
+    scene.add(object);
+    const id = ++modelCounter;
+    models.push({ id, name: file.name, object, type: ext.toUpperCase() });
+    refreshModelList();
+    frameSelected();
+    notify(`✓ Loaded ${file.name}`, 'success');
+    URL.revokeObjectURL(url);
+  };
+
+  const onErr = (e) => { notify(`Failed to load ${file.name}`, 'error'); console.error(e); };
+
+  if (ext === 'obj') {
+    const loader = new THREE.OBJLoader();
+    loader.load(url, onLoad, null, onErr);
+  } else if (ext === 'gltf' || ext === 'glb') {
+    const loader = new THREE.GLTFLoader();
+    loader.load(url, gltf => onLoad(gltf.scene), null, onErr);
+  } else if (ext === 'stl') {
+    const loader = new THREE.STLLoader();
+    loader.load(url, geo => {
+      const mat = new THREE.MeshStandardMaterial({ color: 0xaaaaaa, roughness: 0.7 });
+      onLoad(new THREE.Mesh(geo, mat));
+    }, null, onErr);
+  } else {
+    notify(`Unsupported format: .${ext}`, 'error');
+  }
+}
+
+function refreshModelList() {
+  const list = document.getElementById('model-list');
+  list.innerHTML = models.map(m => `
+    <div class="model-item ${selectedObject === m.object ? 'active' : ''}" id="mi-${m.id}" onclick="selectModel(${m.id})">
+      <span class="mi-type">${m.type}</span>
+      <span class="mi-name">${m.name}</span>
+      <span class="mi-del" onclick="deleteModel(event,${m.id})">×</span>
+    </div>
+  `).join('');
+
+  let polys = 0;
+  scene.traverse(c => { if (c.isMesh && c.geometry) polys += (c.geometry.index ? c.geometry.index.count / 3 : (c.geometry.attributes.position?.count / 3 || 0)); });
+  document.getElementById('vo-polys').textContent = `Polys: ${Math.round(polys).toLocaleString()}`;
+}
+
+function selectModel(id) {
+  const m = models.find(x => x.id === id);
+  if (!m) return;
+  selectedObject = m.object;
+  refreshModelList();
+  document.getElementById('mat-controls').style.display = 'flex';
+}
+
+function deleteModel(e, id) {
+  e.stopPropagation();
+  const idx = models.findIndex(x => x.id === id);
+  if (idx === -1) return;
+  scene.remove(models[idx].object);
+  models.splice(idx, 1);
+  selectedObject = null;
+  refreshModelList();
+}
+
+function addDefaultObject() {
+  const geos = [
+    new THREE.BoxGeometry(2,2,2),
+    new THREE.SphereGeometry(1, 32, 32),
+    new THREE.CylinderGeometry(0.5, 0.8, 2, 16),
+    new THREE.TorusGeometry(1, 0.3, 16, 60),
+  ];
+  const geo = geos[Math.floor(Math.random() * geos.length)];
+  const mat = new THREE.MeshStandardMaterial({ color: new THREE.Color().setHSL(Math.random(), 0.6, 0.5), roughness: 0.5, metalness: 0.3 });
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.position.set((Math.random()-0.5)*4, 1, (Math.random()-0.5)*4);
+  mesh.castShadow = true; mesh.receiveShadow = true;
+  scene.add(mesh);
+  const id = ++modelCounter;
+  models.push({ id, name: `Object_${id}`, object: mesh, type: 'MESH' });
+  refreshModelList();
+}
+
+// ───────────────────────────────────────────────────────
+// LIGHTS
+// ───────────────────────────────────────────────────────
+const LIGHT_TYPES = ['directional', 'point', 'spot', 'hemisphere'];
+
+function addLight(type = 'point', color = '#ffffff', intensity = 1.0, pos = [3, 5, 3]) {
+  let light, helper;
+  const c = new THREE.Color(color);
+
+  if (type === 'directional') {
+    light = new THREE.DirectionalLight(c, intensity);
+    light.position.set(...pos);
+    light.castShadow = true;
+    light.shadow.mapSize.width = 1024; light.shadow.mapSize.height = 1024;
+    helper = new THREE.DirectionalLightHelper(light, 1);
+  } else if (type === 'point') {
+    light = new THREE.PointLight(c, intensity, 50);
+    light.position.set(...pos);
+    light.castShadow = true;
+    helper = new THREE.PointLightHelper(light, 0.5);
+  } else if (type === 'spot') {
+    light = new THREE.SpotLight(c, intensity, 30, Math.PI/6, 0.3);
+    light.position.set(...pos);
+    light.castShadow = true;
+    helper = new THREE.SpotLightHelper(light);
+  } else if (type === 'hemisphere') {
+    light = new THREE.HemisphereLight(c, 0x223322, intensity);
+    helper = new THREE.HemisphereLightHelper(light, 1);
+  } else if (type === 'ambient') {
+    light = new THREE.AmbientLight(c, intensity);
+    helper = null;
+  }
+
+  scene.add(light);
+  if (helper) { helper.visible = false; scene.add(helper); }
+  const id = ++lightCounter;
+  const name = `${type.charAt(0).toUpperCase() + type.slice(1)}_${id}`;
+  lights.push({ id, name, type, light, helper, color, intensity });
+  refreshLightsList();
+  return id;
+}
+
+function removeLight(id) {
+  const idx = lights.findIndex(l => l.id === id);
+  if (idx === -1) return;
+  scene.remove(lights[idx].light);
+  if (lights[idx].helper) scene.remove(lights[idx].helper);
+  lights.splice(idx, 1);
+  refreshLightsList();
+}
+
+function refreshLightsList() {
+  const list = document.getElementById('lights-list');
+  list.innerHTML = lights.map(l => `
+    <div class="light-item">
+      <div class="light-header">
+        <span class="light-icon">${l.type==='ambient'?'◉':l.type==='directional'?'☀':l.type==='spot'?'⊿':'●'}</span>
+        <span class="light-name">${l.name}</span>
+        <input type="color" value="${l.color}" onchange="setLightColor(${l.id},this.value)" style="width:22px;height:16px;padding:1px;border:1px solid var(--border2);border-radius:2px;background:none;cursor:pointer;">
+        <span class="light-del" onclick="removeLight(${l.id})">×</span>
+      </div>
+      <div class="ctrl-row">
+        <span class="ctrl-label" style="font-size:9px;min-width:55px;">Intensity</span>
+        <input type="range" min="0" max="500" value="${Math.round(l.intensity*100)}" oninput="setLightIntensity(${l.id},this.value)" style="flex:1;">
+        <span class="val-display" id="li-val-${l.id}">${l.intensity.toFixed(1)}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function setLightColor(id, color) {
+  const l = lights.find(x => x.id === id);
+  if (!l) return;
+  l.color = color;
+  l.light.color.set(color);
+  if (l.helper?.update) l.helper.update();
+}
+
+function setLightIntensity(id, val) {
+  const l = lights.find(x => x.id === id);
+  if (!l) return;
+  l.intensity = val / 100;
+  l.light.intensity = l.intensity;
+  const el = document.getElementById(`li-val-${id}`);
+  if (el) el.textContent = l.intensity.toFixed(1);
+  if (l.helper?.update) l.helper.update();
+}
+
+// ───────────────────────────────────────────────────────
+// HDR
+// ───────────────────────────────────────────────────────
+function buildHDRGrid() {
+  const grid = document.getElementById('hdr-grid');
+  grid.innerHTML = HDRS.map((h, i) => `
+    <div class="hdr-item ${i===0?'active':''}" id="hdr-${h.id}" onclick="applyHDR(HDRS[${i}])">
+      <div class="hdr-preview" style="background:linear-gradient(180deg,${h.colors[0]},${h.colors[1]},${h.colors[2]});"></div>
+      ${h.name}
+    </div>
+  `).join('');
+}
+
+function applyHDR(hdr) {
+  activeHDR = hdr;
+  // Update scene background & fog color
+  const topColor = new THREE.Color(hdr.colors[0]);
+  const bottomColor = new THREE.Color(hdr.colors[2]);
+  if (hdrBgVisible) {
+    // Sky gradient via shader
+    scene.background = topColor.lerp(bottomColor, 0.3);
+  }
+
+  // Update active class
+  document.querySelectorAll('.hdr-item').forEach(el => el.classList.remove('active'));
+  const el = document.getElementById(`hdr-${hdr.id}`);
+  if (el) el.classList.add('active');
+
+  // Adjust ambient & directional if they exist
+  const sunColor = new THREE.Color(...hdr.sun);
+  lights.forEach(l => {
+    if (l.name === 'Sun' || l.name === 'Ambient') {
+      if (l.type === 'directional') { l.light.color.set(sunColor); l.color = '#'+sunColor.getHexString(); }
+      if (l.type === 'ambient') { l.light.color.set(new THREE.Color(hdr.colors[0])); l.color = hdr.colors[0]; }
+    }
+  });
+  refreshLightsList();
+  notify(`HDR: ${hdr.name}`, 'info');
+}
+
+function updateHDRIntensity(val) {
+  hdrIntensity = val / 100;
+  document.getElementById('hdr-int-val').textContent = hdrIntensity.toFixed(1);
+  renderer.toneMappingExposure = hdrIntensity * postFX.exposure;
+}
+
+function updateHDRRotation(val) {
+  hdrRotation = parseInt(val);
+  document.getElementById('hdr-rot-val').textContent = hdrRotation + '°';
+  if (activeHDR) {
+    lights.forEach(l => {
+      if (l.name === 'Sun' && l.type === 'directional') {
+        const rad = (hdrRotation * Math.PI) / 180;
+        const r = 20;
+        l.light.position.set(Math.sin(rad)*r, 15, Math.cos(rad)*r);
+        if (l.helper?.update) l.helper.update();
+      }
+    });
+  }
+}
+
+function toggleHDRBg() {
+  hdrBgVisible = !hdrBgVisible;
+  document.getElementById('tog-hdr-bg').classList.toggle('on', hdrBgVisible);
+  if (hdrBgVisible && activeHDR) {
+    scene.background = new THREE.Color(activeHDR.colors[0]).lerp(new THREE.Color(activeHDR.colors[2]), 0.3);
+  } else {
+    scene.background = new THREE.Color(document.getElementById('bg-color').value);
+  }
+}
+
+// ───────────────────────────────────────────────────────
+// AI LIGHTING
+// ───────────────────────────────────────────────────────
+const AI_LIGHTING_PRESETS = {
+  interior_golden: {
+    hdr: 'studio',
+    lights: [
+      { type:'directional', color:'#fff5cc', intensity:0.6, pos:[2,8,2], name:'Window Light' },
+      { type:'point', color:'#ffaa44', intensity:0.8, pos:[-3,3,0], name:'Lamp Warm' },
+      { type:'point', color:'#ff8822', intensity:0.4, pos:[2,1,-2], name:'Table Lamp' },
+      { type:'ambient', color:'#221100', intensity:0.3, name:'Ambient' },
+    ],
+    bg:'#0c0a06', exposure:1.2, msg:'Cozy interior: warm window light + accent lamps'
+  },
+  exterior_noon: {
+    hdr: 'midday',
+    lights: [
+      { type:'directional', color:'#fffae8', intensity:2.0, pos:[5,20,5], name:'Sunlight' },
+      { type:'hemisphere', color:'#87ceeb', intensity:0.6, name:'Sky Light' },
+      { type:'ambient', color:'#223355', intensity:0.2, name:'Ambient' },
+    ],
+    bg:'#87ceeb', exposure:1.0, msg:'Midday exterior: bright sun + sky fill light'
+  },
+  exterior_golden: {
+    hdr: 'golden',
+    lights: [
+      { type:'directional', color:'#ff9922', intensity:1.8, pos:[15,8,5], name:'Golden Sun' },
+      { type:'hemisphere', color:'#ff7744', intensity:0.4, name:'Sky Bounce' },
+      { type:'ambient', color:'#331100', intensity:0.2, name:'Ambient' },
+    ],
+    bg:'#ff6622', exposure:1.1, msg:'Golden hour: warm angled sun + atmosphere'
+  },
+  exterior_night: {
+    hdr: 'night',
+    lights: [
+      { type:'directional', color:'#4466aa', intensity:0.3, pos:[-5,20,5], name:'Moonlight' },
+      { type:'point', color:'#ffcc44', intensity:1.5, pos:[0,4,0], name:'Street Lamp' },
+      { type:'point', color:'#2244ff', intensity:0.5, pos:[-4,2,2], name:'Window Glow' },
+      { type:'ambient', color:'#050a15', intensity:0.1, name:'Ambient' },
+    ],
+    bg:'#050810', exposure:0.8, msg:'Night scene: moonlight + artificial light sources'
+  },
+  product_studio: {
+    hdr: 'studio',
+    lights: [
+      { type:'directional', color:'#ffffff', intensity:1.5, pos:[5,10,5], name:'Key Light' },
+      { type:'directional', color:'#aabbff', intensity:0.6, pos:[-5,8,-3], name:'Fill Light' },
+      { type:'directional', color:'#ffffff', intensity:0.4, pos:[0,5,-8], name:'Rim Light' },
+      { type:'ambient', color:'#112233', intensity:0.3, name:'Ambient' },
+    ],
+    bg:'#111318', exposure:1.0, msg:'Studio 3-point: key + fill + rim lighting'
+  },
+  cinematic_dramatic: {
+    hdr: 'sunset',
+    lights: [
+      { type:'directional', color:'#ff4422', intensity:2.0, pos:[8,5,3], name:'Dramatic Key' },
+      { type:'point', color:'#0044ff', intensity:0.5, pos:[-6,3,-2], name:'Cool Fill' },
+      { type:'ambient', color:'#110000', intensity:0.15, name:'Ambient' },
+    ],
+    bg:'#0d0008', exposure:1.3, msg:'Cinematic: high-contrast red-blue split lighting'
+  },
+  landscape_overcast: {
+    hdr: 'overcast',
+    lights: [
+      { type:'hemisphere', color:'#ccddeeff', intensity:1.2, name:'Overcast Sky' },
+      { type:'directional', color:'#ffffff', intensity:0.3, pos:[0,10,5], name:'Diffuse Sun' },
+      { type:'ambient', color:'#aabbcc', intensity:0.4, name:'Ambient' },
+    ],
+    bg:'#b8ccd8', exposure:0.9, msg:'Overcast landscape: soft diffuse lighting, no harsh shadows'
+  },
+};
+
+function runAILighting() {
+  const sceneType = document.getElementById('scene-type').value;
+  const timeOfDay = document.getElementById('time-of-day').value;
+  const mood = document.getElementById('mood').value;
+
+  const statusEl = document.getElementById('ai-status');
+  statusEl.className = 'ai-status thinking';
+  statusEl.textContent = '✦ Analyzing scene… predicting optimal lighting…';
+
+  setTimeout(() => {
+    statusEl.textContent = '✦ Running AI lighting model…';
+  }, 600);
+
+  setTimeout(() => {
+    // AI logic: pick best preset based on inputs
+    let presetKey = 'product_studio';
+
+    if (sceneType === 'interior' || mood === 'warm') presetKey = 'interior_golden';
+    else if (sceneType === 'exterior' && timeOfDay === 'golden') presetKey = 'exterior_golden';
+    else if (sceneType === 'exterior' && timeOfDay === 'night') presetKey = 'exterior_night';
+    else if (sceneType === 'exterior' || sceneType === 'landscape') presetKey = 'exterior_noon';
+    else if (sceneType === 'product' || sceneType === 'studio') presetKey = 'product_studio';
+    else if (mood === 'cinematic' || mood === 'dramatic' || mood === 'dark') presetKey = 'cinematic_dramatic';
+    else if (sceneType === 'landscape') presetKey = 'landscape_overcast';
+    else if (timeOfDay === 'night' || sceneType === 'night') presetKey = 'exterior_night';
+    else if (timeOfDay === 'golden') presetKey = 'exterior_golden';
+    else if (sceneType === 'auto' && mood === 'auto') {
+      const keys = Object.keys(AI_LIGHTING_PRESETS);
+      presetKey = keys[Math.floor(Math.random() * keys.length)];
+    }
+
+    const preset = AI_LIGHTING_PRESETS[presetKey];
+    applyAILightingPreset(preset);
+
+    statusEl.className = 'ai-status done';
+    statusEl.textContent = `✓ Applied: ${preset.msg}`;
+    notify(`AI Lighting: ${preset.msg}`, 'ai');
+  }, 1800);
+}
+
+function applyAILightingPreset(preset) {
+  // Remove existing lights
+  lights.forEach(l => { scene.remove(l.light); if (l.helper) scene.remove(l.helper); });
+  lights = [];
+  lightCounter = 0;
+
+  // Apply HDR
+  const hdr = HDRS.find(h => h.id === preset.hdr) || HDRS[0];
+  applyHDR(hdr);
+
+  // Apply new lights
+  preset.lights.forEach(ld => {
+    addLight(ld.type, ld.color, ld.intensity, ld.pos || [3,5,3]);
+    lights[lights.length-1].name = ld.name || lights[lights.length-1].name;
+  });
+
+  // Exposure
+  postFX.exposure = preset.exposure || 1.0;
+  renderer.toneMappingExposure = postFX.exposure;
+  document.getElementById('exposure-range').value = postFX.exposure * 100;
+  document.getElementById('exposure-val').textContent = postFX.exposure.toFixed(1);
+
+  // BG
+  scene.background = new THREE.Color(preset.bg || '#0b0c14');
+  if (preset.bg) { document.getElementById('bg-color').value = preset.bg; }
+
+  refreshLightsList();
+}
+
+// ───────────────────────────────────────────────────────
+// ENVIRONMENT CONTROLS
+// ───────────────────────────────────────────────────────
+function toggleGround() {
+  const tog = document.getElementById('tog-ground');
+  tog.classList.toggle('on');
+  if (groundMesh) groundMesh.visible = tog.classList.contains('on');
+}
+
+function toggleGrid() {
+  const tog = document.getElementById('tog-grid');
+  tog.classList.toggle('on');
+  if (tog.classList.contains('on')) {
+    if (!gridHelper) {
+      gridHelper = new THREE.GridHelper(50, 50, 0x334455, 0x1e2530);
+      scene.add(gridHelper);
+    }
+    gridHelper.visible = true;
+  } else {
+    if (gridHelper) gridHelper.visible = false;
+  }
+}
+
+function toggleShadow() {
+  const tog = document.getElementById('tog-shadow');
+  tog.classList.toggle('on');
+  shadowEnabled = tog.classList.contains('on');
+  renderer.shadowMap.enabled = shadowEnabled;
+  scene.traverse(c => { if (c.isMesh) { c.castShadow = shadowEnabled; c.receiveShadow = shadowEnabled; } });
+}
+
+function changeBg(val) {
+  scene.background = new THREE.Color(val);
+}
+
+function updateFog(val) {
+  fogDensity = val / 100;
+  document.getElementById('fog-val').textContent = val;
+  scene.fog = val > 0 ? new THREE.FogExp2(scene.background || 0x0b0c14, fogDensity * 0.05) : null;
+}
+
+// ───────────────────────────────────────────────────────
+// CAMERA CONTROLS
+// ───────────────────────────────────────────────────────
+function updateFOV(val) {
+  camera.fov = parseInt(val);
+  camera.updateProjectionMatrix();
+  document.getElementById('fov-val').textContent = val + '°';
+}
+
+function setCamAnim(mode) {
+  camAnimation = mode;
+  camAngle = 0; camAnimTime = 0;
+  document.querySelectorAll('.cam-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  if (mode !== 'none') controls.enabled = false;
+  else controls.enabled = true;
+  document.getElementById('vo-mode').textContent = `Mode: ${mode === 'none' ? 'Manual' : mode}`;
+}
+
+function updateCamSpeed(val) {
+  camSpeed = val / 10000;
+  document.getElementById('cam-speed-val').textContent = (val/100).toFixed(2);
+}
+
+function resetCamera() {
+  camera.position.set(5, 4, 8);
+  controls.target.set(0, 1, 0);
+  controls.update();
+  camAnimation = 'none';
+  controls.enabled = true;
+  document.querySelectorAll('.cam-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.cam-btn:last-child').classList.add('active');
+}
+
+function frameSelected() {
+  const box = new THREE.Box3();
+  if (selectedObject) box.setFromObject(selectedObject);
+  else models.forEach(m => box.expandByObject(m.object));
+  if (box.isEmpty()) return;
+  const center = new THREE.Vector3(), size = new THREE.Vector3();
+  box.getCenter(center); box.getSize(size);
+  const maxDim = Math.max(size.x, size.y, size.z);
+  const dist = maxDim * 1.8 / Math.tan((camera.fov * Math.PI / 180) / 2);
+  camera.position.set(center.x + dist * 0.6, center.y + dist * 0.4, center.z + dist * 0.8);
+  controls.target.copy(center);
+  controls.update();
+}
+
+// ───────────────────────────────────────────────────────
+// MATERIAL
+// ───────────────────────────────────────────────────────
+function onCanvasClick(e) {
+  if (e.target !== document.getElementById('main')) return;
+  const rect = renderer.domElement.getBoundingClientRect();
+  const mouse = new THREE.Vector2(
+    ((e.clientX - rect.left) / rect.width) * 2 - 1,
+    -((e.clientY - rect.top) / rect.height) * 2 + 1
+  );
+  const ray = new THREE.Raycaster();
+  ray.setFromCamera(mouse, camera);
+  const objs = [];
+  scene.traverse(c => { if (c.isMesh && c !== groundMesh) objs.push(c); });
+  const hits = ray.intersectObjects(objs, true);
+  if (hits.length > 0) {
+    selectedObject = hits[0].object.parent || hits[0].object;
+    document.getElementById('mat-controls').style.display = 'flex';
+    // Read current mat
+    const mesh = hits[0].object;
+    if (mesh.material) {
+      const mat = Array.isArray(mesh.material) ? mesh.material[0] : mesh.material;
+      document.getElementById('mat-color').value = '#' + mat.color.getHexString();
+      document.getElementById('mat-metal').value = (mat.metalness || 0) * 100;
+      document.getElementById('mat-metal-val').textContent = (mat.metalness || 0).toFixed(1);
+      document.getElementById('mat-rough').value = (mat.roughness ?? 0.7) * 100;
+      document.getElementById('mat-rough-val').textContent = (mat.roughness ?? 0.7).toFixed(1);
+      document.getElementById('mat-opacity').value = (mat.opacity ?? 1) * 100;
+      document.getElementById('mat-opacity-val').textContent = (mat.opacity ?? 1).toFixed(1);
+    }
+    refreshModelList();
+  }
+}
+
+function updateMatColor(val) {
+  applyToSelected(mat => mat.color.set(val));
+}
+function updateMatMetal(val) {
+  applyToSelected(mat => mat.metalness = val/100);
+  document.getElementById('mat-metal-val').textContent = (val/100).toFixed(1);
+}
+function updateMatRough(val) {
+  applyToSelected(mat => mat.roughness = val/100);
+  document.getElementById('mat-rough-val').textContent = (val/100).toFixed(1);
+}
+function updateMatEmissive(val) {
+  applyToSelected(mat => mat.emissive?.set(val));
+}
+function updateMatEmissiveInt(val) {
+  applyToSelected(mat => mat.emissiveIntensity = val/100);
+  document.getElementById('mat-emissive-val').textContent = val;
+}
+function updateMatOpacity(val) {
+  applyToSelected(mat => { mat.opacity = val/100; mat.transparent = val < 100; });
+  document.getElementById('mat-opacity-val').textContent = (val/100).toFixed(1);
+}
+
+function applyToSelected(fn) {
+  if (!selectedObject) return;
+  selectedObject.traverse(c => {
+    if (c.isMesh) {
+      const mats = Array.isArray(c.material) ? c.material : [c.material];
+      mats.forEach(m => { if (m) fn(m); });
+    }
+  });
+}
+
+// ───────────────────────────────────────────────────────
+// WIREFRAME / TOGGLE
+// ───────────────────────────────────────────────────────
+function toggleWireframe() {
+  wireframeMode = !wireframeMode;
+  scene.traverse(c => {
+    if (c.isMesh && c !== groundMesh) {
+      const mats = Array.isArray(c.material) ? c.material : [c.material];
+      mats.forEach(m => { if (m) m.wireframe = wireframeMode; });
+    }
+  });
+  notify(wireframeMode ? 'Wireframe ON' : 'Wireframe OFF', 'info');
+}
+
+// ───────────────────────────────────────────────────────
+// POST FX
+// ───────────────────────────────────────────────────────
+function updateBloom(val) {
+  postFX.bloom = val/100;
+  document.getElementById('bloom-val').textContent = val;
+  document.getElementById('dot-fx').classList.toggle('on', postFX.bloom > 0 || postFX.vignette > 0);
+}
+function updateExposure(val) {
+  postFX.exposure = val/100;
+  renderer.toneMappingExposure = postFX.exposure * hdrIntensity;
+  document.getElementById('exposure-val').textContent = postFX.exposure.toFixed(1);
+}
+function updateContrast(val) {
+  postFX.contrast = val/100;
+  document.getElementById('contrast-val').textContent = postFX.contrast.toFixed(1);
+  renderer.domElement.style.filter = `contrast(${postFX.contrast})`;
+}
+function updateVignette(val) {
+  postFX.vignette = val/100;
+  document.getElementById('vignette-val').textContent = val;
+  document.getElementById('dot-fx').classList.toggle('on', postFX.bloom > 0 || postFX.vignette > 0);
+}
+
+// ───────────────────────────────────────────────────────
+// EXPORT
+// ───────────────────────────────────────────────────────
+function exportFrame() {
+  renderer.render(scene, camera);
+  const link = document.createElement('a');
+  link.download = `render_${Date.now()}.png`;
+  link.href = renderer.domElement.toDataURL('image/png');
+  link.click();
+  notify('PNG exported!', 'success');
+}
+
+function toggleRecord() {
+  recording = !recording;
+  const btn = document.getElementById('rec-btn');
+  btn.classList.toggle('rec', recording);
+  btn.classList.toggle('active', recording);
+  btn.textContent = recording ? '⏹ Stop' : '⏺ Capture';
+  if (recording) notify('Capturing frames…', 'info');
+}
+
+function updateDuration(val) {
+  vidDuration = parseInt(val) || 10;
+  document.getElementById('tl-dur').textContent = `0:${String(vidDuration).padStart(2,'0')}`;
+}
+
+function updateFPS(val) {
+  vidFPS = parseInt(val);
+  document.getElementById('tl-fps-label').textContent = `${val}fps`;
+}
+
+async function startVideoCapture() {
+  const camAnimSel = document.getElementById('vid-cam-anim').value;
+  const fps = vidFPS;
+  const dur = vidDuration;
+  totalFrames = fps * dur;
+  currentFrame = 0;
+
+  // Save camera state
+  const prevCamAnim = camAnimation;
+  const prevControls = controls.enabled;
+
+  setCamAnimDirect(camAnimSel);
+  controls.enabled = false;
+
+  const rp = document.getElementById('render-progress');
+  rp.style.display = 'block';
+
+  const zip = typeof JSZip !== 'undefined' ? new JSZip() : null;
+  const folder = zip ? zip.folder('frames') : null;
+
+  notify(`Rendering ${totalFrames} frames…`, 'info');
+
+  for (let f = 0; f < totalFrames; f++) {
+    currentFrame = f;
+    const t = f / fps;
+    camAnimTime = t;
+
+    // Force camera position
+    animateCamera(t, 1/fps);
+    renderer.render(scene, camera);
+
+    const pct = (f / totalFrames) * 100;
+    document.getElementById('rp-bar').style.width = pct + '%';
+    document.getElementById('rp-info').textContent = `Frame ${f+1} / ${totalFrames}`;
+
+    if (folder) {
+      const dataUrl = renderer.domElement.toDataURL('image/png');
+      const base64 = dataUrl.split(',')[1];
+      folder.file(`frame_${String(f).padStart(5,'0')}.png`, base64, { base64: true });
+    }
+
+    // Yield
+    if (f % 5 === 0) await new Promise(r => setTimeout(r, 0));
+  }
+
+  rp.style.display = 'none';
+  camAnimation = prevCamAnim;
+  controls.enabled = prevControls;
+
+  if (zip) {
+    const blob = await zip.generateAsync({ type:'blob' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `render_sequence_${Date.now()}.zip`;
+    a.click();
+    notify(`✓ Exported ${totalFrames} frames as ZIP`, 'success');
+  } else {
+    notify('JSZip not loaded — frames not saved', 'error');
+  }
+}
+
+function setCamAnimDirect(mode) {
+  camAnimation = mode;
+  camAngle = 0; camAnimTime = 0;
+}
+
+function seekTimeline(e) {
+  const track = document.getElementById('timeline-track');
+  const rect = track.getBoundingClientRect();
+  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  camAnimTime = pct * vidDuration;
+  document.getElementById('timeline-fill').style.width = (pct*100)+'%';
+  document.getElementById('timeline-head').style.left = (pct*100)+'%';
+}
+
+// ───────────────────────────────────────────────────────
+// UI HELPERS
+// ───────────────────────────────────────────────────────
+function toggleSection(id) {
+  const sec = document.getElementById('sec-' + id);
+  if (sec) sec.style.display = sec.style.display === 'none' ? '' : 'none';
+}
+
+function aiAnalyze() {
+  // Auto re-analyze hint
+  const sceneType = document.getElementById('scene-type').value;
+  if (sceneType !== 'auto') {
+    document.getElementById('ai-status').textContent = `Scene: ${sceneType} — click Generate to apply AI lighting`;
+  }
+}
+
+// Notifications
+function notify(msg, type = 'info') {
+  const container = document.getElementById('notif');
+  const el = document.createElement('div');
+  el.className = `notif-item ${type}`;
+  el.textContent = msg;
+  container.appendChild(el);
+  setTimeout(() => { el.style.opacity = '0'; el.style.transition = 'opacity 0.4s'; setTimeout(() => el.remove(), 400); }, 3000);
+}
+
+// ───────────────────────────────────────────────────────
+// INIT
+// ───────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  // Wait for Three.js to load
+  const waitForThree = setInterval(() => {
+    if (typeof THREE !== 'undefined' && THREE.OrbitControls) {
+      clearInterval(waitForThree);
+      init();
+    }
+  }, 100);
+});
+</script>
+</body>
+</html>

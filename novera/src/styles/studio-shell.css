@@ -1,0 +1,5190 @@
+/**
+ * Novira Studio — event mockup shell
+ * Scoped so only the editor picks up this skin (.novira-studio on .editor-layout).
+ */
+
+.novira-studio.editor-layout {
+  /* Live Home 3D–inspired: charcoal chrome + sky accent (readable, professional) */
+  --st-bg-void: #06080c;
+  --st-bg-deep: #0b0f14;
+  --st-bg: #10151c;
+  --st-surface: #151b24;
+  --st-surface-2: #1a222d;
+  --st-elevated: #222b38;
+  --st-border: rgba(255, 255, 255, 0.08);
+  --st-border-strong: rgba(56, 189, 248, 0.38);
+  --st-accent: #38bdf8;
+  --st-accent-deep: #0284c7;
+  --st-teal: #2dd4bf;
+  --st-gold: #fbbf24;
+  --st-text: #f1f5f9;
+  --st-muted: #94a3b8;
+  --st-muted-2: #64748b;
+  --st-radius: 14px;
+  --st-radius-sm: 10px;
+  --st-radius-xs: 8px;
+  --st-glow: 0 0 48px rgba(14, 165, 233, 0.14);
+  --st-font: "Plus Jakarta Sans", "Poppins", system-ui, sans-serif;
+
+  font-family: var(--st-font);
+  background: var(--st-bg-void);
+  color: var(--st-text);
+}
+
+.novira-studio .studio-workspace-bg {
+  background: radial-gradient(120% 80% at 50% 0%, rgba(14, 165, 233, 0.1) 0%, transparent 55%),
+    linear-gradient(180deg, var(--st-bg-deep) 0%, var(--st-bg-void) 100%) !important;
+}
+
+/* ── Context strip (below header) ── */
+.studio-context-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 16px 10px;
+  flex-shrink: 0;
+  border-bottom: 1px solid var(--st-border);
+  background: rgba(18, 18, 26, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  z-index: 30;
+}
+
+.studio-context-strip__brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Center cluster: scene/plan + transform tools + design/present/cinema */
+.studio-context-strip__center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex: 1;
+  min-width: 0;
+  flex-wrap: wrap;
+}
+
+/* Saved orbital views (Live Home 3D “user cameras”) */
+.novira-studio .studio-camera-bookmarks {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.novira-studio .studio-camera-bookmarks__trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--st-border);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--st-muted);
+  font-family: var(--st-font);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.novira-studio .studio-camera-bookmarks__trigger:hover {
+  color: var(--st-text);
+  border-color: var(--st-border-strong);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.novira-studio .studio-camera-bookmarks__panel {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 220px;
+  max-width: 280px;
+  padding: 8px;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid var(--st-border);
+  background: rgba(15, 23, 42, 0.96);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  z-index: 50;
+}
+
+.novira-studio .studio-camera-bookmarks__save {
+  width: 100%;
+  text-align: left;
+  padding: 8px 10px;
+  margin-bottom: 6px;
+  border-radius: 8px;
+  border: 1px solid var(--st-teal);
+  background: rgba(45, 212, 191, 0.12);
+  color: var(--st-teal);
+  font-family: var(--st-font);
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.novira-studio .studio-camera-bookmarks__save:hover {
+  background: rgba(45, 212, 191, 0.2);
+}
+
+.novira-studio .studio-camera-bookmarks__empty {
+  margin: 0;
+  padding: 6px 8px;
+  font-size: 10px;
+  color: var(--st-muted);
+  line-height: 1.4;
+}
+
+.novira-studio .studio-camera-bookmarks__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.novira-studio .studio-camera-bookmarks__list li {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.novira-studio .studio-camera-bookmarks__recall {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--st-text);
+  font-family: var(--st-font);
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.novira-studio .studio-camera-bookmarks__recall:hover {
+  border-color: var(--st-border);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.novira-studio .studio-camera-bookmarks__remove {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--st-muted);
+  font-size: 16px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.novira-studio .studio-camera-bookmarks__remove:hover {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.12);
+}
+
+/* Live Home–style transform strip (select / move / rotate / scale) */
+.studio-view-tools {
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  padding: 3px 4px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--st-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.studio-view-tools__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--st-muted);
+  font-family: var(--st-font);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, box-shadow 0.15s;
+  white-space: nowrap;
+}
+
+.studio-view-tools__btn:hover {
+  color: var(--st-text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.studio-view-tools__btn--active {
+  color: #fff;
+  background: linear-gradient(135deg, var(--st-accent-deep), #0ea5e9);
+  box-shadow: 0 2px 14px rgba(14, 165, 233, 0.35);
+}
+
+@media (max-width: 1180px) {
+  .studio-view-tools__btn span:not([aria-hidden]) {
+    display: none;
+  }
+
+  .studio-view-tools__btn {
+    padding: 6px 8px;
+  }
+}
+
+.studio-context-strip__wordmark {
+  font-family: "Syne", var(--st-font);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #f8fafc 0%, var(--st-accent) 50%, var(--st-teal) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.studio-context-strip__tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+  white-space: nowrap;
+}
+
+.studio-mode-seg {
+  display: flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--st-border);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.studio-mode-seg button {
+  border: none;
+  cursor: pointer;
+  font-family: var(--st-font);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 18px;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--st-muted);
+  transition: color 0.18s, background 0.18s, box-shadow 0.18s;
+}
+
+.studio-mode-seg button:hover {
+  color: var(--st-text);
+}
+
+.studio-mode-seg button[data-active="true"] {
+  color: #fff;
+  background: linear-gradient(135deg, var(--st-accent-deep), #0ea5e9);
+  box-shadow: 0 4px 22px rgba(14, 165, 233, 0.35);
+}
+
+.studio-mode-seg__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.studio-mode-seg--triple button {
+  padding: 7px 12px;
+  font-size: 11px;
+}
+
+@media (max-width: 1180px) {
+  .studio-mode-seg--triple button {
+    padding: 7px 9px;
+    font-size: 10px;
+  }
+}
+
+.studio-mode-seg--dual button {
+  padding: 7px 12px;
+  font-size: 11px;
+}
+
+@media (max-width: 1180px) {
+  .studio-mode-seg--dual button {
+    padding: 7px 9px;
+    font-size: 10px;
+  }
+}
+
+/* Live Home–style 2D / Split / 3D / Elevation */
+.studio-mode-seg--quad button {
+  padding: 6px 10px;
+  font-size: 10px;
+}
+
+@media (max-width: 1180px) {
+  .studio-mode-seg--quad button {
+    padding: 6px 7px;
+    font-size: 9px;
+  }
+
+  .studio-mode-seg--quad .studio-mode-seg__text {
+    display: none;
+  }
+}
+
+.novira-studio .editor-center-new--split {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.novira-studio .editor-split-panel--plan {
+  flex: 0 0 42%;
+  min-width: 280px;
+  max-width: 52%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  border-right: 1px solid var(--st-border);
+}
+
+.novira-studio .editor-split-panel--scene {
+  flex: 1 1 58%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.novira-studio .studio-split-resizer {
+  width: 10px;
+  flex: 0 0 10px;
+  cursor: col-resize;
+  position: relative;
+  background: transparent;
+}
+
+.novira-studio .studio-split-resizer::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: rgba(56, 189, 248, 0.35);
+  border-radius: 999px;
+  transition: background 0.15s;
+}
+
+.novira-studio .studio-split-resizer:hover::before {
+  background: rgba(125, 211, 252, 0.75);
+}
+
+@media (max-width: 960px) {
+  .novira-studio .editor-center-new--split {
+    flex-direction: column;
+  }
+
+  .novira-studio .editor-split-panel--plan {
+    flex: 0 0 38vh;
+    max-width: none;
+    border-right: none;
+    border-bottom: 1px solid var(--st-border);
+  }
+
+  .novira-studio .studio-split-resizer {
+    display: none;
+  }
+}
+
+.studio-elevation-hint {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 6px 10px;
+  background: rgba(14, 165, 233, 0.12);
+  border-bottom: 1px solid var(--st-border-strong);
+  color: var(--st-text);
+  font-family: var(--st-font);
+  letter-spacing: 0.02em;
+}
+
+/* Multi-story bar above planner catalog */
+.novira-studio .planner-story-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-bottom: 1px solid var(--st-border);
+  background: rgba(8, 10, 18, 0.95);
+  font-family: var(--st-font);
+}
+
+.novira-studio .planner-story-bar__label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .planner-story-bar__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.novira-studio .planner-story-bar__tab {
+  border: 1px solid var(--st-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--st-muted);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.novira-studio .planner-story-bar__tab:hover {
+  color: var(--st-text);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.novira-studio .planner-story-bar__tab--active {
+  color: #fff;
+  border-color: var(--st-border-strong);
+  background: linear-gradient(135deg, var(--st-accent-deep), #0ea5e9);
+}
+
+.novira-studio .planner-story-bar__actions {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+.novira-studio .planner-story-bar__add,
+.novira-studio .planner-story-bar__save {
+  border: 1px solid var(--st-border);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--st-text);
+  font-size: 10px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.novira-studio .planner-story-bar__add:hover,
+.novira-studio .planner-story-bar__save:hover {
+  border-color: var(--st-border-strong);
+  color: var(--st-accent);
+}
+
+.novira-studio .planner-dimension-readout {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  z-index: 6;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: var(--st-radius-xs);
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid var(--st-border);
+  font-size: 11px;
+  pointer-events: none;
+}
+
+.novira-studio .planner-dimension-readout__label {
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .planner-dimension-readout__value {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--st-teal);
+}
+
+.novira-studio .planner-dimension-readout__unit {
+  color: var(--st-muted);
+  font-size: 10px;
+}
+
+.novira-studio .planner-arc-details {
+  margin-top: 10px;
+  padding: 8px 10px;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid var(--st-border);
+  background: rgba(15, 23, 42, 0.35);
+}
+
+.novira-studio .planner-arc-details > summary {
+  list-style: none;
+}
+
+.novira-studio .planner-arc-details > summary::-webkit-details-marker {
+  display: none;
+}
+
+.novira-studio .planner-arc-details[open] {
+  border-color: var(--st-border-strong);
+}
+
+.novira-studio .canvas-wrapper--paint-touch {
+  touch-action: none;
+}
+
+.studio-context-strip__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.studio-icon-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid var(--st-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--st-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s, color 0.15s, background 0.15s, transform 0.15s;
+}
+
+.studio-icon-btn:hover {
+  color: var(--st-accent);
+  border-color: var(--st-border-strong);
+  background: rgba(56, 189, 248, 0.1);
+  transform: translateY(-1px);
+}
+
+/* ── Top menubar (dark glass) ── */
+.novira-studio .editor-menubar.blender-top-bar {
+  position: relative;
+  z-index: 80;
+  isolation: isolate;
+  background: rgba(14, 14, 22, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--st-border);
+  color: var(--st-text);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+}
+
+.novira-studio .editor-menubar__logo-btn {
+  color: var(--st-muted);
+}
+
+.novira-studio .editor-menubar__logo-btn:hover {
+  color: var(--st-accent);
+}
+
+.novira-studio .editor-menubar__trigger {
+  color: var(--st-muted);
+  border-radius: var(--st-radius-xs);
+}
+
+.novira-studio .editor-menubar__trigger:hover {
+  color: var(--st-text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.novira-studio .editor-menubar__trigger[aria-expanded="true"] {
+  color: var(--st-text);
+  background: rgba(56, 189, 248, 0.12);
+}
+
+/* Live Home–style undo / redo / delete cluster (scene workspace) */
+.novira-studio .editor-menubar__lh-undo {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 4px;
+  margin-right: 6px;
+  padding: 3px 4px;
+  border-radius: 10px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--st-border);
+}
+
+.novira-studio .editor-menubar__lh-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 30px;
+  padding: 0;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--st-muted);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.novira-studio .editor-menubar__lh-icon:hover {
+  color: var(--st-text);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.novira-studio .editor-menubar__lh-icon--danger:hover {
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.22);
+}
+
+.novira-studio .editor-menubar__dropdown {
+  z-index: 5000;
+  background: var(--st-surface-2);
+  border: 1px solid var(--st-border-strong);
+  border-radius: var(--st-radius-sm);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55), var(--st-glow);
+  padding: 8px 0;
+}
+
+.novira-studio .editor-menubar__section-label {
+  color: var(--st-muted-2) !important;
+}
+
+.novira-studio .editor-menubar__submenu {
+  z-index: 6000;
+  background: var(--st-surface-2);
+  border: 1px solid var(--st-border-strong);
+  border-radius: var(--st-radius-sm);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.55), var(--st-glow);
+}
+
+.novira-studio .editor-menubar__subchev {
+  color: var(--st-muted-2);
+}
+
+.novira-studio .editor-menubar__item {
+  color: var(--st-text);
+}
+
+.novira-studio .editor-menubar__item:hover:not(:disabled) {
+  background: rgba(56, 189, 248, 0.1);
+}
+
+.novira-studio .editor-menubar__shortcut {
+  color: var(--st-muted-2);
+}
+
+.novira-studio .editor-menubar__sep {
+  background: var(--st-border);
+}
+
+.novira-studio .editor-menubar__tab {
+  color: var(--st-muted);
+  border-radius: 999px;
+  margin: 0 2px;
+}
+
+.novira-studio .editor-menubar__tab:hover {
+  color: var(--st-text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.novira-studio .editor-menubar__tab--active {
+  color: #fff !important;
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.55), rgba(14, 165, 233, 0.4)) !important;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.45);
+}
+
+.novira-studio .editor-menubar__status {
+  color: var(--st-muted);
+}
+
+.novira-studio .editor-menubar__project-name {
+  color: var(--st-muted-2);
+  max-width: 200px;
+}
+
+.novira-studio .editor-menubar__quick-wrap {
+  border-left-color: var(--st-border);
+}
+
+.novira-studio .editor-menubar__quick {
+  color: var(--st-muted);
+}
+
+.novira-studio .editor-menubar__quick:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--st-text);
+}
+
+.novira-studio .editor-menubar__quick--on {
+  background: rgba(45, 212, 191, 0.12) !important;
+  color: var(--st-teal) !important;
+}
+
+/* ── Sidebar & properties ── */
+.novira-studio .pro-sidebar {
+  background: linear-gradient(180deg, var(--st-surface) 0%, var(--st-bg-deep) 100%) !important;
+  border-right: 1px solid var(--st-border) !important;
+  color: var(--st-text) !important;
+  box-shadow: 4px 0 32px rgba(0, 0, 0, 0.25);
+}
+
+.novira-studio .pro-sidebar .sidebar-panel-header {
+  background: rgba(0, 0, 0, 0.25) !important;
+  border-bottom: 1px solid var(--st-border) !important;
+}
+
+.novira-studio .pro-sidebar .sidebar-panel-title {
+  color: var(--st-accent) !important;
+  letter-spacing: 0.12em !important;
+}
+
+.novira-studio .pro-sidebar .icon-rail {
+  background: var(--st-bg-deep) !important;
+  border-right: 1px solid var(--st-border) !important;
+}
+
+.novira-studio .pro-sidebar .icon-rail-btn {
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .pro-sidebar .icon-rail-btn:hover,
+.novira-studio .pro-sidebar .icon-rail-btn.active {
+  color: var(--st-accent) !important;
+}
+
+.novira-studio .pro-properties {
+  background: linear-gradient(180deg, var(--st-surface) 0%, var(--st-bg-deep) 100%) !important;
+  border-left: 1px solid var(--st-border) !important;
+  color: var(--st-text) !important;
+  box-shadow: -4px 0 32px rgba(0, 0, 0, 0.2);
+}
+
+.novira-studio .pro-properties .props-card {
+  background: var(--st-surface-2) !important;
+  border: 1px solid var(--st-border) !important;
+  border-radius: var(--st-radius-sm) !important;
+}
+
+.novira-studio .pro-properties .props-header {
+  background: rgba(0, 0, 0, 0.35) !important;
+  font-size: 10px !important;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .pro-properties .props-input-field,
+.novira-studio .pro-input-field {
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid var(--st-border) !important;
+  border-radius: var(--st-radius-xs) !important;
+  color: var(--st-text) !important;
+  font-size: 12px !important;
+}
+
+.novira-studio .pro-properties .props-input-field:focus,
+.novira-studio .pro-input-field:focus {
+  border-color: var(--st-border-strong) !important;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.18);
+}
+
+.novira-studio .pro-properties .scene-tree-node {
+  border-radius: var(--st-radius-xs) !important;
+  color: var(--st-muted) !important;
+  font-size: 12px !important;
+}
+
+.novira-studio .pro-properties .scene-tree-node:hover {
+  background: rgba(255, 255, 255, 0.05) !important;
+}
+
+.novira-studio .pro-properties .scene-tree-node.selected {
+  background: rgba(56, 189, 248, 0.12) !important;
+  border-color: rgba(56, 189, 248, 0.4) !important;
+  color: var(--st-accent) !important;
+}
+
+.novira-studio .pro-properties .scene-tree-node__caret {
+  width: 10px;
+  height: 10px;
+  flex-shrink: 0;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .pro-properties .scene-tree-node__icon {
+  color: var(--st-muted-2);
+}
+
+.novira-studio .pro-properties .scene-tree-node.selected .scene-tree-node__icon {
+  color: var(--st-accent);
+}
+
+/* Inspector tool grid (move / rotate / …) — dark, sky active state */
+.novira-studio .pro-properties .props-tool-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 2px;
+  border-radius: var(--st-radius-xs);
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s, color 0.12s, box-shadow 0.12s;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--st-border);
+  color: var(--st-muted);
+  min-height: 38px;
+  font: inherit;
+}
+
+.novira-studio .pro-properties .props-tool-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--st-text);
+  border-color: rgba(56, 189, 248, 0.28);
+}
+
+.novira-studio .pro-properties .props-tool-btn--active {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.45);
+  color: var(--st-accent);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.22);
+}
+
+.novira-studio .pro-properties .props-group-title {
+  margin-top: 10px;
+  margin-bottom: 6px;
+  padding: 0 0 4px 0;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--st-muted-2);
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--st-border);
+  font-family: var(--st-font);
+}
+
+/* ── Right inspector (DCC-style: calm chrome, dense vectors) ── */
+.novira-studio .pro-properties .inspector-panel {
+  font-family: var(--st-font), "Plus Jakarta Sans", system-ui, sans-serif;
+}
+
+.novira-studio .pro-properties .inspector-panel__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--st-border);
+}
+
+.novira-studio .pro-properties .inspector-panel__heading-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .pro-properties .inspector-panel__heading-delete {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: var(--st-radius-xs);
+  background: transparent;
+  color: var(--st-muted);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+}
+
+.novira-studio .pro-properties .inspector-panel__heading-delete:hover {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.novira-studio .pro-properties .inspector-target-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 10px;
+  padding: 8px 10px;
+  border-radius: var(--st-radius-sm);
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid var(--st-border);
+}
+
+.novira-studio .pro-properties .inspector-target-bar__icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--st-accent);
+  opacity: 0.9;
+}
+
+.novira-studio .pro-properties .inspector-target-bar__name {
+  flex: 1;
+  min-width: 0;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--st-text);
+  letter-spacing: 0.01em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novira-studio .pro-properties .inspector-target-bar__type {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--st-muted);
+  text-transform: lowercase;
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--st-border);
+}
+
+.novira-studio .pro-properties .inspector-target-bar--layout {
+  box-shadow: inset 3px 0 0 rgba(34, 197, 94, 0.65);
+}
+
+.novira-studio .pro-properties .inspector-target-bar--layout .inspector-target-bar__icon {
+  color: #4ade80;
+}
+
+
+.novira-studio .pro-properties .props-section {
+  padding: 0 !important;
+  overflow: hidden;
+  margin-bottom: 6px !important;
+  border: 1px solid var(--st-border) !important;
+  border-radius: var(--st-radius-sm) !important;
+  background: rgba(0, 0, 0, 0.22) !important;
+  box-shadow: none !important;
+}
+
+.novira-studio .pro-properties .props-section__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0;
+  padding: 8px 10px;
+  border: none;
+  border-radius: 0;
+  cursor: pointer;
+  user-select: none;
+  text-align: left;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted) !important;
+  background: rgba(0, 0, 0, 0.25) !important;
+  border-bottom: 1px solid var(--st-border);
+  transition: background 0.12s, color 0.12s;
+}
+
+.novira-studio .pro-properties .props-section__header:hover {
+  color: var(--st-text) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.novira-studio .pro-properties .props-section--open .props-section__header {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .pro-properties .props-section__header.color-transform,
+.novira-studio .pro-properties .props-section__header.color-materials,
+.novira-studio .pro-properties .props-section__header.color-lighting,
+.novira-studio .pro-properties .props-section__header.color-branding {
+  color: var(--st-muted) !important;
+  box-shadow: inset 3px 0 0 rgba(56, 189, 248, 0.55);
+}
+
+.novira-studio .pro-properties .props-section__header-inner {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.novira-studio .pro-properties .props-section__icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.novira-studio .pro-properties .props-section__title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novira-studio .pro-properties .props-section__chev {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.45;
+}
+
+.novira-studio .pro-properties .props-section__motion {
+  overflow: hidden;
+}
+
+.novira-studio .pro-properties .props-section__body {
+  padding: 8px 10px 10px;
+}
+
+.novira-studio .pro-properties .inspector-field-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+  margin: 8px 0 4px;
+}
+
+.novira-studio .pro-properties .inspector-field-label:first-child {
+  margin-top: 0;
+}
+
+.novira-studio .pro-properties .inspector-field-unit {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--st-muted-2);
+  margin: 2px 0 0 2px;
+  letter-spacing: 0.04em;
+}
+
+.novira-studio .pro-properties .inspector-transform-block {
+  margin-bottom: 4px;
+}
+
+.novira-studio .pro-properties .inspector-vector-row {
+  display: flex;
+  gap: 5px;
+  align-items: stretch;
+}
+
+.novira-studio .pro-properties .props-input-group {
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid var(--st-border) !important;
+  border-radius: 6px !important;
+  padding: 0 2px 0 6px !important;
+  min-height: 30px !important;
+  box-shadow: none !important;
+}
+
+.novira-studio .pro-properties .props-input-group:focus-within {
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  background: rgba(56, 189, 248, 0.07) !important;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.12) !important;
+}
+
+.novira-studio .pro-properties .props-input-label {
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  width: 11px;
+  text-align: center;
+  margin-right: 4px !important;
+  font-family: var(--st-font), ui-monospace, monospace;
+}
+
+.novira-studio .pro-properties .inspector-vector-cell--x .props-input-label.axis-x {
+  color: #f87171 !important;
+}
+
+.novira-studio .pro-properties .inspector-vector-cell--y .props-input-label.axis-y {
+  color: #4ade80 !important;
+}
+
+.novira-studio .pro-properties .inspector-vector-cell--z .props-input-label.axis-z {
+  color: #60a5fa !important;
+}
+
+.novira-studio .pro-properties .props-input-field {
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  font-variant-numeric: tabular-nums;
+  padding: 4px 2px !important;
+}
+
+.novira-studio .pro-properties .inspector-vector-nudge {
+  border-left-color: var(--st-border) !important;
+  margin-left: 2px;
+  padding-left: 2px;
+}
+
+.novira-studio .pro-properties .props-control-btn {
+  height: 10px !important;
+}
+
+.novira-studio .pro-properties .props-control-btn svg {
+  width: 9px !important;
+  height: 9px !important;
+}
+
+.novira-studio .pro-properties .inspector-subsection-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--st-border);
+}
+
+.novira-studio .pro-properties .inspector-subsection-head__title {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-properties .inspector-subsection-head__meta {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .pro-properties .inspector-mesh-bounds {
+  padding: 8px 10px !important;
+  margin-top: 6px !important;
+  margin-bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.18) !important;
+}
+
+.novira-studio .pro-properties .inspector-size-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.novira-studio .pro-properties .inspector-size-cell__head {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.novira-studio .pro-properties .inspector-size-axis-name {
+  font-size: 9px;
+  color: var(--st-muted-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.novira-studio .pro-properties .inspector-size-input {
+  margin-bottom: 0 !important;
+}
+
+.novira-studio .pro-properties .inspector-readout-strip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "label action"
+    "axes axes";
+  align-items: center;
+  column-gap: 10px;
+  row-gap: 8px;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: var(--st-radius-xs);
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--st-border);
+}
+
+.novira-studio .pro-properties .inspector-readout-strip__label {
+  grid-area: label;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .pro-properties .inspector-readout-strip__axes {
+  grid-area: axes;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(58px, 1fr));
+  gap: 10px;
+  min-width: 0;
+}
+
+.novira-studio .pro-properties .inspector-readout-strip__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.novira-studio .pro-properties .inspector-readout-strip__axis {
+  font-size: 10px;
+  font-weight: 800;
+  font-family: ui-monospace, monospace;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .pro-properties .inspector-readout-strip__cell--x .inspector-readout-strip__axis {
+  color: #f87171;
+}
+
+.novira-studio .pro-properties .inspector-readout-strip__cell--y .inspector-readout-strip__axis {
+  color: #4ade80;
+}
+
+.novira-studio .pro-properties .inspector-readout-strip__cell--z .inspector-readout-strip__axis {
+  color: #60a5fa;
+}
+
+.novira-studio .pro-properties .inspector-readout-strip__val {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--st-text);
+  white-space: nowrap;
+}
+
+.novira-studio .pro-properties .inspector-readout-strip__unit {
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-properties .inspector-readout-strip__action {
+  grid-area: action;
+  justify-self: end;
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--st-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--st-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+@media (max-width: 380px) {
+  .novira-studio .pro-properties .inspector-readout-strip {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "label"
+      "axes"
+      "action";
+  }
+
+  .novira-studio .pro-properties .inspector-readout-strip__action {
+    justify-self: stretch;
+  }
+}
+
+@media (min-resolution: 1.5dppx) {
+  .novira-studio .pro-properties .inspector-readout-strip {
+    padding: 9px 11px;
+  }
+
+  .novira-studio .pro-properties .inspector-readout-strip__axis {
+    font-size: 10.5px;
+  }
+
+  .novira-studio .pro-properties .inspector-readout-strip__val {
+    font-size: 11.5px;
+  }
+}
+
+.novira-studio .pro-properties .inspector-readout-strip__action:hover {
+  border-color: rgba(56, 189, 248, 0.4);
+  color: var(--st-accent);
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.novira-studio .pro-properties .inspector-modifier-card {
+  margin-bottom: 6px;
+  padding: 8px;
+  border-radius: var(--st-radius-xs);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--st-border);
+}
+
+.novira-studio .pro-properties .inspector-modifier-card__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.novira-studio .pro-properties .inspector-modifier-card__select {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--st-text);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--st-border);
+  border-radius: 6px;
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.novira-studio .pro-properties .inspector-modifier-card__remove {
+  flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--st-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 4px;
+}
+
+.novira-studio .pro-properties .inspector-modifier-card__remove:hover {
+  color: #f87171;
+  background: rgba(248, 113, 113, 0.1);
+}
+
+.novira-studio .pro-properties .inspector-modifier-card__target {
+  font-size: 10px;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-properties .inspector-modifier-card__target-select {
+  width: 100%;
+  font-size: 11px;
+  padding: 5px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--st-border);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--st-text);
+}
+
+.novira-studio .pro-properties .inspector-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 10px;
+  border-radius: var(--st-radius-xs);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.novira-studio .pro-properties .inspector-btn--dashed {
+  border: 1px dashed rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.06);
+  color: var(--st-accent);
+}
+
+.novira-studio .pro-properties .inspector-btn--dashed:hover {
+  background: rgba(56, 189, 248, 0.12);
+  border-color: rgba(56, 189, 248, 0.55);
+}
+
+.novira-studio .pro-properties .inspector-btn--primary {
+  margin-top: 0;
+  padding: 10px 12px;
+  border: none;
+  color: #fff;
+  background: linear-gradient(135deg, rgba(37, 99, 235, 0.95), rgba(124, 58, 237, 0.92));
+  box-shadow: 0 6px 20px rgba(37, 99, 235, 0.28);
+}
+
+.novira-studio .pro-properties .inspector-btn--primary:hover {
+  filter: brightness(1.06);
+}
+
+.novira-studio .pro-properties .inspector-btn--secondary {
+  margin-top: 0;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.08);
+  color: var(--st-accent);
+}
+
+.novira-studio .pro-properties .inspector-btn--secondary:hover {
+  background: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.5);
+}
+
+.novira-studio .pro-properties .inspector-dismantle-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.novira-studio .pro-properties .inspector-slider {
+  margin-bottom: 10px;
+}
+
+.novira-studio .pro-properties .inspector-slider__head {
+  margin-bottom: 5px;
+  align-items: baseline;
+}
+
+.novira-studio .pro-properties .inspector-slider__label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-properties .inspector-slider__value {
+  font-size: 10px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--st-text);
+}
+
+.novira-studio .pro-properties .inspector-slider__track-wrap {
+  height: 14px !important;
+}
+
+.novira-studio .pro-properties .inspector-slider__track {
+  height: 4px !important;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.novira-studio .pro-properties .inspector-slider__fill {
+  height: 4px !important;
+  border-radius: 99px;
+}
+
+.novira-studio .pro-properties .props-slider-input::-webkit-slider-thumb {
+  width: 12px !important;
+  height: 12px !important;
+}
+
+.novira-studio .pro-properties .inspector-tool-btn {
+  min-height: 34px !important;
+  padding: 4px 2px !important;
+}
+
+.novira-studio .pro-properties .inspector-tool-btn__icon {
+  display: block;
+  font-size: 12px;
+  line-height: 1;
+  margin-bottom: 1px;
+}
+
+.novira-studio .pro-properties .inspector-tool-btn__label {
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+.novira-studio .pro-properties .inspector-tools-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.novira-studio .pro-properties .inspector-tools-wrap {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--st-border);
+}
+
+.novira-studio .pro-properties .inspector-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1px solid var(--st-border) !important;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.novira-studio .pro-properties .inspector-swatch:hover {
+  transform: scale(1.06);
+}
+
+.novira-studio .pro-properties .inspector-swatch.active {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 0 2px rgba(56, 189, 248, 0.55);
+}
+
+.novira-studio .pro-properties .inspector-swatch-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.novira-studio .pro-properties .inspector-material-row {
+  margin-bottom: 10px !important;
+  align-items: center;
+}
+
+.novira-studio .pro-properties .inspector-material-row__label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-properties .inspector-material-row__swatches {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.novira-studio .pro-properties .inspector-color-preview {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  border: 1px solid var(--st-border);
+  flex-shrink: 0;
+}
+
+.novira-studio .pro-properties .inspector-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  border: 1px solid var(--st-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--st-muted);
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.novira-studio .pro-properties .inspector-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--st-text);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.novira-studio .pro-properties .inspector-check-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-properties .inspector-check {
+  width: 15px;
+  height: 15px;
+  accent-color: var(--st-accent);
+  cursor: pointer;
+}
+
+.novira-studio .pro-properties .inspector-hint {
+  margin: 8px 0 0;
+  font-size: 9px;
+  line-height: 1.45;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .pro-properties .inspector-hint--center {
+  text-align: center;
+  margin-top: 4px;
+}
+
+.novira-studio .pro-properties .inspector-color-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.novira-studio .pro-properties .inspector-color-row__label {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-properties .inspector-color-input {
+  width: 32px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--st-border);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.35);
+  cursor: pointer;
+}
+
+.novira-studio .pro-properties .inspector-nested-card {
+  padding: 8px 10px !important;
+  margin-bottom: 8px !important;
+  background: rgba(0, 0, 0, 0.18) !important;
+}
+
+.novira-studio .pro-properties .inspector-tree-empty {
+  padding: 10px 8px;
+}
+
+.novira-studio .pro-properties .inspector-tree-empty__text {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--st-muted);
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px dashed var(--st-border);
+}
+
+.novira-studio .pro-properties .inspector-empty-card {
+  margin-top: 12px;
+  padding: 12px 10px;
+  border-radius: var(--st-radius-sm);
+  border: 1px solid var(--st-border);
+  background: rgba(0, 0, 0, 0.28);
+  text-align: left;
+}
+
+.novira-studio .pro-properties .inspector-empty-card__title {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--st-text);
+  margin-bottom: 6px;
+}
+
+.novira-studio .pro-properties .inspector-empty-card__text {
+  margin: 0 0 10px;
+  font-size: 10px;
+  line-height: 1.5;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-properties .inspector-empty-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.novira-studio .pro-properties .inspector-chip-btn {
+  padding: 6px 10px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--st-border);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--st-muted);
+  transition: border-color 0.12s, background 0.12s, color 0.12s;
+}
+
+.novira-studio .pro-properties .inspector-chip-btn:hover {
+  color: var(--st-text);
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.novira-studio .pro-properties .inspector-chip-btn--accent {
+  border-color: rgba(56, 189, 248, 0.45);
+  background: rgba(56, 189, 248, 0.1);
+  color: var(--st-accent);
+}
+
+.novira-studio .pro-properties .inspector-callout {
+  margin-bottom: 10px;
+  padding: 8px 10px;
+  border-radius: var(--st-radius-xs);
+  background: rgba(52, 211, 153, 0.06);
+  border: 1px solid rgba(52, 211, 153, 0.22);
+}
+
+.novira-studio .pro-properties .inspector-callout__title {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #4ade80;
+  margin-bottom: 6px;
+}
+
+.novira-studio .pro-properties .inspector-callout__line {
+  font-size: 10px;
+  color: var(--st-muted);
+  margin-bottom: 4px;
+  line-height: 1.4;
+}
+
+.novira-studio .pro-properties .inspector-callout__muted {
+  color: var(--st-muted-2);
+  margin-right: 4px;
+}
+
+.novira-studio .pro-properties .inspector-callout__strong {
+  color: var(--st-text);
+  font-weight: 600;
+}
+
+.novira-studio .pro-properties .inspector-callout__break {
+  width: 100%;
+  margin-top: 6px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  background: rgba(248, 113, 113, 0.08);
+  color: #fca5a5;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+
+.novira-studio .pro-properties .inspector-callout__break:hover {
+  background: rgba(248, 113, 113, 0.14);
+  border-color: rgba(248, 113, 113, 0.55);
+}
+
+.novira-studio .pro-properties .inspector-delta-card {
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid var(--st-border);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.novira-studio .pro-properties .inspector-delta-card--move {
+  border-color: rgba(56, 189, 248, 0.28);
+  background: rgba(56, 189, 248, 0.06);
+}
+
+.novira-studio .pro-properties .inspector-delta-card--rotate {
+  border-color: rgba(129, 140, 248, 0.28);
+  background: rgba(99, 102, 241, 0.07);
+}
+
+.novira-studio .pro-properties .inspector-delta-card__title {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+  margin-bottom: 6px;
+}
+
+.novira-studio .pro-properties .inspector-delta-card__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.novira-studio .pro-properties .inspector-delta-card__cell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.novira-studio .pro-properties .inspector-delta-card__axis {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .pro-properties .inspector-delta-card__val {
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--st-text);
+}
+
+.novira-studio .pro-properties .inspector-file-field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 8px;
+  padding: 8px 10px;
+  border-radius: var(--st-radius-xs);
+  border: 1px dashed var(--st-border);
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s;
+}
+
+.novira-studio .pro-properties .inspector-file-field:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  background: rgba(56, 189, 248, 0.06);
+}
+
+.novira-studio .pro-properties .inspector-file-field__text {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-properties .inspector-file-field__input {
+  display: none;
+}
+
+.novira-studio .pro-properties .inspector-logo-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 10px;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-properties .inspector-logo-row__ok {
+  color: #4ade80;
+  font-weight: 800;
+}
+
+.novira-studio .pro-properties .inspector-logo-row__name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novira-studio .pro-properties .inspector-logo-row__clear {
+  flex-shrink: 0;
+  border: none;
+  background: transparent;
+  color: #f87171;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px 4px;
+}
+
+.novira-studio .pro-properties .inspector-project-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.novira-studio .pro-properties .inspector-scene-estimate {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 9px;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid var(--st-border);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.novira-studio .pro-properties .inspector-scene-estimate__label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .pro-properties .inspector-scene-estimate__value {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--st-text);
+}
+
+.novira-studio .pro-properties .inspector-project-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+  padding: 6px 4px;
+  border: none;
+  border-radius: var(--st-radius-xs);
+  background: transparent;
+  color: var(--st-muted);
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: left;
+  transition: background 0.12s, color 0.12s;
+}
+
+.novira-studio .pro-properties .inspector-project-toggle:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--st-text);
+}
+
+.novira-studio .pro-properties .inspector-project-toggle__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.novira-studio .pro-properties .inspector-project-toggle__icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .pro-properties .inspector-project-toggle__switch {
+  transform: scale(0.92);
+  transform-origin: right center;
+}
+
+.novira-studio .pro-properties .inspector-project-toggle .rp-toggle {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.novira-studio .pro-properties .inspector-project-toggle .rp-toggle.on {
+  background: rgba(56, 189, 248, 0.55);
+}
+
+.novira-studio .pro-properties .inspector-rule {
+  height: 1px;
+  background: var(--st-border);
+  margin: 2px 0;
+}
+
+/* ── Blender-style Properties sidebar (N-panel look) ── */
+.novira-studio .props-sidebar-wrap .props-sidebar-collapse-btn {
+  position: absolute;
+  left: -14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 44px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #1a1a1a;
+  border-right: none;
+  border-radius: 3px 0 0 3px;
+  background: linear-gradient(90deg, #3d3d3d, #353535);
+  color: #c4c4c4;
+  cursor: pointer;
+  z-index: 30;
+  box-shadow: -1px 0 0 rgba(0, 0, 0, 0.35) inset;
+  transition: background 0.15s, color 0.15s;
+}
+
+.novira-studio .props-sidebar-wrap .props-sidebar-collapse-btn:hover {
+  background: linear-gradient(90deg, #4a4a4a, #404040);
+  color: #ffffff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root {
+  background: #303030 !important;
+  border-left: 1px solid #181818 !important;
+  color: #e6e6e6;
+  font-family: "Segoe UI", "Helvetica Neue", system-ui, sans-serif;
+  font-size: 11px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-scrollable.props-sidebar--blender {
+  background: transparent;
+  padding: 6px 5px 12px 6px !important;
+  scrollbar-color: #5a5a5a #2a2a2a;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-scrollable.props-sidebar--blender::-webkit-scrollbar {
+  width: 10px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-scrollable.props-sidebar--blender::-webkit-scrollbar-track {
+  background: #2a2a2a;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-scrollable.props-sidebar--blender::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 5px;
+  border: 2px solid #2a2a2a;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-resize-handle:hover {
+  background: rgba(86, 128, 233, 0.12);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-like-tabs {
+  display: flex;
+  gap: 0;
+  margin-bottom: 6px;
+  padding: 0;
+  border: none;
+  border-bottom: 1px solid #181818;
+  border-radius: 0;
+  background: #282828;
+  box-shadow: 0 1px 0 #3a3a3a;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-like-tabs__tab {
+  flex: 1;
+  border: none;
+  border-radius: 0;
+  padding: 7px 4px 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: #a8a8a8;
+  background: transparent;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-like-tabs__tab:hover {
+  color: #e8e8e8;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-like-tabs__tab.is-active {
+  color: #ffffff;
+  background: #303030;
+  border-bottom-color: #5680e9;
+  border-color: transparent;
+  box-shadow: 0 -1px 0 #3a3a3a inset;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-panel__heading {
+  border-bottom-color: #454545;
+  margin-bottom: 6px;
+  padding-bottom: 6px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-panel__heading-label {
+  letter-spacing: 0.06em;
+  color: #b0b0b0;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-target-bar {
+  background: #353535;
+  border-color: #454545;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-target-bar__icon {
+  color: #9e9e9e;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-target-bar__name {
+  color: #f0f0f0;
+  font-weight: 500;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-target-bar__type {
+  background: #2a2a2a;
+  border-color: #4a4a4a;
+  color: #b8b8b8;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-target-bar--layout {
+  box-shadow: inset 3px 0 0 #6b9e4a;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-target-bar--layout .inspector-target-bar__icon {
+  color: #8bc34a;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-section {
+  border-color: #454545 !important;
+  background: #353535 !important;
+  border-radius: 2px !important;
+  margin-bottom: 4px !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-section__header,
+.novira-studio .pro-properties.props-sidebar--blender-root .props-section__header.color-transform,
+.novira-studio .pro-properties.props-sidebar--blender-root .props-section__header.color-materials,
+.novira-studio .pro-properties.props-sidebar--blender-root .props-section__header.color-lighting,
+.novira-studio .pro-properties.props-sidebar--blender-root .props-section__header.color-branding {
+  background: #3a3a3a !important;
+  border-bottom-color: #4a4a4a !important;
+  color: #d0d0d0 !important;
+  letter-spacing: 0.04em;
+  box-shadow: none !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-section__header:hover {
+  background: #424242 !important;
+  color: #ffffff !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-section--open .props-section__header {
+  color: #ffffff !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-section__body {
+  background: #303030;
+  padding: 6px 8px 8px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-section__chev {
+  color: #909090;
+  opacity: 1;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .scene-tree-node {
+  color: #c8c8c8 !important;
+  border-radius: 2px !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .scene-tree-node:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .scene-tree-node.selected {
+  background: rgba(86, 128, 233, 0.22) !important;
+  border: 1px solid rgba(86, 128, 233, 0.55) !important;
+  color: #ffffff !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .scene-tree-node.selected .scene-tree-node__icon {
+  color: #a8c4ff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .scene-tree-node__caret {
+  color: #888;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-input-group {
+  background: #282828 !important;
+  border-color: #4a4a4a !important;
+  border-radius: 2px !important;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.35) !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-input-group:focus-within {
+  border-color: #5680e9 !important;
+  background: #2e3238 !important;
+  box-shadow: 0 0 0 1px rgba(86, 128, 233, 0.35) !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-input-field {
+  background: transparent !important;
+  border: none !important;
+  color: #f2f2f2 !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-input-field:focus {
+  outline: none;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-field-label {
+  color: #a0a0a0;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-group-title {
+  color: #9a9a9a;
+  border-bottom-color: #454545;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-tool-btn {
+  background: #383838;
+  border-color: #4d4d4d;
+  color: #c8c8c8;
+  border-radius: 2px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-tool-btn:hover {
+  background: #444444;
+  border-color: #5a5a5a;
+  color: #ffffff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .props-tool-btn--active {
+  background: #4a4f5c;
+  border-color: #5680e9;
+  color: #dce6ff;
+  box-shadow: inset 0 0 0 1px rgba(86, 128, 233, 0.35);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-subsection-head {
+  border-bottom-color: #454545;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-subsection-head__title {
+  color: #b8b8b8;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-subsection-head__meta {
+  color: #888;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-editmesh-card {
+  background: #353535;
+  border: 1px solid #454545;
+  border-radius: 2px;
+  padding: 8px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-nested-card,
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-mesh-bounds {
+  background: #353535 !important;
+  border: 1px solid #454545 !important;
+  border-radius: 2px !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-readout-strip,
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-modifier-card,
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-empty-card,
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-delta-card {
+  background: #353535;
+  border-color: #454545;
+  border-radius: 2px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-slider__track {
+  background: #252525 !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-slider__fill {
+  background: #5680e9 !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-swatch.active {
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.15),
+    0 0 0 2px rgba(86, 128, 233, 0.65);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-icon-btn {
+  background: #383838;
+  border-color: #4d4d4d;
+  color: #c0c0c0;
+  border-radius: 2px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-icon-btn:hover {
+  background: #484848;
+  border-color: #5680e9;
+  color: #ffffff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-pill-btn {
+  background: #383838;
+  border-color: #4d4d4d;
+  color: #d8d8d8;
+  border-radius: 2px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-pill-btn:hover {
+  border-color: #6d6d6d;
+  color: #ffffff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-pill-btn--active {
+  border-color: #5680e9;
+  background: rgba(86, 128, 233, 0.2);
+  color: #e8edff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-btn--primary {
+  background: linear-gradient(180deg, #5a7fd4, #4568b8);
+  box-shadow: none;
+  border: 1px solid #3d5a9e;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-btn--secondary {
+  border-color: #4d4d4d;
+  background: #383838;
+  color: #e0e0e0;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-btn--secondary:hover {
+  background: #444444;
+  border-color: #5680e9;
+  color: #ffffff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-btn--dashed {
+  border-color: #5a5a5a;
+  background: #333;
+  color: #c8c8c8;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-chip-btn {
+  background: #383838;
+  border-color: #4d4d4d;
+  color: #d0d0d0;
+  border-radius: 2px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-chip-btn--accent {
+  border-color: #5680e9;
+  background: rgba(86, 128, 233, 0.15);
+  color: #c8d8ff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-hint {
+  color: #909090;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-color-input {
+  border-color: #4d4d4d;
+  border-radius: 2px;
+  background: #282828;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-check {
+  accent-color: #5680e9;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-vp-panel--hero {
+  border-color: #454545;
+  background: linear-gradient(165deg, #383838, #2c2c2c);
+  box-shadow: none;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-vp-panel__head {
+  color: #b8b8b8;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-vp-sun {
+  border-color: #454545;
+  background: #353535;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-project-toggle .rp-toggle.on {
+  background: #5680e9;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-callout {
+  background: rgba(107, 158, 74, 0.08);
+  border-color: rgba(107, 158, 74, 0.35);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-callout__title {
+  color: #8bc34a;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-delta-card--move {
+  border-color: rgba(86, 128, 233, 0.35);
+  background: rgba(86, 128, 233, 0.08);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-delta-card--rotate {
+  border-color: rgba(156, 136, 255, 0.35);
+  background: rgba(120, 100, 200, 0.1);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-readout-strip__action:hover {
+  border-color: #5680e9;
+  color: #c8d8ff;
+  background: rgba(86, 128, 233, 0.1);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .inspector-file-field:hover {
+  border-color: #5680e9;
+  background: rgba(86, 128, 233, 0.06);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .scene-action-btn {
+  background: #3a3a3a;
+  color: #b0b0b0;
+  box-shadow: none;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .scene-action-btn:hover {
+  background: #484848;
+  border-color: #5680e9;
+  color: #ffffff;
+  transform: none;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .scene-action-delete:hover {
+  color: #ff9a9a;
+  background: rgba(248, 113, 113, 0.18);
+  border-color: rgba(248, 113, 113, 0.45);
+}
+
+/* Blender Material Properties layout (sidebar) */
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-materials {
+  margin-top: 2px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-sphere {
+  --blender-mat: #b0b0b0;
+  display: inline-block;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1px solid #0d0d0d;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 3px 4px 6px rgba(255, 255, 255, 0.22),
+    inset -4px -5px 8px rgba(0, 0, 0, 0.45);
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.75), transparent 42%),
+    radial-gradient(circle at 72% 72%, rgba(0, 0, 0, 0.35), transparent 45%),
+    repeating-conic-gradient(#6a6a6a 0% 25%, #909090 0% 50%) 0 0 / 9px 9px,
+    linear-gradient(135deg, var(--blender-mat), var(--blender-mat));
+  background-blend-mode: screen, multiply, normal, normal;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-sphere--sm {
+  width: 16px;
+  height: 16px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-sphere--md {
+  width: 22px;
+  height: 22px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-sphere--lg {
+  width: 28px;
+  height: 28px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-slots {
+  display: flex;
+  gap: 0;
+  margin-bottom: 6px;
+  border: 1px solid #1a1a1a;
+  border-radius: 2px;
+  background: #282828;
+  min-height: 72px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-slots__list {
+  flex: 1;
+  min-width: 0;
+  max-height: 140px;
+  overflow-y: auto;
+  padding: 2px 0;
+  scrollbar-color: #555 #282828;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-slots__row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 8px;
+  border: none;
+  background: transparent;
+  color: #e0e0e0;
+  font-size: 11px;
+  text-align: left;
+  cursor: pointer;
+  border-left: 3px solid transparent;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-slots__row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-slots__row.is-active {
+  background: rgba(86, 128, 233, 0.22);
+  border-left-color: #5680e9;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-slots__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-slots__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2px;
+  padding: 4px 3px;
+  border-left: 1px solid #1a1a1a;
+  background: #323232;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-rail-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background: transparent;
+  color: #c8c8c8;
+  cursor: pointer;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-rail-btn:hover:not(:disabled) {
+  background: #3d3d3d;
+  border-color: #555;
+  color: #fff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-rail-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-rail-menu {
+  position: relative;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-rail-menu__summary {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 2px;
+  color: #c8c8c8;
+  cursor: pointer;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-rail-menu__summary::-webkit-details-marker {
+  display: none;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-rail-menu__summary:hover {
+  background: #3d3d3d;
+  color: #fff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-rail-menu__body {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 50;
+  min-width: 168px;
+  margin-top: 2px;
+  padding: 4px 0;
+  background: #383838;
+  border: 1px solid #1a1a1a;
+  border-radius: 2px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-rail-menu__item {
+  display: block;
+  width: 100%;
+  padding: 6px 10px;
+  border: none;
+  background: transparent;
+  color: #e4e4e4;
+  font-size: 11px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-rail-menu__item:hover:not(:disabled) {
+  background: rgba(86, 128, 233, 0.25);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-rail-menu__item:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-datablock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 5px 6px;
+  background: #323232;
+  border: 1px solid #1a1a1a;
+  border-radius: 2px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-datablock__name {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px !important;
+  padding: 4px 6px !important;
+  border-radius: 2px !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-datablock__static {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  font-weight: 500;
+  color: #e8e8e8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-iconbtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background: transparent;
+  color: #b8b8b8;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-iconbtn:hover:not(:disabled) {
+  background: #404040;
+  border-color: #555;
+  color: #fff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-iconbtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-hint {
+  margin: 0 0 8px;
+  font-size: 10px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-subpanel {
+  margin-bottom: 2px;
+  border-top: 1px solid #3a3a3a;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-subpanel__head {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  padding: 5px 4px;
+  border: none;
+  background: transparent;
+  color: #d8d8d8;
+  font-size: 11px;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-subpanel__head:hover {
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-subpanel__body {
+  padding: 6px 4px 8px 18px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-preview {
+  display: flex;
+  gap: 6px;
+  align-items: stretch;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-preview__stage {
+  flex: 1;
+  min-height: 72px;
+  border-radius: 2px;
+  border: 1px solid #1a1a1a;
+  background-color: #252525;
+  background-image:
+    linear-gradient(45deg, #333 25%, transparent 25%),
+    linear-gradient(-45deg, #333 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #333 75%),
+    linear-gradient(-45deg, transparent 75%, #333 75%);
+  background-size: 10px 10px;
+  background-position: 0 0, 0 5px, 5px -5px, -5px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-preview__stage--sphere::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%);
+  width: 52%;
+  height: 56%;
+  max-width: 72px;
+  max-height: 72px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 32% 28%, rgba(255, 255, 255, 0.55), transparent 42%),
+    radial-gradient(circle at 70% 72%, rgba(0, 0, 0, 0.4), transparent 45%),
+    linear-gradient(145deg, var(--pv, #888), var(--pv, #888));
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.45);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-preview__stage--cube::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%, -50%) rotateX(12deg) rotateY(-18deg);
+  width: 46%;
+  height: 46%;
+  max-width: 64px;
+  max-height: 64px;
+  border-radius: 3px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.2), transparent 40%),
+    linear-gradient(145deg, var(--pv, #888), #2a2a2a);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 0, 0, 0.4),
+    0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-preview__shapes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 2px 0;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-preview-shape {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 1px solid #454545;
+  border-radius: 2px;
+  background: #353535;
+  color: #aaa;
+  font-size: 11px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-preview-shape.is-on {
+  border-color: #5680e9;
+  background: #404a5c;
+  color: #fff;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-shader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+  padding: 3px 4px;
+  background: #2c2c2c;
+  border: 1px solid #1a1a1a;
+  border-radius: 2px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-shader__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #6fcf97;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px #1a3d28;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-shader__lbl {
+  font-size: 10px;
+  color: #a0a0a0;
+  flex-shrink: 0;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-shader__select {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  padding: 3px 4px;
+  border-radius: 2px;
+  border: 1px solid #454545;
+  background: #383838;
+  color: #ececec;
+  cursor: default;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-row--color {
+  display: grid;
+  grid-template-columns: auto 1fr auto 14px;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-row__label {
+  font-size: 11px;
+  color: #d0d0d0;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-color-wide {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  height: 22px;
+  border-radius: 2px;
+  border: 1px solid #1a1a1a;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-color-wide input[type="color"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  border: none;
+  padding: 0;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-color-dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid #1a1a1a;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
+  flex-shrink: 0;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-sliders .inspector-slider {
+  margin-bottom: 8px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-face-tools {
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #454545;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-face-tools__label {
+  display: block;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #909090;
+  margin-bottom: 6px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-face-tools__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 4px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-face-tools__extrude {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-face-tools__extrude-label {
+  font-size: 10px;
+  color: #a0a0a0;
+  min-width: 48px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-extrude-input {
+  flex: 1;
+  min-width: 0;
+  max-width: 72px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-datablock-wrap {
+  position: relative;
+  margin-bottom: 6px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(100% + 4px);
+  z-index: 80;
+  background: #383838;
+  border: 1px solid #0d0d0d;
+  border-radius: 3px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+  max-height: min(320px, 55vh);
+  display: flex;
+  flex-direction: column;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__head {
+  padding: 6px 8px;
+  border-bottom: 1px solid #2a2a2a;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__title {
+  font-size: 11px;
+  font-weight: 600;
+  color: #ececec;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-bottom: 1px solid #2a2a2a;
+  color: #a0a0a0;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__search-input {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px !important;
+  padding: 4px 6px !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 2px 0;
+  scrollbar-color: #555 #333;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__empty {
+  padding: 12px 10px;
+  font-size: 11px;
+  color: #909090;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__row {
+  display: flex;
+  align-items: stretch;
+  border-bottom: 1px solid #2f2f2f;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__pick {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 8px;
+  border: none;
+  background: transparent;
+  color: #e8e8e8;
+  font-size: 11px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__pick:hover {
+  background: rgba(86, 128, 233, 0.22);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__pick-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__pick-meta {
+  flex-shrink: 0;
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #888;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__del {
+  width: 28px;
+  flex-shrink: 0;
+  border: none;
+  border-left: 1px solid #2f2f2f;
+  background: transparent;
+  color: #a0a0a0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__del:hover {
+  color: #fca5a5;
+  background: rgba(248, 113, 113, 0.12);
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__foot {
+  padding: 6px 8px;
+  border-top: 1px solid #2a2a2a;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-list-popover__foot .inspector-pill-btn {
+  width: 100%;
+  justify-content: center;
+  gap: 6px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-frame-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  padding: 4px 6px;
+  background: #2c2c2c;
+  border: 1px solid #1a1a1a;
+  border-radius: 2px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-frame-row__lbl {
+  font-size: 10px;
+  font-weight: 600;
+  color: #a8a8a8;
+  min-width: 38px;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-mat-frame-input {
+  width: 64px !important;
+  font-size: 11px !important;
+  padding: 3px 6px !important;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-sliderow--kf {
+  display: grid;
+  grid-template-columns: 1fr 16px;
+  gap: 4px;
+  align-items: center;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-surface-sliderow__main {
+  min-width: 0;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-keyframe-dot {
+  width: 10px;
+  height: 10px;
+  padding: 0;
+  border: 1px solid #555;
+  border-radius: 2px;
+  background: #4a4a4a;
+  cursor: pointer;
+  flex-shrink: 0;
+  transform: rotate(45deg);
+  transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-keyframe-dot:hover {
+  border-color: #888;
+  background: #555;
+}
+
+.novira-studio .pro-properties.props-sidebar--blender-root .blender-keyframe-dot.is-keyed {
+  background: linear-gradient(135deg, #f6ad55, #ed8936);
+  border-color: #c05621;
+  box-shadow: 0 0 0 1px rgba(237, 137, 54, 0.35);
+}
+
+.novira-studio .pro-properties .inspector-pill-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.novira-studio .pro-properties .inspector-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px 6px;
+  border-radius: 8px;
+  border: 1px solid var(--st-border);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--st-muted);
+  font-size: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.12s, background 0.12s, color 0.12s;
+}
+
+.novira-studio .pro-properties .inspector-pill-btn:hover {
+  border-color: rgba(56, 189, 248, 0.35);
+  color: var(--st-text);
+}
+
+.novira-studio .pro-properties .inspector-pill-btn--active {
+  border-color: rgba(56, 189, 248, 0.5);
+  background: rgba(56, 189, 248, 0.12);
+  color: var(--st-accent);
+}
+
+.novira-studio .pro-properties .inspector-pill-btn--solid {
+  border: none;
+  background: rgba(56, 189, 248, 0.22);
+  color: var(--st-text);
+}
+
+.novira-studio .pro-properties .inspector-pill-btn--solid:hover {
+  background: rgba(56, 189, 248, 0.32);
+}
+
+.novira-studio .pro-properties .inspector-vp-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.novira-studio .pro-properties .inspector-vp-panel--hero {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  background:
+    linear-gradient(165deg, rgba(14, 26, 48, 0.92), rgba(8, 12, 24, 0.92)),
+    radial-gradient(circle at 0% 0%, rgba(56, 189, 248, 0.18), transparent 58%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+}
+
+.novira-studio .pro-properties .inspector-vp-panel__head {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--st-accent);
+}
+
+.novira-studio .pro-properties .inspector-vp-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.novira-studio .pro-properties .inspector-vp-sun {
+  margin-top: 2px;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid rgba(56, 189, 248, 0.2);
+  background: rgba(2, 6, 23, 0.55);
+}
+
+.novira-studio .pro-properties .inspector-vp-sun__title {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--st-muted-2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+
+.novira-studio .pro-properties .inspector-vp-sun__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.novira-studio .pro-properties .inspector-vp-sun__row label,
+.novira-studio .pro-properties .inspector-vp-sun__range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-properties .inspector-vp-sun__row input[type="number"] {
+  flex: 1;
+  min-width: 0;
+  padding: 4px 6px;
+  border-radius: 6px;
+  border: 1px solid var(--st-border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--st-text);
+}
+
+.novira-studio .pro-properties .inspector-vp-sun__range input[type="range"] {
+  flex: 1;
+}
+
+.novira-studio .pro-properties .inspector-vector-row--tight {
+  gap: 4px;
+}
+
+.novira-studio .pro-accordion-header {
+  background: rgba(0, 0, 0, 0.2) !important;
+  color: var(--st-muted) !important;
+  border-bottom: 1px solid var(--st-border) !important;
+}
+
+/* ── Viewport chrome ── */
+.novira-studio .editor-center-new {
+  background: transparent;
+}
+
+.novira-studio .editor-center-new--floorplan {
+  flex: 1;
+  min-height: 0;
+}
+
+.novira-studio .planner-studio-viewport {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  /* Tablet / Apple Pencil: allow pan-zoom while reducing accidental browser gestures */
+  touch-action: manipulation;
+}
+
+.novira-studio .planner-studio-viewport--arc-pick {
+  box-shadow: inset 0 0 0 2px rgba(251, 191, 36, 0.75);
+  outline: 1px solid rgba(251, 191, 36, 0.35);
+  outline-offset: -1px;
+}
+
+.novira-studio .planner-studio-viewport--rect-pick {
+  box-shadow: inset 0 0 0 2px rgba(56, 189, 248, 0.7);
+  outline: 1px solid rgba(56, 189, 248, 0.35);
+  outline-offset: -1px;
+}
+
+.novira-studio .planner-studio-root {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.novira-studio .planner-catalog-bar {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0 12px 10px;
+  border-bottom: 1px solid var(--st-border);
+  background: rgba(12, 12, 20, 0.94);
+  z-index: 5;
+}
+
+.novira-studio .planner-bar-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.novira-studio .planner-bar-row:last-of-type {
+  border-bottom: none;
+}
+
+.novira-studio .planner-bar-row--library {
+  padding-top: 10px;
+}
+
+.novira-studio .planner-bar-row--sync {
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.novira-studio .planner-bar-row--advanced {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 8px;
+  padding-bottom: 4px;
+  border-bottom: none;
+}
+
+.novira-studio .planner-bar-row--advanced .planner-arc-details {
+  margin-top: 0;
+}
+
+.novira-studio .planner-bar-row--chips {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 6px;
+}
+
+.novira-studio .planner-bar-eyebrow {
+  flex: 0 0 auto;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+  min-width: 4.5rem;
+}
+
+.novira-studio .planner-bar-row--library .planner-bar-eyebrow {
+  align-self: center;
+}
+
+.novira-studio .planner-bar-row--chips .planner-catalog-bar__chips {
+  width: 100%;
+}
+
+.novira-studio .planner-catalog-bar__label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.novira-studio .planner-catalog-bar input[type="text"],
+.novira-studio .planner-catalog-bar input[type="url"] {
+  flex: 1 1 120px;
+  min-width: 120px;
+  max-width: 280px;
+  padding: 6px 10px;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid var(--st-border);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--st-text);
+  font-size: 12px;
+}
+
+.novira-studio .planner-catalog-bar input[type="number"] {
+  padding: 5px 8px;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid var(--st-border);
+  background: rgba(0, 0, 0, 0.25);
+  color: var(--st-text);
+  font-size: 12px;
+  width: 52px;
+}
+
+.novira-studio .planner-catalog-bar input:focus {
+  outline: none;
+  border-color: var(--st-border-strong);
+}
+
+.novira-studio .planner-catalog-bar button {
+  padding: 6px 11px;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid var(--st-border-strong);
+  background: linear-gradient(135deg, var(--st-accent-deep), #0369a1);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.novira-studio .planner-catalog-bar button:hover {
+  filter: brightness(1.06);
+}
+
+.novira-studio .planner-catalog-bar button.planner-bridge-cta {
+  background: linear-gradient(135deg, #0d9488, #14b8a6);
+  border-color: rgba(45, 212, 191, 0.45);
+  color: #f0fdfa;
+}
+
+.novira-studio .planner-catalog-bar button.planner-bridge-cta:hover {
+  filter: brightness(1.08);
+}
+
+.novira-studio .planner-catalog-bar button.secondary {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--st-border);
+  color: var(--st-muted);
+}
+
+.novira-studio .planner-catalog-bar button.secondary:hover {
+  color: var(--st-text);
+  border-color: var(--st-border-strong);
+}
+
+.novira-studio .planner-bar-sync-cta {
+  flex: 0 0 auto;
+  padding: 8px 16px !important;
+  font-size: 12px !important;
+}
+
+.novira-studio .planner-opening-tools {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px 2px 6px;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid var(--st-border);
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.novira-studio .planner-opening-tools__label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+  margin-right: 2px;
+}
+
+.novira-studio .planner-roof-pitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+
+.novira-studio .planner-roof-pitch__label {
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+}
+
+.novira-studio .planner-bar-help {
+  flex: 1 1 200px;
+  min-width: 0;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid transparent;
+}
+
+.novira-studio .planner-bar-help[open] {
+  border-color: var(--st-border);
+  background: rgba(0, 0, 0, 0.22);
+  padding: 0 8px 8px;
+}
+
+.novira-studio .planner-bar-help__summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+  padding: 6px 0;
+  user-select: none;
+}
+
+.novira-studio .planner-bar-help__summary::-webkit-details-marker {
+  display: none;
+}
+
+.novira-studio .planner-bar-help__summary::after {
+  content: " ›";
+  opacity: 0.55;
+}
+
+.novira-studio .planner-bar-help[open] .planner-bar-help__summary::after {
+  content: " ⌄";
+}
+
+.novira-studio .planner-bar-help__body {
+  font-size: 11px;
+  line-height: 1.45;
+  color: var(--st-muted);
+  padding-top: 2px;
+}
+
+.novira-studio .planner-bar-help__body ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.novira-studio .planner-bar-help__body li {
+  margin-bottom: 4px;
+}
+
+.novira-studio .planner-catalog-bar__hint {
+  width: 100%;
+  font-size: 11px;
+  color: var(--st-muted);
+  line-height: 1.35;
+}
+
+.novira-studio .planner-catalog-bar__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+}
+
+.novira-studio .planner-arc-details__summary {
+  cursor: pointer;
+  list-style: none;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--st-muted);
+  user-select: none;
+}
+
+.novira-studio .planner-arc-details__summary::-webkit-details-marker {
+  display: none;
+}
+
+.novira-studio .planner-arc-details__hint {
+  margin: 0;
+  font-size: 10px;
+  color: var(--st-muted-2);
+  line-height: 1.45;
+  grid-column: 1 / -1;
+}
+
+.novira-studio .planner-trace-details__hint {
+  flex: 1 1 100%;
+}
+
+.novira-studio .planner-catalog-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  background: var(--st-surface-2);
+  border: 1px solid var(--st-border);
+  color: var(--st-muted);
+  max-width: 100%;
+}
+
+.novira-studio .planner-catalog-chip span:not(.planner-catalog-chip__badge) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 220px;
+}
+
+.novira-studio .planner-catalog-chip__badge {
+  flex-shrink: 0;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--st-muted-2);
+  padding: 2px 6px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.novira-studio .planner-catalog-chip--scene {
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.novira-studio .planner-catalog-chip button {
+  padding: 2px 6px;
+  font-size: 10px;
+  border: none;
+  background: transparent;
+  color: var(--st-muted-2);
+  cursor: pointer;
+}
+
+.novira-studio .planner-catalog-chip button:hover {
+  color: #f87171;
+}
+
+.novira-studio .viewport {
+  position: relative;
+}
+
+.novira-studio .viewport::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  box-shadow: inset 0 0 120px rgba(2, 132, 199, 0.04);
+  z-index: 1;
+}
+
+.novira-studio .canvas-wrapper {
+  border-radius: var(--st-radius);
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--st-border), 0 24px 80px rgba(0, 0, 0, 0.45), var(--st-glow);
+  margin: 8px 10px 10px;
+  flex: 1;
+  min-height: 0;
+}
+
+.novira-studio .canvas-top-strip {
+  margin: 10px 10px 0;
+  padding: 8px 12px;
+  border-radius: var(--st-radius-sm);
+  background: rgba(18, 18, 28, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--st-border);
+  gap: 8px;
+  max-width: min(960px, calc(100% - 20px));
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.novira-studio .viewport-toolbar__popover {
+  background: rgba(12, 12, 20, 0.96);
+  border: 1px solid var(--st-border-strong);
+  color: var(--st-text);
+  box-shadow: 0 20px 56px rgba(0, 0, 0, 0.55);
+}
+
+.novira-studio .viewport-toolbar__field input {
+  border-color: var(--st-border);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--st-text);
+}
+
+.novira-studio .viewport-toolbar__menu-item:hover {
+  background: rgba(56, 189, 248, 0.12);
+}
+
+.novira-studio .viewport-toolbar__menu-item.is-on {
+  color: var(--st-teal);
+}
+
+.novira-studio .viewport-readout-column {
+  top: 58px;
+}
+
+.novira-studio .transform-constraints-hud--tl {
+  top: 18px;
+  left: 10px;
+  background: rgba(14, 14, 22, 0.9);
+  border-color: var(--st-border);
+}
+
+.novira-studio .object-info-hud {
+  background: rgba(14, 14, 22, 0.9);
+  border-color: var(--st-border);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.32);
+}
+
+.novira-studio .quick-transform-hud {
+  background: rgba(14, 14, 22, 0.92);
+  border-color: var(--st-border);
+}
+
+.novira-studio .viewport-toolbar__chip-state[data-on="true"] {
+  color: var(--st-teal);
+}
+
+.novira-studio .editor-layout .canvas-tool-btn.horizontal.viewport-toolbar__chip.active .viewport-toolbar__chip-state {
+  color: var(--st-teal) !important;
+}
+
+.novira-studio .canvas-tool-btn {
+  border-radius: 999px !important;
+  border: 1px solid var(--st-border) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+  color: var(--st-muted) !important;
+  transition: transform 0.15s, border-color 0.15s, background 0.15s !important;
+}
+
+.novira-studio .canvas-tool-btn:hover {
+  border-color: var(--st-border-strong) !important;
+  color: var(--st-text) !important;
+}
+
+.novira-studio .canvas-tool-btn.active {
+  border-color: rgba(45, 212, 191, 0.5) !important;
+  background: rgba(45, 212, 191, 0.1) !important;
+  color: var(--st-teal) !important;
+}
+
+.novira-studio .editor-viewport-status {
+  background: rgba(14, 14, 22, 0.88) !important;
+  border: 1px solid var(--st-border-strong) !important;
+  border-radius: 999px !important;
+  color: var(--st-muted) !important;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.novira-studio .editor-viewport-status__mode {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .editor-viewport-status__tool {
+  color: var(--st-accent) !important;
+}
+
+.novira-studio .viewport-edit-mode-strip {
+  position: absolute;
+  top: 52px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 36;
+  display: flex;
+  gap: 6px;
+  padding: 6px;
+  border-radius: 999px;
+  border: 1px solid var(--st-border);
+  background: rgba(14, 14, 22, 0.86);
+  backdrop-filter: blur(10px);
+}
+
+.novira-studio .viewport-edit-mode-pill {
+  border: 1px solid var(--st-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--st-muted);
+  font-size: 11px;
+  line-height: 1;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.novira-studio .viewport-edit-mode-pill.is-active {
+  border-color: var(--st-accent);
+  color: var(--st-accent);
+  background: rgba(56, 189, 248, 0.14);
+}
+
+.novira-studio .viewport-controls-launcher {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 36;
+  border: 1px solid var(--st-border-strong);
+  border-radius: 999px;
+  background: rgba(14, 14, 22, 0.82);
+  color: var(--st-text);
+  font-size: 11px;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  padding: 9px 12px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.28);
+  cursor: pointer;
+  transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+}
+
+.novira-studio .viewport-controls-launcher.is-active {
+  border-color: var(--st-accent);
+  background: rgba(15, 23, 42, 0.92);
+}
+
+.novira-studio .viewport-controls-launcher:hover {
+  border-color: var(--st-accent);
+  background: rgba(15, 23, 42, 0.9);
+  transform: translateY(-1px);
+}
+
+.novira-studio .viewport-controls-launcher:focus-visible {
+  outline: none;
+  border-color: var(--st-accent);
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.22), 0 8px 22px rgba(0, 0, 0, 0.28);
+}
+
+.novira-studio .viewport-controls-popover {
+  position: absolute;
+  top: 52px;
+  right: 14px;
+  z-index: 37;
+  width: min(340px, calc(100vw - 44px));
+  border: 1px solid var(--st-border-strong);
+  border-radius: 14px;
+  background: rgba(12, 16, 26, 0.93);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.38);
+  padding: 10px;
+}
+
+.novira-studio .viewport-controls-popover__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  color: var(--st-text);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.novira-studio .viewport-controls-popover__head button {
+  border: 1px solid var(--st-border);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--st-muted);
+  font-size: 11px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.novira-studio .viewport-controls-popover__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 7px;
+}
+
+.novira-studio .viewport-controls-popover .inspector-pill-btn {
+  border-radius: 10px !important;
+  font-size: 11px !important;
+  padding: 7px 9px !important;
+}
+
+.novira-studio .viewport-controls-popover__sun {
+  margin-top: 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--st-border);
+}
+
+.novira-studio .viewport-controls-popover__sun-title {
+  font-size: 11px;
+  color: var(--st-text);
+  margin-bottom: 6px;
+}
+
+.novira-studio .viewport-controls-popover__sun-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.novira-studio .viewport-controls-popover__sun-row label,
+.novira-studio .viewport-controls-popover__sun-range {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 10px;
+  color: var(--st-muted);
+}
+
+.novira-studio .viewport-controls-popover__sun-row input[type="number"] {
+  border: 1px solid var(--st-border);
+  border-radius: 7px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--st-text);
+  font-size: 11px;
+  padding: 5px 7px;
+}
+
+.novira-studio .viewport-controls-popover__sun-range input[type="range"] {
+  width: 100%;
+}
+
+.novira-studio .floating-tool-btn {
+  border-radius: var(--st-radius-xs) !important;
+  border: 1px solid var(--st-border) !important;
+  background: rgba(23, 23, 31, 0.9) !important;
+  color: var(--st-muted) !important;
+  backdrop-filter: blur(8px);
+}
+
+.novira-studio .floating-tool-btn.active {
+  border-color: var(--st-accent) !important;
+  color: var(--st-accent) !important;
+  box-shadow: 0 0 20px rgba(56, 189, 248, 0.25);
+}
+
+/* Cost chip (EditorPage child) */
+.novira-studio .studio-cost-chip {
+  background: rgba(14, 14, 22, 0.9) !important;
+  border: 1px solid var(--st-border-strong) !important;
+  border-radius: var(--st-radius-sm) !important;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Asset browser footer inside editor — optional soften */
+.novira-studio .pro-asset-browser {
+  border-top-color: var(--st-border) !important;
+}
+
+/* Scrollbars (WebKit) */
+.novira-studio .pro-sidebar ::-webkit-scrollbar,
+.novira-studio .pro-properties ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.novira-studio .pro-sidebar ::-webkit-scrollbar-thumb,
+.novira-studio .pro-properties ::-webkit-scrollbar-thumb {
+  background: rgba(56, 189, 248, 0.25);
+  border-radius: 99px;
+}
+
+.novira-studio .pro-sidebar ::-webkit-scrollbar-track,
+.novira-studio .pro-properties ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* ── Onboarding overlay ── */
+.studio-onboard-root {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  font-family: var(--st-font, "Plus Jakarta Sans", "Poppins", system-ui, sans-serif);
+}
+
+.studio-onboard-backdrop {
+  position: absolute;
+  inset: 0;
+  border: none;
+  cursor: pointer;
+  background: rgba(4, 4, 10, 0.72);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.studio-onboard-card {
+  position: relative;
+  width: min(560px, 100%);
+  padding: 32px 28px 26px;
+  border-radius: 20px;
+  background: linear-gradient(165deg, rgba(30, 28, 48, 0.98) 0%, rgba(14, 14, 22, 0.98) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.28);
+  box-shadow: 0 32px 100px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.04) inset,
+    0 0 80px rgba(2, 132, 199, 0.15);
+  color: #f4f2ff;
+  z-index: 1;
+}
+
+.studio-onboard-card__glow {
+  position: absolute;
+  top: -2px;
+  left: 10%;
+  right: 10%;
+  height: 3px;
+  border-radius: 99px;
+  opacity: 0.95;
+  filter: blur(0.5px);
+}
+
+.studio-onboard-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.3);
+  color: #9d99b8;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+}
+
+.studio-onboard-close:hover {
+  color: #fff;
+  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(56, 189, 248, 0.12);
+}
+
+.studio-onboard-icon-wrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.studio-onboard-title {
+  font-family: "Syne", var(--st-font, sans-serif);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  margin: 0 0 12px;
+  line-height: 1.15;
+  background: linear-gradient(135deg, #fff 0%, #bae6fd 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.studio-onboard-body {
+  margin: 0 0 22px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: #b4afcf;
+  font-weight: 450;
+}
+
+.studio-onboard-dots {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.studio-onboard-topic-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin: 0 0 20px;
+  max-height: 260px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.studio-onboard-topic {
+  text-align: left;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  color: #f4f2ff;
+  padding: 11px 12px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+.studio-onboard-topic:hover {
+  border-color: rgba(56, 189, 248, 0.48);
+  background: rgba(56, 189, 248, 0.08);
+}
+
+.studio-onboard-topic.active {
+  border-color: rgba(56, 189, 248, 0.6);
+  background: rgba(56, 189, 248, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.24);
+}
+
+.studio-onboard-topic__label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.studio-onboard-topic__desc {
+  display: block;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #b4afcf;
+}
+
+.studio-onboard-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  transition: transform 0.2s, background 0.2s;
+}
+
+.studio-onboard-dot.active {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  transform: scale(1.15);
+}
+
+.studio-onboard-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.studio-onboard-btn {
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
+  transition: transform 0.15s, box-shadow 0.15s, opacity 0.15s;
+}
+
+.studio-onboard-btn:active {
+  transform: scale(0.98);
+}
+
+.studio-onboard-btn.ghost {
+  background: transparent;
+  color: #9d99b8;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.studio-onboard-btn.ghost:hover {
+  color: #fff;
+  border-color: rgba(56, 189, 248, 0.35);
+}
+
+.studio-onboard-btn.primary {
+  color: #fff;
+  background: linear-gradient(135deg, #0284c7, #0ea5e9);
+  box-shadow: 0 8px 28px rgba(2, 132, 199, 0.45);
+}
+
+.studio-onboard-btn.primary:hover {
+  box-shadow: 0 10px 36px rgba(2, 132, 199, 0.55);
+}
+
+@media (max-width: 640px) {
+  .studio-onboard-card {
+    width: min(520px, 100%);
+    padding: 24px 18px 20px;
+  }
+}
+
+/* Toast strip in studio */
+.novira-studio .studio-export-toast {
+  background: rgba(22, 20, 38, 0.95) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  color: #f4f2ff !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+}
+
+.novira-studio .dimension-hud-overlay {
+  background: rgba(12, 10, 22, 0.88) !important;
+  border: 1px solid rgba(56, 189, 248, 0.25) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.04) inset !important;
+}
+
+.novira-studio .editor-status-bar.studio-status-bar {
+  height: 28px !important;
+  background: rgba(14, 14, 22, 0.95) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #9d99b8 !important;
+  font-size: 11px !important;
+  backdrop-filter: blur(12px);
+}
+
+.novira-studio .studio-status-link {
+  border: none;
+  background: transparent;
+  color: var(--st-accent);
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 6px;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+}
+
+.novira-studio .studio-status-link:hover {
+  background: rgba(56, 189, 248, 0.14);
+  color: #e0f2fe;
+}
+
+.novira-studio .studio-status-shortcuts {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.novira-studio .studio-status-kbd {
+  font-size: 8px;
+  font-weight: 700;
+  font-family: ui-monospace, "Cascadia Mono", monospace;
+  color: var(--st-muted);
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--st-border);
+  border-radius: 4px;
+  padding: 2px 5px;
+  line-height: 1.2;
+}
+
+@keyframes studio-catalog-pulse {
+  0%,
+  100% {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), 0 0 0 0 rgba(56, 189, 248, 0.35);
+  }
+
+  50% {
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), 0 0 0 8px rgba(56, 189, 248, 0);
+  }
+}
+
+.novira-studio .studio-footer-catalog-restore {
+  animation: studio-catalog-pulse 2.5s ease-in-out infinite;
+}
+
+.novira-studio.canvas-only .canvas-wrapper {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Sidebar list rows (Layout categories) */
+.novira-studio .asset-category-row {
+  border-radius: var(--st-radius-xs) !important;
+  border: 1px solid transparent !important;
+  background: rgba(0, 0, 0, 0.15) !important;
+}
+
+.novira-studio .asset-category-row:hover {
+  border-color: rgba(56, 189, 248, 0.25) !important;
+  background: rgba(56, 189, 248, 0.08) !important;
+}
+
+.novira-studio .asset-category-row.active {
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  background: rgba(2, 132, 199, 0.18) !important;
+}
+
+.novira-studio .asset-category-row .category-row-icon {
+  color: var(--st-accent) !important;
+}
+
+.novira-studio .asset-category-row {
+  font-size: 12px !important;
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .asset-category-row:hover {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .asset-category-row.active {
+  color: #fff !important;
+}
+
+.novira-studio .category-row-icon {
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .asset-category-row.active .category-row-icon {
+  background: rgba(56, 189, 248, 0.2) !important;
+  color: var(--st-accent) !important;
+}
+
+.novira-studio .sidebar-action-btn {
+  border-radius: var(--st-radius-xs) !important;
+  border: 1px solid var(--st-border) !important;
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.novira-studio .sidebar-action-btn:hover {
+  border-color: rgba(56, 189, 248, 0.35) !important;
+}
+
+.novira-studio .sidebar-action-btn.active {
+  border-color: rgba(45, 212, 191, 0.45) !important;
+  box-shadow: 0 0 0 1px rgba(45, 212, 191, 0.2);
+}
+
+/* ── Asset browser (footer) — dark studio deck ── */
+.novira-studio .editor-footer-bar.editor-footer-bar--assets {
+  border-top: 1px solid var(--st-border) !important;
+  background: linear-gradient(180deg, var(--st-surface) 0%, var(--st-bg-deep) 100%) !important;
+}
+
+.novira-studio .pro-asset-browser {
+  background: var(--st-bg-deep) !important;
+  border-top: none !important;
+  color: var(--st-text) !important;
+  font-family: var(--st-font) !important;
+  font-size: 13px !important;
+}
+
+.novira-studio .pro-asset-browser .asset-top-bar {
+  background: rgba(0, 0, 0, 0.35) !important;
+  border-bottom: 1px solid var(--st-border) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-catalog-sidebar {
+  background: var(--st-surface) !important;
+  border-right: 1px solid var(--st-border) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-grid-view {
+  background: transparent;
+}
+
+.novira-studio .pro-asset-browser .asset-card {
+  background: linear-gradient(180deg, rgba(16, 29, 47, 0.96), rgba(10, 20, 36, 0.95)) !important;
+  border: 1px solid rgba(125, 211, 252, 0.22) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(2, 6, 23, 0.4), inset 0 1px 0 rgba(186, 230, 253, 0.06);
+}
+
+.novira-studio .pro-asset-browser .asset-card:hover {
+  border-color: rgba(56, 189, 248, 0.55) !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.42), 0 0 0 1px rgba(56, 189, 248, 0.16) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-card.selected {
+  border-color: rgba(56, 189, 248, 0.55) !important;
+  background: rgba(2, 132, 199, 0.15) !important;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-thumb {
+  background: rgba(0, 0, 0, 0.35) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-name {
+  color: var(--st-text) !important;
+  letter-spacing: 0.01em;
+}
+
+.novira-studio .pro-asset-browser .asset-badge {
+  border-radius: 999px !important;
+  font-weight: 600 !important;
+}
+
+.novira-studio .pro-asset-browser .search-input {
+  background: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid var(--st-border) !important;
+  color: var(--st-text) !important;
+  border-radius: var(--st-radius-xs) !important;
+}
+
+.novira-studio .pro-asset-browser .search-input::placeholder {
+  color: var(--st-muted-2) !important;
+}
+
+.novira-studio .pro-asset-browser .search-input:focus {
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.12);
+}
+
+.novira-studio .pro-asset-browser .filter-chip {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid var(--st-border) !important;
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .pro-asset-browser .filter-chip.active {
+  background: rgba(2, 132, 199, 0.25) !important;
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  color: #fff !important;
+}
+
+.novira-studio .pro-asset-browser .asset-btn {
+  background: rgba(15, 23, 42, 0.72) !important;
+  border: 1px solid rgba(125, 211, 252, 0.2) !important;
+  color: var(--st-text) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-btn-primary {
+  background: linear-gradient(135deg, var(--st-accent-deep), #22d3ee) !important;
+  border: 1px solid rgba(125, 211, 252, 0.42) !important;
+  color: #fff !important;
+  box-shadow: 0 8px 16px rgba(8, 145, 178, 0.25) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-btn-secondary {
+  background: rgba(15, 23, 42, 0.72) !important;
+  color: #c7d2fe !important;
+}
+
+.novira-studio .pro-asset-browser .asset-btn-secondary:hover {
+  background: rgba(14, 35, 57, 0.9) !important;
+  border-color: rgba(125, 211, 252, 0.4) !important;
+}
+
+.novira-studio .pro-asset-browser .menu-item {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .pro-asset-browser .menu-item:hover {
+  background: rgba(56, 189, 248, 0.1) !important;
+}
+
+.novira-studio .pro-asset-browser .status-text {
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .pro-asset-browser .status-text.error {
+  color: #fda4af !important;
+}
+
+.novira-studio .pro-asset-browser .asset-section-label {
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-provider-marquee-wrap {
+  background: linear-gradient(90deg, rgba(56, 189, 248, 0.18), rgba(2, 132, 199, 0.08), rgba(56, 189, 248, 0.18)) !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-provider-marquee-wrap::before {
+  background: linear-gradient(to right, rgb(13, 21, 33), rgba(13, 21, 33, 0)) !important;
+  width: 44px !important;
+}
+
+.novira-studio .pro-asset-browser .asset-provider-marquee-wrap::after {
+  background: linear-gradient(to left, rgb(13, 21, 33), rgba(13, 21, 33, 0)) !important;
+  width: 44px !important;
+}
+
+.novira-studio .pro-asset-browser .asset-provider-pill {
+  color: #bae6fd !important;
+  background: rgba(15, 23, 42, 0.82) !important;
+  border-color: rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.12), 0 4px 14px rgba(2, 132, 199, 0.2) !important;
+  font-size: 12px !important;
+  padding: 6px 14px !important;
+}
+
+.novira-studio .pro-asset-browser .asset-provider-pill:hover {
+  border-color: rgba(125, 211, 252, 0.7) !important;
+  color: #e0f2fe !important;
+}
+
+.novira-studio .pro-asset-browser .asset-provider-pill--active {
+  color: #ffffff !important;
+  background: rgba(14, 165, 233, 0.3) !important;
+  border-color: rgba(125, 211, 252, 0.85) !important;
+  box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.28), 0 6px 16px rgba(2, 132, 199, 0.24) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-provider-pill--pinned {
+  background: rgb(15, 23, 42) !important;
+  border-color: rgba(125, 211, 252, 0.6) !important;
+  /* Masks ticker text that would otherwise show through the pill edge while scrolling. */
+  box-shadow:
+    14px 0 18px rgb(15, 23, 42),
+    0 0 0 1px rgba(125, 211, 252, 0.28),
+    0 6px 16px rgba(2, 132, 199, 0.24) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-provider-pill--pinned.asset-provider-pill--active {
+  box-shadow:
+    14px 0 18px rgb(15, 23, 42),
+    0 0 0 1px rgba(125, 211, 252, 0.85),
+    0 6px 16px rgba(2, 132, 199, 0.24) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-bank-thumb-fallback {
+  color: #94a3b8 !important;
+  background: linear-gradient(145deg, rgba(30, 41, 59, 0.95), rgba(15, 23, 42, 0.98)) !important;
+}
+
+.novira-studio .pro-asset-browser .source-badge,
+.novira-studio .pro-asset-browser .active-badge {
+  border-radius: 6px !important;
+}
+
+.novira-studio .pro-footer-toggle {
+  background: rgba(22, 20, 38, 0.92) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  color: var(--st-text) !important;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45) !important;
+  backdrop-filter: blur(12px);
+  font-family: var(--st-font) !important;
+  font-weight: 600 !important;
+}
+
+.novira-studio .pro-footer-toggle:hover {
+  background: rgba(56, 189, 248, 0.15) !important;
+  border-color: rgba(56, 189, 248, 0.55) !important;
+  color: #fff !important;
+}
+
+/* Floating catalog (Live Home–style library over the viewport) */
+.novira-studio .studio-floating-catalog {
+  position: fixed;
+  left: 10px;
+  top: 96px;
+  bottom: 34px;
+  width: min(440px, 36vw);
+  z-index: 44;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--st-radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--st-border-strong);
+  background: rgba(15, 23, 42, 0.88);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  pointer-events: auto;
+}
+
+.novira-studio .studio-floating-catalog .pro-asset-browser {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+}
+
+/* Embedded catalog inside the left sidebar (Objects & Assets tab) */
+.novira-studio .pro-sidebar.editor-left-new .pro-asset-browser.pro-asset-browser--sidebar {
+  flex: 1;
+  min-height: 0;
+  height: auto;
+  border-top: 0;
+}
+
+.novira-studio .pro-sidebar.editor-left-new .pro-asset-browser.pro-asset-browser--sidebar .asset-top-bar {
+  padding: 8px;
+  gap: 8px;
+}
+
+.novira-studio .pro-sidebar.editor-left-new .pro-asset-browser.pro-asset-browser--sidebar .asset-top-bar__tail {
+  margin-left: 0;
+  margin-right: 0;
+  width: auto;
+  max-width: 100%;
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+  padding: 3px 5px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(8, 18, 34, 0.72), rgba(14, 25, 42, 0.46));
+  border: 1px solid rgba(125, 211, 252, 0.26);
+  box-shadow: inset 0 1px 0 rgba(224, 242, 254, 0.08), 0 4px 14px rgba(2, 132, 199, 0.12);
+  backdrop-filter: blur(6px);
+}
+
+.novira-studio .pro-sidebar.editor-left-new .pro-asset-browser.pro-asset-browser--sidebar .search-input {
+  width: clamp(112px, 16vw, 168px);
+}
+
+.novira-studio .pro-asset-browser .asset-thumb-scale {
+  border-radius: 9px;
+  padding: 3px 8px;
+  background: rgba(10, 18, 32, 0.6);
+  border: 1px solid rgba(125, 211, 252, 0.18);
+}
+
+.novira-studio .pro-asset-browser .asset-grid-toolbar {
+  margin-top: -1px;
+  margin-bottom: 3px;
+}
+
+.novira-studio .pro-asset-browser .asset-grid-toolbar--bottom {
+  margin-top: 6px;
+  margin-bottom: 0;
+  background: linear-gradient(to top, rgba(9, 17, 31, 0.98), rgba(9, 17, 31, 0.72), rgba(9, 17, 31, 0)) !important;
+}
+
+.novira-studio .pro-asset-browser .asset-display-resize-handle::before {
+  background: rgba(125, 211, 252, 0.52);
+  box-shadow: 0 0 0 1px rgba(125, 211, 252, 0.25), 0 0 12px rgba(14, 165, 233, 0.24);
+}
+
+/* Header panel toggles (library / inspector) */
+.novira-studio .editor-menubar__panel-toggles {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: 8px;
+  padding-left: 10px;
+  border-left: 1px solid var(--st-border);
+}
+
+.novira-studio .editor-menubar__panel-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 30px;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid transparent;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--st-muted);
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.novira-studio .editor-menubar__panel-btn:hover {
+  color: var(--st-text);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.novira-studio .editor-menubar__panel-btn--on {
+  color: #fff !important;
+  background: rgba(56, 189, 248, 0.18) !important;
+  border-color: rgba(56, 189, 248, 0.45) !important;
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.2);
+}
+
+/* Catalog toolbar: dock + thumbnail slider */
+.novira-studio .pro-asset-browser .asset-dock-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px;
+  border-radius: var(--st-radius-xs);
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--st-border);
+}
+
+.novira-studio .pro-asset-browser .asset-dock-toggle button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  border: none;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: var(--st-font);
+  cursor: pointer;
+  background: transparent;
+  color: var(--st-muted);
+}
+
+.novira-studio .pro-asset-browser .asset-dock-toggle button:hover {
+  color: var(--st-text);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.novira-studio .pro-asset-browser .asset-dock-toggle button.active {
+  color: #fff;
+  background: rgba(56, 189, 248, 0.22);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35);
+}
+
+.novira-studio .pro-asset-browser .asset-thumb-scale {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 4px;
+  flex-shrink: 0;
+}
+
+.novira-studio .pro-asset-browser .asset-thumb-scale__label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #bae6fd;
+  white-space: nowrap;
+}
+
+.novira-studio .pro-asset-browser .asset-thumb-scale input[type='range'] {
+  width: 82px;
+  accent-color: var(--st-accent);
+  cursor: pointer;
+}
+
+@media (max-width: 1240px) {
+  .novira-studio .pro-sidebar.editor-left-new .pro-asset-browser.pro-asset-browser--sidebar .asset-top-bar__tail {
+    gap: 5px;
+    padding: 4px 5px;
+  }
+
+  .novira-studio .pro-sidebar.editor-left-new .pro-asset-browser.pro-asset-browser--sidebar .search-input {
+    width: clamp(126px, 18vw, 188px);
+  }
+}
+
+@media (max-width: 980px) {
+  .novira-studio .pro-sidebar.editor-left-new .pro-asset-browser.pro-asset-browser--sidebar .asset-top-bar__tail {
+    gap: 4px;
+    padding: 3px 4px;
+    border-radius: 10px;
+  }
+
+  .novira-studio .pro-sidebar.editor-left-new .pro-asset-browser.pro-asset-browser--sidebar .search-input {
+    width: clamp(100px, 15vw, 132px);
+  }
+
+  .novira-studio .pro-asset-browser .asset-provider-pill {
+    box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.1), 0 2px 10px rgba(2, 132, 199, 0.16) !important;
+  }
+}
+
+.novira-studio .pro-asset-browser .asset-quick-mat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 10px;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 14px;
+}
+
+.novira-studio .pro-asset-browser .asset-quick-mat-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 6px;
+  border-radius: var(--st-radius-xs);
+  border: 1px solid var(--st-border);
+  background: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  color: var(--st-text);
+  transition: border-color 0.15s, transform 0.12s, box-shadow 0.15s;
+}
+
+.novira-studio .pro-asset-browser .asset-quick-mat-btn:hover {
+  border-color: rgba(56, 189, 248, 0.45);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.novira-studio .pro-asset-browser .asset-quick-mat-sphere {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.novira-studio .pro-asset-browser .asset-quick-mat-name {
+  font-size: 10px;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.2;
+}
+
+/* Inspector mesh bounds (W/D/H) */
+.novira-studio .pro-properties .props-mesh-bounds {
+  margin-top: 8px;
+}
+
+.novira-studio .pro-properties .props-mesh-bounds-row {
+  margin-bottom: 4px;
+}
+
+.novira-studio .pro-properties .props-mesh-bounds-row-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.novira-studio .pro-properties .props-mesh-bounds-axis {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--st-accent);
+  min-width: 1.2em;
+}
+
+.novira-studio .pro-properties .props-mesh-bounds-name {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--st-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Present / client view: hide dev chrome ── */
+.novira-studio.studio-mode-preview:not(.canvas-only) .canvas-top-strip,
+.novira-studio.studio-mode-preview:not(.canvas-only) .editor-viewport-status-wrap,
+.novira-studio.studio-mode-preview .studio-cost-chip,
+.novira-studio.studio-mode-preview .viewport-readout-column,
+.novira-studio.studio-mode-preview .editor-status-bar {
+  display: none !important;
+}
+
+.novira-studio.studio-mode-preview:not(.canvas-only) .pro-sidebar,
+.novira-studio.studio-mode-preview:not(.canvas-only) .pro-properties {
+  display: none !important;
+}
+
+.novira-studio.studio-mode-preview .studio-floating-catalog {
+  display: none !important;
+}
+
+.novira-studio.studio-mode-preview .object-info-hud,
+.novira-studio.studio-mode-preview .studio-perf-monitor,
+.novira-studio.studio-mode-preview .transform-constraints-hud,
+.novira-studio.studio-mode-preview .studio-quick-transform-wrap {
+  display: none !important;
+}
+
+.novira-studio.studio-mode-preview .dimension-hud-overlay {
+  display: none !important;
+}
+
+.novira-studio.studio-mode-preview:not(.canvas-only) .canvas-wrapper {
+  margin: 6px 8px 8px !important;
+}
+
+/* Cinema: Present + hide top chrome & tool rail for full-bleed */
+.novira-studio.studio-cinema-mode:not(.canvas-only) .editor-menubar.blender-top-bar,
+.novira-studio.studio-cinema-mode:not(.canvas-only) .studio-context-strip {
+  display: none !important;
+}
+
+.novira-studio.studio-cinema-mode .canvas-tool-strip {
+  display: none !important;
+}
+
+.novira-studio.studio-cinema-mode:not(.canvas-only) .canvas-wrapper {
+  margin: 4px 6px 6px !important;
+}
+
+.studio-cinema-exit {
+  pointer-events: auto;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(56, 189, 248, 0.45);
+  background: rgba(12, 10, 22, 0.88);
+  color: #f5f3ff;
+  font-family: var(--st-font, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  transition: border-color 0.15s, background 0.15s, transform 0.12s;
+}
+
+.studio-cinema-exit:hover {
+  border-color: rgba(125, 211, 252, 0.85);
+  background: rgba(56, 189, 248, 0.2);
+  transform: translateY(-1px);
+}
+
+.studio-webxr-exit {
+  pointer-events: auto;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 65;
+  padding: 9px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(52, 211, 153, 0.45);
+  background: rgba(6, 24, 18, 0.88);
+  color: #d1fae5;
+  font-family: var(--st-font, "Plus Jakarta Sans", system-ui, sans-serif);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(10px);
+}
+
+.studio-webxr-exit:hover {
+  border-color: rgba(110, 231, 183, 0.85);
+  background: rgba(16, 185, 129, 0.22);
+}
+
+.novira-studio .studio-modal-shell {
+  border-radius: 16px;
+  padding: 2px;
+  border: 1px solid rgba(56, 189, 248, 0.38);
+  background: linear-gradient(180deg, rgba(42, 38, 62, 0.98), rgba(22, 20, 36, 0.99));
+  box-shadow:
+    0 32px 100px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.novira-studio .studio-modal-shell > div {
+  background: rgba(252, 251, 255, 0.97) !important;
+  border-radius: 14px;
+}
+
+.novira-studio .editor-center-new {
+  background: transparent !important;
+}
+
+/* Floating “Present mode” ribbon */
+.studio-present-hint {
+  pointer-events: none;
+  position: absolute;
+  left: 50%;
+  bottom: 68px;
+  transform: translateX(-50%);
+  z-index: 55;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  background: rgba(10, 8, 20, 0.82);
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
+  font-family: var(--st-font, "Plus Jakarta Sans", system-ui, sans-serif);
+}
+
+.studio-present-hint__title {
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #fff, var(--st-accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.studio-present-hint__sub {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--st-muted);
+}
+
+/* Properties: slightly larger base type in studio */
+.novira-studio .pro-properties {
+  font-size: 13px;
+}
+
+.novira-studio .pro-properties .props-header:not(.props-section__header) {
+  font-size: 11px !important;
+}
+
+/* ── Modal-style overlays (command palette, shortcuts, scene search) ── */
+.studio-cp-row.is-selected {
+  background: #f1f5f9;
+}
+
+.studio-cp-row:hover:not(.is-selected) {
+  background: #f8fafc;
+}
+
+.novira-studio .studio-overlay-backdrop {
+  background: rgba(6, 4, 16, 0.62) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+.novira-studio .studio-overlay-panel {
+  background: linear-gradient(180deg, rgba(34, 32, 50, 0.98), rgba(18, 16, 30, 0.99)) !important;
+  border: 1px solid rgba(56, 189, 248, 0.32) !important;
+  border-radius: 14px !important;
+  box-shadow:
+    0 32px 100px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  color: var(--st-text) !important;
+  font-family: var(--st-font), "Poppins", sans-serif !important;
+}
+
+.novira-studio .studio-overlay-header {
+  border-bottom-color: rgba(56, 189, 248, 0.22) !important;
+}
+
+.novira-studio .studio-overlay-footer {
+  border-top-color: rgba(56, 189, 248, 0.22) !important;
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .studio-overlay-empty {
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .studio-cp-row.is-selected {
+  background: rgba(56, 189, 248, 0.22) !important;
+}
+
+.novira-studio .studio-cp-row:hover:not(.is-selected) {
+  background: rgba(56, 189, 248, 0.1) !important;
+}
+
+.novira-studio .studio-command-palette .studio-overlay-header input,
+.novira-studio .studio-scene-search .studio-overlay-header input {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .studio-command-palette .studio-overlay-header input::placeholder,
+.novira-studio .studio-scene-search .studio-overlay-header input::placeholder {
+  color: var(--st-muted-2) !important;
+}
+
+.novira-studio .studio-command-palette .studio-overlay-header svg,
+.novira-studio .studio-scene-search .studio-overlay-header svg {
+  stroke: var(--st-muted) !important;
+}
+
+.novira-studio .studio-command-palette .studio-overlay-header kbd,
+.novira-studio .studio-command-palette .studio-overlay-list kbd {
+  color: var(--st-muted) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(56, 189, 248, 0.28) !important;
+}
+
+.novira-studio .studio-command-palette .studio-cp-row > span:nth-child(2) {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .studio-scene-search .studio-overlay-header span {
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .studio-scene-search .studio-cp-row > div > div:first-child {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .studio-scene-search .studio-cp-row > div > div:last-child {
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .studio-shortcuts-overlay .studio-overlay-header span {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .studio-shortcuts-overlay .studio-overlay-header button {
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .studio-shortcuts-section-title {
+  color: var(--st-accent) !important;
+}
+
+.novira-studio .studio-shortcuts-row > span:first-child {
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .studio-shortcuts-row kbd {
+  color: var(--st-text) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(56, 189, 248, 0.28) !important;
+}
+
+/* Command palette — category chips read clearly on dark panel */
+.novira-studio .studio-command-palette .studio-cp-row > span:first-child {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25) inset;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  font-weight: 700 !important;
+}
+
+/* Right-click context menu */
+.novira-studio .studio-context-menu {
+  background: linear-gradient(180deg, rgba(34, 32, 50, 0.98), rgba(20, 18, 32, 0.99)) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+.novira-studio .studio-ctx-sep {
+  background: rgba(56, 189, 248, 0.18) !important;
+}
+
+.novira-studio .studio-ctx-row {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .studio-ctx-row:hover {
+  background: rgba(56, 189, 248, 0.12) !important;
+}
+
+.novira-studio .studio-ctx-row--danger {
+  color: #fda4af !important;
+}
+
+.novira-studio .studio-ctx-row--danger:hover {
+  background: rgba(239, 68, 68, 0.12) !important;
+}
+
+.novira-studio .studio-ctx-kbd {
+  color: var(--st-muted) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(56, 189, 248, 0.28) !important;
+}
+
+/* Legacy welcome tips (after studio tour) */
+.novira-studio .welcome-tooltips-scrim {
+  background: rgba(6, 4, 16, 0.55) !important;
+  backdrop-filter: blur(6px) !important;
+}
+
+.novira-studio .welcome-tooltips-card {
+  background: linear-gradient(180deg, rgba(36, 34, 54, 0.98), rgba(18, 16, 30, 0.99)) !important;
+  border: 1px solid rgba(56, 189, 248, 0.35) !important;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+.novira-studio .welcome-tooltips-card > div:first-child span {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .welcome-tooltips-card > div:first-child button {
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .welcome-tooltips-card p {
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .welcome-tooltips-card > div:nth-child(3) span:first-child {
+  color: var(--st-muted-2) !important;
+}
+
+.novira-studio .welcome-tooltips-card > div:nth-child(3) button:first-of-type {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(56, 189, 248, 0.3) !important;
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .welcome-tooltips-card > div:nth-child(3) button:last-of-type {
+  background: linear-gradient(135deg, var(--st-accent-deep), #22d3ee) !important;
+  border: none !important;
+}
+
+/* Dismantle modal (editor) */
+.novira-studio .dismantle-modal-overlay {
+  background: rgba(6, 4, 16, 0.72) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+.novira-studio .studio-dismantle-card {
+  background: linear-gradient(180deg, rgba(36, 34, 54, 0.98), rgba(18, 16, 30, 0.99)) !important;
+  border: 1px solid rgba(56, 189, 248, 0.32) !important;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55) !important;
+}
+
+.novira-studio .studio-dismantle-card h2 {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .studio-dismantle-card > p,
+.novira-studio .studio-dismantle-card p {
+  color: var(--st-muted) !important;
+}
+
+.novira-studio .studio-dismantle-card input[type="text"] {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(56, 189, 248, 0.28) !important;
+  color: var(--st-text) !important;
+}
+
+.novira-studio .studio-dismantle-part {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.novira-studio .studio-dismantle-part.is-selected {
+  background: rgba(56, 189, 248, 0.22) !important;
+  border-color: rgba(56, 189, 248, 0.55) !important;
+}
+
+.novira-studio .studio-dismantle-part span {
+  color: var(--st-text) !important;
+}
+
+.novira-studio .studio-dismantle-footer-btn--ghost {
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(56, 189, 248, 0.28) !important;
+  color: var(--st-muted) !important;
+}

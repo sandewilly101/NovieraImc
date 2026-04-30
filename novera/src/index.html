@@ -1,0 +1,4017 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Novira — Where Ideas Take Shape</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --blue: #2B6FD4;
+      --blue-light: #5B9BF5;
+      --blue-pale: #EBF2FF;
+      --blue-mid: #D0E4FF;
+      --silver: #8A9BB5;
+      --ink: #0F1B2D;
+      --ink-light: #3A4A5C;
+      --surface: #FAFBFD;
+      --white: #FFFFFF;
+      --border: #E2E8F2;
+      --green: #22C55E;
+      --amber: #F59E0B;
+      --red: #EF4444;
+      --radius: 14px;
+      --shadow: 0 4px 24px rgba(43, 111, 212, 0.10);
+      --shadow-lg: 0 12px 48px rgba(43, 111, 212, 0.16);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--surface);
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(250, 251, 253, 0.92);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 32px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      position: relative;
+    }
+
+    .logo-layer {
+      position: absolute;
+      border-radius: 4px;
+    }
+
+    .logo-layer-1 {
+      width: 28px;
+      height: 8px;
+      background: var(--blue);
+      top: 0;
+      left: 2px;
+      transform: skewX(-8deg);
+    }
+
+    .logo-layer-2 {
+      width: 32px;
+      height: 6px;
+      background: #8AB4E8;
+      top: 10px;
+      left: 0;
+      transform: skewX(-8deg);
+    }
+
+    .logo-layer-3 {
+      width: 28px;
+      height: 8px;
+      background: var(--blue);
+      top: 18px;
+      left: 2px;
+      transform: skewX(-8deg);
+    }
+
+    .nav-logo-text {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 20px;
+      color: var(--ink);
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 4px;
+      margin-left: 16px;
+    }
+
+    .nav-link {
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-light);
+      cursor: pointer;
+      transition: all .2s;
+      border: none;
+      background: none;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      background: var(--blue-pale);
+      color: var(--blue);
+    }
+
+    .nav-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 20px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all .2s;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink-light);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #fff;
+      box-shadow: 0 4px 16px rgba(43, 111, 212, 0.35);
+    }
+
+    .btn-primary:hover {
+      background: #1a5ec4;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(43, 111, 212, 0.45);
+    }
+
+    .btn-sm {
+      padding: 7px 14px;
+      font-size: 13px;
+      border-radius: 8px;
+    }
+
+    .btn-green {
+      background: var(--green);
+      color: #fff;
+    }
+
+    .btn-green:hover {
+      background: #16a34a;
+    }
+
+    /* ─── PAGES ─── */
+    .page {
+      display: none;
+      padding-top: 60px;
+      min-height: 100vh;
+      animation: fadeIn .3s ease;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(8px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ══════════════════ LANDING PAGE ══════════════════ */
+    .hero {
+      min-height: calc(100vh - 60px);
+      background: linear-gradient(135deg, #f0f5ff 0%, #fafbfd 50%, #e8f0fe 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(43, 111, 212, 0.08) 0%, transparent 70%);
+      top: -200px;
+      right: -200px;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(91, 155, 245, 0.06) 0%, transparent 70%);
+      bottom: -100px;
+      left: -100px;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--white);
+      border: 1.5px solid var(--blue-mid);
+      border-radius: 999px;
+      padding: 6px 16px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 28px;
+      box-shadow: var(--shadow);
+      animation: pulse 3s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        box-shadow: 0 4px 24px rgba(43, 111, 212, 0.10);
+      }
+
+      50% {
+        box-shadow: 0 4px 32px rgba(43, 111, 212, 0.25);
+      }
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: .4;
+      }
+    }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(42px, 6vw, 82px);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 20px;
+      letter-spacing: -2px;
+    }
+
+    .hero-title span {
+      color: var(--blue);
+    }
+
+    .hero-subtitle {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--ink-light);
+      max-width: 580px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+      font-weight: 400;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 60px;
+    }
+
+    .hero-cta .btn-primary {
+      font-size: 16px;
+      padding: 14px 32px;
+      border-radius: 12px;
+    }
+
+    .hero-cta .btn-ghost {
+      font-size: 16px;
+      padding: 14px 32px;
+      border-radius: 12px;
+    }
+
+    .hero-features {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 60px;
+    }
+
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--ink-light);
+      font-weight: 500;
+    }
+
+    .hero-feature svg {
+      color: var(--blue);
+    }
+
+    /* 3D Scene Mockup */
+    .hero-visual {
+      width: 100%;
+      max-width: 1000px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: 20px;
+      border: 1.5px solid var(--border);
+      box-shadow: var(--shadow-lg);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-visual-bar {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot-red {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #FF5F57;
+    }
+
+    .dot-yellow {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #FFBD2E;
+    }
+
+    .dot-green {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #28C840;
+    }
+
+    .hero-visual-bar span {
+      margin-left: auto;
+      font-size: 12px;
+      color: var(--silver);
+      font-weight: 500;
+    }
+
+    .hero-scene {
+      height: 460px;
+      background: linear-gradient(180deg, #f7f9ff 0%, #eef3ff 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Isometric Hall */
+    .iso-hall {
+      position: relative;
+      transform: rotateX(45deg) rotateZ(45deg);
+      transform-style: preserve-3d;
+      animation: floatScene 6s ease-in-out infinite;
+    }
+
+    @keyframes floatScene {
+
+      0%,
+      100% {
+        transform: rotateX(45deg) rotateZ(45deg) translateY(0)
+      }
+
+      50% {
+        transform: rotateX(45deg) rotateZ(45deg) translateY(-12px)
+      }
+    }
+
+    .iso-floor {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #dce8ff, #e8f0ff);
+      border: 2px solid #c0d4f8;
+      position: relative;
+    }
+
+    .iso-wall-back {
+      position: absolute;
+      bottom: 100%;
+      left: 0;
+      width: 300px;
+      height: 140px;
+      background: linear-gradient(180deg, #f0f5ff, #dce8ff);
+      border: 2px solid #c0d4f8;
+      transform-origin: bottom;
+    }
+
+    .iso-wall-side {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      width: 140px;
+      height: 300px;
+      background: linear-gradient(90deg, #e8f0ff, #dce8ff);
+      border: 2px solid #c0d4f8;
+      transform-origin: left;
+    }
+
+    .iso-booth {
+      position: absolute;
+      background: var(--blue);
+      border-radius: 4px;
+    }
+
+    .iso-stage {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      width: 120px;
+      height: 80px;
+      background: linear-gradient(135deg, #1e5bb8, #2b6fd4);
+      border-radius: 6px;
+      box-shadow: 4px 4px 0 rgba(0, 0, 0, .15);
+    }
+
+    .iso-table {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid #c0d4f8;
+    }
+
+    .iso-light-beam {
+      position: absolute;
+      background: linear-gradient(to bottom, rgba(255, 220, 80, 0.6), transparent);
+      border-radius: 0 0 60% 60%;
+      clip-path: polygon(40% 0%, 60% 0%, 100% 100%, 0% 100%);
+    }
+
+    /* Feature Cards */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      padding: 80px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      transition: all .3s;
+      cursor: default;
+    }
+
+    .feature-card:hover {
+      border-color: var(--blue-light);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-4px);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--blue-pale);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 16px;
+    }
+
+    .feature-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .feature-card p {
+      font-size: 14px;
+      color: var(--ink-light);
+      line-height: 1.6;
+    }
+
+    /* Stats */
+    .stats-row {
+      background: var(--blue);
+      padding: 60px 48px;
+      display: flex;
+      justify-content: center;
+      gap: 80px;
+      flex-wrap: wrap;
+    }
+
+    .stat {
+      text-align: center;
+      color: var(--white);
+    }
+
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+    }
+
+    .stat-label {
+      font-size: 14px;
+      opacity: .8;
+      margin-top: 4px;
+    }
+
+    /* How It Works */
+    .how-it-works {
+      padding: 80px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(28px, 3vw, 42px);
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      color: var(--ink-light);
+      font-size: 16px;
+      max-width: 500px;
+      margin: 0 auto 60px;
+    }
+
+    .steps {
+      display: flex;
+      gap: 0;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .step {
+      flex: 1;
+      min-width: 200px;
+      max-width: 260px;
+      padding: 32px 24px;
+      position: relative;
+    }
+
+    .step::after {
+      content: '→';
+      position: absolute;
+      right: -16px;
+      top: 40px;
+      font-size: 22px;
+      color: var(--blue-light);
+    }
+
+    .step:last-child::after {
+      display: none;
+    }
+
+    .step-num {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .step h4 {
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .step p {
+      font-size: 14px;
+      color: var(--ink-light);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      background: linear-gradient(135deg, #f0f5ff, #e8eeff);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 48px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+
+    .cta-section p {
+      color: var(--ink-light);
+      margin-bottom: 32px;
+    }
+
+    /* ══════════════════ DASHBOARD ══════════════════ */
+    .dashboard-layout {
+      display: flex;
+      height: calc(100vh - 60px);
+    }
+
+    .sidebar {
+      width: 220px;
+      min-width: 220px;
+      background: var(--white);
+      border-right: 1.5px solid var(--border);
+      padding: 20px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      overflow-y: auto;
+    }
+
+    .sidebar-section {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--silver);
+      padding: 16px 12px 8px;
+    }
+
+    .sidebar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink-light);
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .sidebar-item:hover {
+      background: var(--blue-pale);
+      color: var(--blue);
+    }
+
+    .sidebar-item.active {
+      background: var(--blue-pale);
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    .sidebar-item .icon {
+      width: 20px;
+      text-align: center;
+      font-size: 16px;
+    }
+
+    .sidebar-badge {
+      margin-left: auto;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 999px;
+      padding: 2px 8px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .dash-main {
+      flex: 1;
+      overflow-y: auto;
+      padding: 32px;
+      background: var(--surface);
+    }
+
+    .dash-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .dash-header h1 {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .dash-header p {
+      color: var(--silver);
+      font-size: 14px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all .3s;
+    }
+
+    .project-card:hover {
+      border-color: var(--blue-light);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .project-thumb {
+      height: 160px;
+      background: linear-gradient(135deg, var(--c1, #dce8ff), var(--c2, #c0d4f8));
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+    }
+
+    .project-info {
+      padding: 16px;
+    }
+
+    .project-name {
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .project-meta {
+      font-size: 12px;
+      color: var(--silver);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .project-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .status-draft {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .status-live {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .status-review {
+      background: #EDE9FE;
+      color: #5B21B6;
+    }
+
+    .new-project-card {
+      background: var(--blue-pale);
+      border: 2px dashed var(--blue-mid);
+      border-radius: var(--radius);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      height: 240px;
+      cursor: pointer;
+      transition: all .2s;
+      color: var(--blue);
+    }
+
+    .new-project-card:hover {
+      background: var(--blue-mid);
+      border-color: var(--blue);
+    }
+
+    .new-project-card .plus {
+      font-size: 36px;
+      font-weight: 300;
+    }
+
+    .new-project-card span {
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .dash-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .dash-stat {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .dash-stat-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--blue);
+    }
+
+    .dash-stat-label {
+      font-size: 12px;
+      color: var(--silver);
+      margin-top: 4px;
+    }
+
+    /* ══════════════════ EDITOR ══════════════════ */
+    .editor-layout {
+      display: flex;
+      height: calc(100vh - 60px);
+      overflow: hidden;
+    }
+
+    .editor-left {
+      width: 240px;
+      min-width: 240px;
+      background: var(--white);
+      border-right: 1.5px solid var(--border);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .editor-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .editor-tab {
+      flex: 1;
+      padding: 12px 8px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--silver);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all .2s;
+    }
+
+    .editor-tab.active {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+    }
+
+    .editor-panel {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .asset-section {
+      margin-bottom: 20px;
+    }
+
+    .asset-section-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .asset-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .asset-item {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      text-align: center;
+      cursor: grab;
+      font-size: 22px;
+      transition: all .2s;
+      position: relative;
+    }
+
+    .asset-item:hover {
+      border-color: var(--blue-light);
+      background: var(--blue-pale);
+      transform: scale(1.04);
+    }
+
+    .asset-item span {
+      display: block;
+      font-size: 11px;
+      color: var(--ink-light);
+      margin-top: 4px;
+      font-weight: 500;
+    }
+
+    .asset-item .drag-hint {
+      position: absolute;
+      inset: 0;
+      background: rgba(43, 111, 212, .08);
+      border-radius: 8px;
+      opacity: 0;
+      transition: .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .asset-item:hover .drag-hint {
+      opacity: 1;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 12px;
+    }
+
+    .search-box input {
+      border: none;
+      background: none;
+      outline: none;
+      font-size: 13px;
+      flex: 1;
+      color: var(--ink);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .search-box input::placeholder {
+      color: var(--silver);
+    }
+
+    /* Viewport */
+    .editor-center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #f0f4fa;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .editor-toolbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .tool-btn:hover,
+    .tool-btn.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: #fff;
+    }
+
+    .tool-sep {
+      width: 1px;
+      height: 24px;
+      background: var(--border);
+      margin: 0 4px;
+    }
+
+    .toolbar-mode {
+      display: flex;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .toolbar-mode button {
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      background: none;
+      cursor: pointer;
+      color: var(--silver);
+      transition: all .2s;
+    }
+
+    .toolbar-mode button.active {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .viewport {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .viewport-canvas {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(180deg, #e8f0ff 0%, #f0f4fa 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 3D rendered floor */
+    .venue-3d {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 1200px;
+    }
+
+    .venue-inner {
+      transform-style: preserve-3d;
+      transform: rotateX(30deg) rotateY(-20deg);
+      animation: slowRotate 20s linear infinite;
+    }
+
+    @keyframes slowRotate {
+      0% {
+        transform: rotateX(30deg) rotateY(-20deg)
+      }
+
+      100% {
+        transform: rotateX(30deg) rotateY(340deg)
+      }
+    }
+
+    .v-floor {
+      width: 420px;
+      height: 420px;
+      background: linear-gradient(135deg, #d4e4ff, #c0d4f4);
+      border: 2px solid #a8c4f0;
+      position: relative;
+    }
+
+    .v-wall-l {
+      position: absolute;
+      width: 200px;
+      height: 180px;
+      background: linear-gradient(180deg, #eaf0ff, #d4e4ff);
+      border: 1px solid #b8d0f8;
+      bottom: 100%;
+      left: 0;
+      transform-origin: bottom left;
+      transform: rotateX(-90deg);
+    }
+
+    .v-wall-r {
+      position: absolute;
+      width: 180px;
+      height: 420px;
+      background: linear-gradient(90deg, #e0eaff, #d4e4ff);
+      border: 1px solid #b8d0f8;
+      top: 0;
+      left: 100%;
+      transform-origin: top left;
+      transform: rotateY(90deg);
+    }
+
+    .v-stage {
+      position: absolute;
+      bottom: 30px;
+      left: 30px;
+      width: 140px;
+      height: 90px;
+      background: linear-gradient(135deg, #1d5bb5, var(--blue));
+      border-radius: 6px;
+    }
+
+    .v-led {
+      position: absolute;
+      top: 4px;
+      left: 10px;
+      right: 10px;
+      height: 60%;
+      background: linear-gradient(180deg, #0a1f6b, #1a4bbf);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #7eb3ff;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .v-booth {
+      position: absolute;
+      background: var(--white);
+      border: 2px solid var(--blue-light);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .v-table {
+      position: absolute;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid #c0d4f4;
+    }
+
+    .v-light-beam {
+      position: absolute;
+      background: linear-gradient(to bottom, rgba(255, 200, 60, .4), transparent);
+      clip-path: polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%);
+      pointer-events: none;
+    }
+
+    .v-selected {
+      box-shadow: 0 0 0 3px var(--blue), 0 0 0 5px rgba(43, 111, 212, .3);
+    }
+
+    /* Transform gizmo overlay */
+    .gizmo {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .gizmo-axis {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 2px solid;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .gizmo-x {
+      border-color: #e74c3c;
+      color: #e74c3c;
+      background: rgba(231, 76, 60, .08);
+    }
+
+    .gizmo-y {
+      border-color: #2ecc71;
+      color: #2ecc71;
+      background: rgba(46, 204, 113, .08);
+    }
+
+    .gizmo-z {
+      border-color: #3498db;
+      color: #3498db;
+      background: rgba(52, 152, 219, .08);
+    }
+
+    .gizmo-axis:hover {
+      transform: scale(1.1);
+    }
+
+    /* Simulation overlay */
+    .sim-overlay {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: none;
+    }
+
+    .sim-overlay.active {
+      display: block;
+    }
+
+    .sound-zone {
+      position: absolute;
+      border-radius: 50%;
+      border: 2px solid;
+      animation: expand 2s ease-out infinite;
+    }
+
+    @keyframes expand {
+      0% {
+        transform: scale(.5);
+        opacity: .8
+      }
+
+      100% {
+        transform: scale(1.5);
+        opacity: 0
+      }
+    }
+
+    .light-cone {
+      position: absolute;
+    }
+
+    /* Bottom Timeline */
+    .editor-bottom {
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .timeline-track {
+      flex: 1;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      height: 36px;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .timeline-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--blue-mid), var(--blue-pale));
+      width: 35%;
+      border-radius: 6px;
+    }
+
+    .timeline-head {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--blue);
+      left: 35%;
+    }
+
+    .timeline-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .play-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--blue);
+      border: none;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: .2s;
+    }
+
+    .play-btn:hover {
+      background: #1a5ec4;
+    }
+
+    .sim-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .toggle-switch {
+      width: 40px;
+      height: 22px;
+      background: var(--border);
+      border-radius: 999px;
+      position: relative;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .toggle-switch.on {
+      background: var(--blue);
+    }
+
+    .toggle-knob {
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      top: 3px;
+      left: 3px;
+      transition: .2s;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+    }
+
+    .toggle-switch.on .toggle-knob {
+      left: 21px;
+    }
+
+    /* Right Properties */
+    .editor-right {
+      width: 260px;
+      min-width: 260px;
+      background: var(--white);
+      border-left: 1.5px solid var(--border);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .props-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .props-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+    }
+
+    .props-subtitle {
+      font-size: 12px;
+      color: var(--silver);
+    }
+
+    .props-section {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .props-section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--silver);
+      margin-bottom: 12px;
+    }
+
+    .prop-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .prop-label {
+      font-size: 13px;
+      color: var(--ink-light);
+      font-weight: 500;
+    }
+
+    .prop-input {
+      width: 80px;
+      padding: 5px 8px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      font-size: 13px;
+      text-align: center;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      transition: .2s;
+    }
+
+    .prop-input:focus {
+      border-color: var(--blue);
+    }
+
+    .prop-xyz {
+      display: flex;
+      gap: 6px;
+    }
+
+    .prop-xyz .prop-input {
+      width: 56px;
+    }
+
+    .prop-label-sm {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--silver);
+      margin-right: 2px;
+    }
+
+    .color-swatch {
+      width: 32px;
+      height: 24px;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-row input[type=range] {
+      flex: 1;
+      accent-color: var(--blue);
+    }
+
+    .slider-val {
+      font-size: 12px;
+      color: var(--silver);
+      min-width: 28px;
+      text-align: right;
+    }
+
+    .material-swatches {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .mat-swatch {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: .2s;
+    }
+
+    .mat-swatch.active,
+    .mat-swatch:hover {
+      border-color: var(--blue);
+      transform: scale(1.1);
+    }
+
+    /* AI Chat in Editor */
+    .ai-chat-editor {
+      border-top: 1px solid var(--border);
+    }
+
+    .ai-chat-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: linear-gradient(135deg, var(--blue-pale), #fff);
+      cursor: pointer;
+    }
+
+    .ai-badge {
+      background: var(--blue);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 999px;
+      letter-spacing: .5px;
+    }
+
+    .ai-chat-body {
+      padding: 12px 16px;
+    }
+
+    .ai-message {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      font-size: 13px;
+      color: var(--ink-light);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .ai-message .ai-tip {
+      color: var(--blue);
+      font-weight: 600;
+    }
+
+    .ai-input-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .ai-input-row input {
+      flex: 1;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13px;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .ai-input-row input:focus {
+      border-color: var(--blue);
+    }
+
+    .ai-send {
+      background: var(--blue);
+      border: none;
+      color: #fff;
+      border-radius: 8px;
+      width: 36px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* ══════════════════ Nov studio ══════════════════ */
+    .ai-studio {
+      padding: 40px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .ai-studio-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .ai-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .ai-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .ai-card p {
+      font-size: 14px;
+      color: var(--silver);
+      margin-bottom: 20px;
+    }
+
+    .prompt-box {
+      width: 100%;
+      min-height: 80px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 12px;
+      font-size: 14px;
+      resize: none;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      transition: .2s;
+    }
+
+    .prompt-box:focus {
+      border-color: var(--blue);
+    }
+
+    .style-chips {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0;
+    }
+
+    .style-chip {
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      transition: .2s;
+      background: var(--surface);
+      color: var(--ink-light);
+    }
+
+    .style-chip.active,
+    .style-chip:hover {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .generated-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .gen-item {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      aspect-ratio: 1;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all .2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      position: relative;
+    }
+
+    .gen-item:hover {
+      border-color: var(--blue);
+    }
+
+    .gen-item .gen-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, .9);
+      font-size: 10px;
+      font-weight: 600;
+      text-align: center;
+      padding: 4px;
+      color: var(--ink);
+    }
+
+    .gen-item .gen-add {
+      position: absolute;
+      inset: 0;
+      background: rgba(43, 111, 212, .08);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .gen-item:hover .gen-add {
+      display: flex;
+    }
+
+    .ai-integrations {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .ai-int-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .ai-int-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+    }
+
+    .logo-remix-area {
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .logo-remix-area:hover {
+      border-color: var(--blue);
+      background: var(--blue-pale);
+    }
+
+    .logo-remix-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .logo-remix-item {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .logo-remix-item:hover {
+      border-color: var(--blue);
+    }
+
+    .logo-remix-item .remix-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--ink-light);
+      margin-top: 4px;
+    }
+
+    .cost-estimator {
+      background: linear-gradient(135deg, var(--blue), #1d5bb5);
+      color: #fff;
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .cost-estimator h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .cost-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, .15);
+      font-size: 14px;
+    }
+
+    .cost-row:last-of-type {
+      border: none;
+    }
+
+    .cost-total {
+      font-family: 'Syne', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      margin-top: 16px;
+    }
+
+    /* ══════════════════ MARKETPLACE ══════════════════ */
+    .marketplace {
+      padding: 40px 48px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .market-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 24px 0;
+    }
+
+    .filter-chip {
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      border: 1.5px solid var(--border);
+      cursor: pointer;
+      transition: .2s;
+      background: var(--white);
+      color: var(--ink-light);
+    }
+
+    .filter-chip.active,
+    .filter-chip:hover {
+      background: var(--blue);
+      color: #fff;
+      border-color: var(--blue);
+    }
+
+    .market-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+
+    .market-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all .3s;
+    }
+
+    .market-card:hover {
+      border-color: var(--blue-light);
+      box-shadow: var(--shadow);
+      transform: translateY(-3px);
+    }
+
+    .market-thumb {
+      height: 160px;
+      background: linear-gradient(135deg, var(--c1, #dce8ff), var(--c2, #c0d4f8));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .market-thumb .market-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .market-info {
+      padding: 16px;
+    }
+
+    .market-name {
+      font-weight: 700;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+
+    .market-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+    }
+
+    .market-designer {
+      color: var(--silver);
+    }
+
+    .market-price {
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .market-stars {
+      color: #F59E0B;
+      font-size: 12px;
+    }
+
+    .market-free {
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    /* ══════════════════ DESIGNER PORTAL ══════════════════ */
+    .designer-portal {
+      padding: 40px 48px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .portal-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 48px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      background: var(--white);
+    }
+
+    .upload-zone:hover {
+      border-color: var(--blue);
+      background: var(--blue-pale);
+    }
+
+    .upload-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .upload-zone h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .upload-zone p {
+      font-size: 14px;
+      color: var(--silver);
+      margin-bottom: 24px;
+    }
+
+    .category-selector {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .cat-item {
+      padding: 12px;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      transition: .2s;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .cat-item.active,
+    .cat-item:hover {
+      background: var(--blue-pale);
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .analytics-card {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .analytics-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .metric-row:last-child {
+      border: none;
+    }
+
+    .metric-label {
+      font-size: 14px;
+      color: var(--ink-light);
+    }
+
+    .metric-val {
+      font-family: 'Syne', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .cert-badge {
+      background: linear-gradient(135deg, #fff7ed, #fff);
+      border: 1.5px solid #F59E0B;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .cert-icon {
+      font-size: 28px;
+    }
+
+    .cert-text h4 {
+      font-weight: 700;
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .cert-text p {
+      font-size: 12px;
+      color: var(--silver);
+    }
+
+    .mini-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      height: 60px;
+      margin: 16px 0;
+    }
+
+    .bar {
+      flex: 1;
+      border-radius: 4px 4px 0 0;
+      background: var(--blue-mid);
+      transition: .3s;
+    }
+
+    .bar:hover {
+      background: var(--blue);
+    }
+
+    /* ══════════════════ MODAL ══════════════════ */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 27, 45, .5);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 480px;
+      width: 90%;
+      box-shadow: 0 24px 80px rgba(15, 27, 45, .3);
+      animation: modalIn .3s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    @keyframes modalIn {
+      from {
+        transform: scale(.9);
+        opacity: 0
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1
+      }
+    }
+
+    .modal h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .modal p {
+      color: var(--silver);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      display: block;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 14px;
+      outline: none;
+      font-family: 'DM Sans', sans-serif;
+      transition: .2s;
+    }
+
+    .form-input:focus {
+      border-color: var(--blue);
+    }
+
+    .form-row {
+      display: flex;
+      gap: 12px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border);
+      background: var(--white);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      transition: .2s;
+    }
+
+    .modal-close:hover {
+      background: var(--surface);
+    }
+
+    .modal-wrap {
+      position: relative;
+    }
+
+    /* ══════════════════ NOTIFICATIONS ══════════════════ */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--ink);
+      color: #fff;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 500;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, .3);
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all .3s cubic-bezier(.34, 1.56, .64, 1);
+      max-width: 320px;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-icon {
+      font-size: 18px;
+    }
+
+    /* ══════════════════ MISC UTILS ══════════════════ */
+    .flex {
+      display: flex;
+    }
+
+    .items-center {
+      align-items: center;
+    }
+
+    .gap-8 {
+      gap: 8px;
+    }
+
+    .gap-12 {
+      gap: 12px;
+    }
+
+    .ml-auto {
+      margin-left: auto;
+    }
+
+    .text-blue {
+      color: var(--blue);
+    }
+
+    .text-silver {
+      color: var(--silver);
+    }
+
+    .font-bold {
+      font-weight: 700;
+    }
+
+    .text-sm {
+      font-size: 13px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .section-header h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .tag-blue {
+      background: var(--blue-pale);
+      color: var(--blue);
+    }
+
+    .tag-green {
+      background: #DCFCE7;
+      color: #166534;
+    }
+
+    .progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--blue);
+      border-radius: 999px;
+      transition: width 1s;
+    }
+
+    /* Collaboration Avatars */
+    .collab-avatars {
+      display: flex;
+    }
+
+    .collab-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--white);
+      margin-left: -8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .collab-avatar:first-child {
+      margin-left: 0;
+    }
+
+    /* Loading Spinner */
+    .spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid var(--blue-mid);
+      border-top-color: var(--blue);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg)
+      }
+    }
+
+    /* Responsive */
+    @media(max-width:900px) {
+
+      .editor-left,
+      .editor-right {
+        display: none;
+      }
+
+      .ai-studio-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .portal-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .features-grid,
+      .hero-features {
+        gap: 16px;
+      }
+
+      .stats-row {
+        gap: 32px;
+      }
+
+      nav {
+        padding: 0 16px;
+        gap: 16px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+    }
+
+    /* Export panel */
+    .export-panel {
+      background: linear-gradient(135deg, #f7f9ff, var(--white));
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .export-options {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .export-option {
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+      cursor: pointer;
+      transition: .2s;
+    }
+
+    .export-option:hover {
+      border-color: var(--blue);
+      background: var(--blue-pale);
+    }
+
+    .export-option .exp-icon {
+      font-size: 24px;
+      margin-bottom: 6px;
+    }
+
+    .export-option .exp-label {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .export-option .exp-sub {
+      font-size: 11px;
+      color: var(--silver);
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a class="nav-logo" onclick="showPage('landing')">
+      <div class="nav-logo-icon">
+        <div class="logo-layer logo-layer-1"></div>
+        <div class="logo-layer logo-layer-2"></div>
+        <div class="logo-layer logo-layer-3"></div>
+      </div>
+      <span class="nav-logo-text">Novira</span>
+    </a>
+    <div class="nav-links">
+      <button class="nav-link" onclick="showPage('landing')">Features</button>
+      <button class="nav-link" onclick="showPage('marketplace')">Templates</button>
+      <button class="nav-link" onclick="showPage('ai-studio')">Nov studio</button>
+      <button class="nav-link" onclick="showPage('designer')">For Designers</button>
+    </div>
+    <div class="nav-right">
+      <div class="collab-avatars" id="navAvatars" style="display:none;">
+        <div class="collab-avatar" style="background:#2B6FD4;">A</div>
+        <div class="collab-avatar" style="background:#22C55E;">M</div>
+        <div class="collab-avatar" style="background:#F59E0B;">J</div>
+      </div>
+      <button class="btn btn-ghost btn-sm" onclick="showPage('dashboard')">Dashboard</button>
+      <button class="btn btn-primary btn-sm" onclick="showModal('signupModal')">Get Started Free</button>
+    </div>
+  </nav>
+
+  <div class="page active" id="page-landing">
+    <div class="hero">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        One product photo. Any scene you imagine.
+      </div>
+      <h1 class="hero-title">Design Stunning<br><span>3D Event Spaces</span><br>In Minutes.</h1>
+      <p class="hero-subtitle">No designers. No expensive software. Just drag, drop, and present. Built for event
+        planners, agencies, and anyone with a vision.</p>
+      <div class="hero-cta">
+        <button class="btn btn-primary" onclick="showPage('editor');showToast('✨','Opening Novira Editor...')">
+          <span>🚀</span> Start Designing Free
+        </button>
+        <button class="btn btn-ghost" onclick="showPage('marketplace')">
+          <span>🏛</span> Browse Templates
+        </button>
+      </div>
+      <div class="hero-features">
+        <div class="hero-feature">✅ Drag & Drop 3D Builder</div>
+        <div class="hero-feature">✅ AI Model Generator</div>
+        <div class="hero-feature">✅ Real-time Simulation</div>
+        <div class="hero-feature">✅ Cost Estimator</div>
+        <div class="hero-feature">✅ 4K Export</div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-visual-bar">
+          <div class="dot-red"></div>
+          <div class="dot-yellow"></div>
+          <div class="dot-green"></div>
+          <span>Novira Editor — Novira Expo Hall 2026</span>
+        </div>
+        <div class="hero-scene">
+
+          <div
+            style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;perspective:800px;">
+            <div
+              style="transform-style:preserve-3d;transform:rotateX(25deg) rotateY(-10deg);animation:heroFloat 8s ease-in-out infinite;">
+
+              <div
+                style="width:380px;height:380px;background:linear-gradient(135deg,#d4e4ff,#c0d4f4);border:2px solid #a8c0f0;position:relative;border-radius:8px;">
+
+                <div
+                  style="position:absolute;bottom:24px;left:24px;width:130px;height:80px;background:linear-gradient(135deg,#1d5bb5,#2b6fd4);border-radius:6px;">
+                  <div
+                    style="margin:8px;height:50%;background:rgba(10,30,100,.6);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:9px;color:#7eb3ff;font-weight:700;letter-spacing:1px;">
+                    LED SCREEN</div>
+                  <div
+                    style="position:absolute;top:-20px;left:-10px;right:-10px;height:20px;background:rgba(43,111,212,.3);border-radius:4px 4px 0 0;">
+                  </div>
+                </div>
+
+                <div
+                  style="position:absolute;top:40px;right:40px;width:60px;height:60px;border-radius:50%;background:#fff;border:2px solid #b8d0f8;">
+                </div>
+                <div
+                  style="position:absolute;top:40px;right:130px;width:60px;height:60px;border-radius:50%;background:#fff;border:2px solid #b8d0f8;">
+                </div>
+                <div
+                  style="position:absolute;top:130px;right:60px;width:60px;height:60px;border-radius:50%;background:#fff;border:2px solid #b8d0f8;">
+                </div>
+
+                <div
+                  style="position:absolute;top:20px;left:20px;width:70px;height:50px;background:#fff;border:2px solid #5b9bf5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#2b6fd4;font-weight:700;">
+                  BOOTH A</div>
+                <div
+                  style="position:absolute;top:20px;left:100px;width:70px;height:50px;background:#fff;border:2px solid #5b9bf5;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;color:#2b6fd4;font-weight:700;">
+                  BOOTH B</div>
+
+                <div
+                  style="position:absolute;top:0;left:90px;width:40px;height:80px;background:linear-gradient(to bottom,rgba(255,210,50,.5),transparent);clip-path:polygon(30% 0,70% 0,100% 100%,0% 100%);">
+                </div>
+                <div
+                  style="position:absolute;top:0;right:90px;width:40px;height:80px;background:linear-gradient(to bottom,rgba(255,210,50,.5),transparent);clip-path:polygon(30% 0,70% 0,100% 100%,0% 100%);">
+                </div>
+
+                <div
+                  style="position:absolute;top:-12px;left:0;right:0;height:12px;background:repeating-linear-gradient(90deg,rgba(43,111,212,.3) 0px,rgba(43,111,212,.3) 4px,transparent 4px,transparent 20px);">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            style="position:absolute;left:16px;top:16px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:10px;padding:12px 14px;width:140px;box-shadow:var(--shadow);">
+            <div
+              style="font-size:10px;font-weight:700;color:var(--silver);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">
+              ASSETS</div>
+            <div style="display:flex;flex-direction:column;gap:6px;">
+              <div
+                style="display:flex;align-items:center;gap:6px;font-size:12px;padding:5px;border-radius:6px;background:var(--blue-pale);color:var(--blue);font-weight:600;cursor:pointer;">
+                🏛 Halls</div>
+              <div
+                style="display:flex;align-items:center;gap:6px;font-size:12px;padding:5px;border-radius:6px;cursor:pointer;color:var(--ink-light);">
+                🏪 Booths</div>
+              <div
+                style="display:flex;align-items:center;gap:6px;font-size:12px;padding:5px;border-radius:6px;cursor:pointer;color:var(--ink-light);">
+                💡 Lighting</div>
+              <div
+                style="display:flex;align-items:center;gap:6px;font-size:12px;padding:5px;border-radius:6px;cursor:pointer;color:var(--ink-light);">
+                🎭 Stages</div>
+            </div>
+          </div>
+          <div
+            style="position:absolute;right:16px;top:16px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:10px;padding:12px 14px;width:140px;box-shadow:var(--shadow);">
+            <div
+              style="font-size:10px;font-weight:700;color:var(--silver);letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;">
+              PROPERTIES</div>
+            <div style="margin-bottom:8px;">
+              <div style="font-size:11px;color:var(--silver);margin-bottom:3px;">Light Intensity</div>
+              <div style="height:4px;background:var(--blue-mid);border-radius:4px;">
+                <div style="width:70%;height:100%;background:var(--blue);border-radius:4px;"></div>
+              </div>
+            </div>
+            <div style="margin-bottom:8px;">
+              <div style="font-size:11px;color:var(--silver);margin-bottom:3px;">Sound Zone</div>
+              <div style="height:4px;background:var(--blue-mid);border-radius:4px;">
+                <div style="width:45%;height:100%;background:var(--blue);border-radius:4px;"></div>
+              </div>
+            </div>
+            <div style="font-size:12px;font-weight:700;color:var(--blue);margin-top:10px;">Est. Cost: $8,400</div>
+          </div>
+
+          <div
+            style="position:absolute;bottom:16px;right:16px;background:var(--white);border:1px solid var(--border);border-radius:12px;padding:10px 14px;max-width:200px;box-shadow:var(--shadow);font-size:12px;color:var(--ink-light);">
+            <div style="font-size:10px;font-weight:700;color:var(--blue);margin-bottom:4px;">🤖 Novira Studio</div>
+            Add ambient lighting near entrance for better flow.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <style>
+      @keyframes heroFloat {
+
+        0%,
+        100% {
+          transform: rotateX(25deg) rotateY(-10deg)
+        }
+
+        50% {
+          transform: rotateX(25deg) rotateY(-5deg) translateY(-8px)
+        }
+      }
+    </style>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🏛</div>
+        <h3>Pre-Designed Venue Library</h3>
+        <p>Start with professionally designed halls, exhibition spaces, and ballrooms. Customize every element to match
+          your vision perfectly.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>AI Model Generator</h3>
+        <p>Type a description, get a 3D model. Powered by Meshy AI and Luma AI. From concept to 3D in under 30 seconds.
+        </p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3>2D/3D Logo Integration</h3>
+        <p>Import your logo, apply it to booths, banners and structures with one click. AI auto-optimizes it for 3D
+          surfaces.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💡</div>
+        <h3>Lighting & Sound Simulation</h3>
+        <p>See exactly how your lighting will look. Visualize sound coverage zones. Simulate crowd flow before event
+          day.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">💰</div>
+        <h3>Instant Cost Estimator</h3>
+        <p>Every element you place auto-calculates cost. LED sqm, truss length, carpet area, printing and labor — all
+          instant.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📤</div>
+        <h3>4K Render & Video Export</h3>
+        <p>Export stunning 4K renders, cinematic walkthroughs, 360° tours, VR views and technical PDFs for client
+          presentations.</p>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <div class="stat-num">10x</div>
+        <div class="stat-label">Faster Than Traditional Design</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">85%</div>
+        <div class="stat-label">Cost Reduction vs 3D Agencies</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">5K+</div>
+        <div class="stat-label">Pre-Built Assets</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">120+</div>
+        <div class="stat-label">Countries Using Novira</div>
+      </div>
+    </div>
+
+    <div class="how-it-works">
+      <div class="section-label">HOW IT WORKS</div>
+      <h2 class="section-title">From Idea to Presentation in 4 Steps</h2>
+      <p class="section-sub">No technical skills required. If you can drag and click, you can design with Novira.</p>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h4>Choose a Template</h4>
+          <p>Pick from 200+ pre-designed event spaces or start blank.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h4>Drag & Customize</h4>
+          <p>Add booths, stages, lights and furniture. Import your branding.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h4>Simulate & Refine</h4>
+          <p>Run lighting, sound and crowd simulations. Get AI layout advice.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h4>Export & Present</h4>
+          <p>4K renders, client presentations, cost reports — auto-generated.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <div class="section-label">GET STARTED</div>
+      <h2>Ready to Design Your First Space?</h2>
+      <p>Join 12,000+ event professionals. Free plan available. No credit card required.</p>
+      <button class="btn btn-primary" style="font-size:16px;padding:14px 36px;"
+        onclick="showModal('signupModal')">Create Free Account</button>
+    </div>
+
+    <div
+      style="background:var(--white);border-top:1px solid var(--border);padding:40px 48px;display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between;">
+      <div>
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <div class="nav-logo-icon" style="position:relative;width:24px;height:24px;">
+            <div class="logo-layer logo-layer-1" style="width:22px;height:6px;top:0;left:1px;"></div>
+            <div class="logo-layer logo-layer-2" style="width:24px;height:5px;top:8px;left:0;"></div>
+            <div class="logo-layer logo-layer-3" style="width:22px;height:6px;top:14px;left:1px;"></div>
+          </div>
+          <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:16px;">Novira</span>
+        </div>
+        <p style="font-size:13px;color:var(--silver);">Where Ideas Take Shape<br>Headquarters: Novira, UAE</p>
+      </div>
+      <div style="font-size:13px;color:var(--silver);display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start;">
+        <div>
+          <div style="font-weight:700;color:var(--ink);margin-bottom:8px;">Product</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <span style="cursor:pointer;" onclick="showPage('editor')">Editor</span>
+            <span style="cursor:pointer;" onclick="showPage('ai-studio')">Nov studio</span>
+            <span style="cursor:pointer;" onclick="showPage('marketplace')">Templates</span>
+          </div>
+        </div>
+        <div>
+          <div style="font-weight:700;color:var(--ink);margin-bottom:8px;">Security</div>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <span>AES-256 Encrypted</span>
+            <span>No Admin Access</span>
+            <span>RBAC System</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-dashboard">
+    <div class="dashboard-layout">
+      <div class="sidebar">
+        <div class="sidebar-section">WORKSPACE</div>
+        <div class="sidebar-item active" onclick="setActive(this)"><span class="icon">🏠</span>My Projects</div>
+        <div class="sidebar-item" onclick="setActive(this)"><span class="icon">⭐</span>Starred <span
+            class="sidebar-badge">3</span></div>
+        <div class="sidebar-item" onclick="setActive(this)"><span class="icon">🤝</span>Shared</div>
+        <div class="sidebar-section">CREATE</div>
+        <div class="sidebar-item" onclick="showPage('editor')"><span class="icon">✏️</span>New Design</div>
+        <div class="sidebar-item" onclick="showPage('ai-studio')"><span class="icon">🤖</span>Nov studio</div>
+        <div class="sidebar-item" onclick="showPage('marketplace')"><span class="icon">🏪</span>Templates</div>
+        <div class="sidebar-section">RESOURCES</div>
+        <div class="sidebar-item" onclick="setActive(this)"><span class="icon">📁</span>My Assets</div>
+        <div class="sidebar-item" onclick="setActive(this)"><span class="icon">🏷️</span>Brand Kit</div>
+        <div class="sidebar-item" onclick="showPage('designer')"><span class="icon">🎓</span>Designer Portal</div>
+        <div class="sidebar-section">SETTINGS</div>
+        <div class="sidebar-item" onclick="setActive(this)"><span class="icon">⚙️</span>Settings</div>
+        <div class="sidebar-item" onclick="setActive(this)"><span class="icon">🔒</span>Security</div>
+      </div>
+      <div class="dash-main">
+        <div class="dash-header">
+          <div>
+            <h1>Good morning, Alex 👋</h1>
+            <p>You have 2 projects in review and 1 render ready</p>
+          </div>
+          <button class="btn btn-primary ml-auto" onclick="showModal('newProjectModal')">+ New Project</button>
+        </div>
+        <div class="dash-stats">
+          <div class="dash-stat">
+            <div class="dash-stat-val">12</div>
+            <div class="dash-stat-label">Active Projects</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-val">47</div>
+            <div class="dash-stat-label">Renders Generated</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-val">$142K</div>
+            <div class="dash-stat-label">Est. Value Quoted</div>
+          </div>
+          <div class="dash-stat">
+            <div class="dash-stat-val">8.4h</div>
+            <div class="dash-stat-label">Design Time Saved</div>
+          </div>
+        </div>
+        <div class="section-header">
+          <h2>Recent Projects</h2>
+          <div class="flex gap-8">
+            <button class="btn btn-ghost btn-sm">All</button>
+            <button class="btn btn-ghost btn-sm">Draft</button>
+            <button class="btn btn-ghost btn-sm">Review</button>
+          </div>
+        </div>
+        <div class="projects-grid">
+          <div class="new-project-card" onclick="showModal('newProjectModal')">
+            <div class="plus">+</div>
+            <span>New Project</span>
+            <span style="font-size:12px;font-weight:400;color:var(--silver);">Start from template or blank</span>
+          </div>
+          <div class="project-card" onclick="showPage('editor')">
+            <div class="project-thumb" style="--c1:#dce8ff;--c2:#b8d0f8;">🏛</div>
+            <div class="project-info">
+              <div class="project-name">Novira Expo Hall 2026</div>
+              <div class="project-meta">
+                <span>Edited 2h ago</span>
+                <span class="project-status status-review">In Review</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card" onclick="showPage('editor')">
+            <div class="project-thumb" style="--c1:#dcfce7;--c2:#bbf7d0;">🎪</div>
+            <div class="project-info">
+              <div class="project-name">Tech Summit Stage</div>
+              <div class="project-meta">
+                <span>Edited yesterday</span>
+                <span class="project-status status-live">Live</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card" onclick="showPage('editor')">
+            <div class="project-thumb" style="--c1:#fef9c3;--c2:#fde68a;">🏖</div>
+            <div class="project-info">
+              <div class="project-name">Wedding Venue — Mombasa</div>
+              <div class="project-meta">
+                <span>Edited 3 days ago</span>
+                <span class="project-status status-draft">Draft</span>
+              </div>
+            </div>
+          </div>
+          <div class="project-card" onclick="showPage('editor')">
+            <div class="project-thumb" style="--c1:#ede9fe;--c2:#ddd6fe;">🎵</div>
+            <div class="project-info">
+              <div class="project-name">Concert Arena Layout</div>
+              <div class="project-meta">
+                <span>Edited last week</span>
+                <span class="project-status status-draft">Draft</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-editor">
+    <div class="editor-layout">
+
+      <div class="editor-left">
+        <div class="editor-tabs">
+          <div class="editor-tab active" onclick="switchEditorTab(this,'assets')">Assets</div>
+          <div class="editor-tab" onclick="switchEditorTab(this,'2d-art')">2D Art</div>
+          <div class="editor-tab" onclick="switchEditorTab(this,'ai-gen')">AI Gen</div>
+        </div>
+        <div class="editor-panel" id="tab-assets">
+          <div class="search-box">
+            <span>🔍</span>
+            <input placeholder="Search assets...">
+          </div>
+          <div class="asset-section">
+            <div class="asset-section-title">HALLS & VENUES <span
+                style="cursor:pointer;color:var(--blue);font-size:10px;">See all</span></div>
+            <div class="asset-grid">
+              <div class="asset-item" draggable="true" ondragstart="startDrag('Grand Hall')"><span>🏛</span><span>Grand
+                  Hall</span>
+                <div class="drag-hint">DRAG</div>
+              </div>
+              <div class="asset-item" draggable="true" ondragstart="startDrag('Pavilion')">
+                <span>⛺</span><span>Pavilion</span>
+                <div class="drag-hint">DRAG</div>
+              </div>
+              <div class="asset-item" draggable="true" ondragstart="startDrag('Ballroom')">
+                <span>🏟</span><span>Ballroom</span>
+                <div class="drag-hint">DRAG</div>
+              </div>
+              <div class="asset-item" draggable="true" ondragstart="startDrag('Outdoor')">
+                <span>🌿</span><span>Outdoor</span>
+                <div class="drag-hint">DRAG</div>
+              </div>
+            </div>
+          </div>
+          <div class="asset-section">
+            <div class="asset-section-title">BOOTHS</div>
+            <div class="asset-grid">
+              <div class="asset-item" draggable="true" onclick="addToScene('Standard Booth','📦')">
+                <span>📦</span><span>Standard</span>
+              </div>
+              <div class="asset-item" draggable="true" onclick="addToScene('Glass Booth','🪟')">
+                <span>🪟</span><span>Glass</span>
+              </div>
+              <div class="asset-item" draggable="true" onclick="addToScene('Corner Booth','🔲')">
+                <span>🔲</span><span>Corner</span>
+              </div>
+              <div class="asset-item" draggable="true" onclick="addToScene('Island Booth','🏝')">
+                <span>🏝</span><span>Island</span>
+              </div>
+            </div>
+          </div>
+          <div class="asset-section">
+            <div class="asset-section-title">STAGES</div>
+            <div class="asset-grid">
+              <div class="asset-item" onclick="addToScene('Main Stage','🎭')"><span>🎭</span><span>Main Stage</span>
+              </div>
+              <div class="asset-item" onclick="addToScene('LED Stage','💠')"><span>💠</span><span>LED Stage</span></div>
+              <div class="asset-item" onclick="addToScene('Podium','🎤')"><span>🎤</span><span>Podium</span></div>
+              <div class="asset-item" onclick="addToScene('Truss Rig','🔩')"><span>🔩</span><span>Truss Rig</span></div>
+            </div>
+          </div>
+          <div class="asset-section">
+            <div class="asset-section-title">LIGHTING</div>
+            <div class="asset-grid">
+              <div class="asset-item" onclick="addToScene('Spotlight','💡')"><span>💡</span><span>Spotlight</span></div>
+              <div class="asset-item" onclick="addToScene('Wash Light','🌈')"><span>🌈</span><span>Wash</span></div>
+              <div class="asset-item" onclick="addToScene('LED Par','🔦')"><span>🔦</span><span>LED Par</span></div>
+              <div class="asset-item" onclick="addToScene('Gobo','🌀')"><span>🌀</span><span>Gobo</span></div>
+            </div>
+          </div>
+          <div class="asset-section">
+            <div class="asset-section-title">FURNITURE</div>
+            <div class="asset-grid">
+              <div class="asset-item" onclick="addToScene('Round Table','🪑')"><span>🪑</span><span>Table</span></div>
+              <div class="asset-item" onclick="addToScene('Chairs x50','🪑')"><span>🪑</span><span>Chairs</span></div>
+              <div class="asset-item" onclick="addToScene('Sofa Set','🛋')"><span>🛋</span><span>Sofa</span></div>
+              <div class="asset-item" onclick="addToScene('Bar Counter','🍸')"><span>🍸</span><span>Bar</span></div>
+            </div>
+          </div>
+          <div style="border-top:1px solid var(--border);padding-top:12px;margin-top:4px;">
+            <button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:8px;"
+              onclick="showToast('🔗','Opening Sketchfab integration...')">🔗 Import from Sketchfab</button>
+            <button class="btn btn-ghost btn-sm" style="width:100%;"
+              onclick="showToast('📤','Upload your 3D model (GLB/FBX supported)')">📤 Upload 3D Model</button>
+          </div>
+        </div>
+        <div class="editor-panel" id="tab-2d-art" style="display:none;">
+          <button class="btn btn-primary btn-sm" style="width:100%;margin-bottom:12px;"
+            onclick="showToast('🎨','Opening 2D Design Studio...')">✏️ Design New Artwork</button>
+          <div
+            style="border:2px dashed var(--border);border-radius:10px;padding:16px;text-align:center;cursor:pointer;margin-bottom:12px;"
+            onclick="showToast('📤','Import logo — AI will auto-ungroup layers')">
+            <div style="font-size:24px;margin-bottom:4px;">🖼</div>
+            <div style="font-size:12px;color:var(--silver);">Import Logo / Artwork<br><span
+                style="color:var(--blue);font-weight:600;">AI auto-ungrouping</span></div>
+          </div>
+          <div class="asset-section-title">BRAND ASSETS</div>
+          <div class="asset-grid">
+            <div class="asset-item" onclick="addToScene('Logo','🔵')"><span>🔵</span><span>Your Logo</span></div>
+            <div class="asset-item" onclick="addToScene('Banner','🪧')"><span>🪧</span><span>Banner</span></div>
+            <div class="asset-item" onclick="addToScene('Sign','📋')"><span>📋</span><span>Sign</span></div>
+            <div class="asset-item" onclick="showToast('✨','AI Remix: transforming logo...')"><span>✨</span><span>AI
+                Remix</span></div>
+          </div>
+        </div>
+        <div class="editor-panel" id="tab-ai-gen" style="display:none;">
+          <div style="font-size:13px;font-weight:600;margin-bottom:8px;">Generate 3D Model</div>
+          <textarea class="prompt-box" style="margin-bottom:8px;"
+            placeholder="Modern glass exhibition booth with LED screens and plant decor..."></textarea>
+          <div class="style-chips" style="margin-bottom:12px;">
+            <div class="style-chip active">Modern</div>
+            <div class="style-chip">Luxury</div>
+            <div class="style-chip">Minimal</div>
+            <div class="style-chip">Futuristic</div>
+          </div>
+          <button class="btn btn-primary btn-sm" style="width:100%;" onclick="simulateGenerate()">⚡ Generate 3D</button>
+          <div id="genResults" style="display:none;margin-top:12px;">
+            <div style="font-size:11px;color:var(--silver);margin-bottom:8px;">Generated results — click to add to scene
+            </div>
+            <div class="generated-grid">
+              <div class="gen-item" onclick="addToScene('AI Booth 1','🤖')">🏪<span class="gen-label">Booth v1</span>
+                <div class="gen-add">+</div>
+              </div>
+              <div class="gen-item" onclick="addToScene('AI Booth 2','🤖')">🏗<span class="gen-label">Booth v2</span>
+                <div class="gen-add">+</div>
+              </div>
+              <div class="gen-item" onclick="addToScene('AI Booth 3','🤖')">🏢<span class="gen-label">Booth v3</span>
+                <div class="gen-add">+</div>
+              </div>
+            </div>
+          </div>
+          <div class="ai-integrations">
+            <div style="font-size:10px;font-weight:700;color:var(--silver);letter-spacing:1px;width:100%;">POWERED BY
+            </div>
+            <div class="ai-int-badge">
+              <div class="ai-int-dot"></div>Meshy AI
+            </div>
+            <div class="ai-int-badge">
+              <div class="ai-int-dot"></div>Luma AI
+            </div>
+            <div class="ai-int-badge">
+              <div class="ai-int-dot"></div>Kaedim
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="editor-center">
+        <div class="editor-toolbar">
+          <div class="toolbar-mode">
+            <button class="active" onclick="setMode(this,'Design')">Design</button>
+            <button onclick="setMode(this,'Simulate')">Simulate</button>
+            <button onclick="setMode(this,'Present')">Present</button>
+          </div>
+          <div class="tool-sep"></div>
+          <div class="tool-btn active" title="Select" onclick="setTool(this)">▼</div>
+          <div class="tool-btn" title="Move" onclick="setTool(this)">✥</div>
+          <div class="tool-btn" title="Rotate" onclick="setTool(this)">↻</div>
+          <div class="tool-btn" title="Scale" onclick="setTool(this)">⤢</div>
+          <div class="tool-btn" title="Duplicate" onclick="duplicateSelected()">⧉</div>
+          <div class="tool-btn" title="Delete" onclick="deleteSelected()">🗑</div>
+          <div class="tool-sep"></div>
+          <div class="tool-btn" title="Camera Reset" onclick="showToast('📷','Camera reset to default view')">📷</div>
+          <div class="tool-btn" title="Grid Toggle" onclick="toggleGrid(this)">⊞</div>
+          <div class="tool-btn" title="Measurements" onclick="showToast('📐','Measurements: Hall 40×30m')">📐</div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:8px;">
+            <div class="collab-avatars">
+              <div class="collab-avatar" style="background:#2B6FD4;">A</div>
+              <div class="collab-avatar" style="background:#22C55E;">M</div>
+            </div>
+            <button class="btn btn-ghost btn-sm" onclick="showToast('💾','Project saved!')">💾 Save</button>
+            <button class="btn btn-primary btn-sm" onclick="showModal('exportModal')">📤 Export</button>
+          </div>
+        </div>
+
+        <div class="viewport">
+          <div class="viewport-canvas" id="viewport" ondragover="event.preventDefault()" ondrop="handleDrop(event)">
+
+            <div class="venue-3d" id="venueScene">
+              <div class="venue-inner" id="venueInner">
+                <div class="v-floor">
+                  <div class="v-stage" id="stageEl">
+                    <div class="v-led">MAIN STAGE</div>
+                  </div>
+                  <div class="v-booth" style="top:30px;left:20px;width:80px;height:55px;" id="boothA">BOOTH A</div>
+                  <div class="v-booth" style="top:30px;left:120px;width:80px;height:55px;" id="boothB">BOOTH B</div>
+                  <div class="v-table" style="top:50px;right:50px;width:65px;height:65px;"></div>
+                  <div class="v-table" style="top:50px;right:130px;width:65px;height:65px;"></div>
+                  <div class="v-table" style="top:140px;right:80px;width:65px;height:65px;"></div>
+                  <div class="v-table" style="top:220px;right:50px;width:65px;height:65px;"></div>
+                  <div class="v-light-beam" style="top:-30px;left:80px;width:50px;height:100px;"></div>
+                  <div class="v-light-beam" style="top:-30px;right:100px;width:50px;height:100px;"></div>
+                  <div class="v-wall-l"></div>
+                  <div class="v-wall-r"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="sim-overlay" id="simOverlay">
+              <div class="sound-zone"
+                style="width:120px;height:120px;border-color:rgba(43,111,212,.4);background:rgba(43,111,212,.06);top:40%;left:40%;transform:translate(-50%,-50%);animation-delay:0s;">
+              </div>
+              <div class="sound-zone"
+                style="width:80px;height:80px;border-color:rgba(43,111,212,.5);background:rgba(43,111,212,.08);top:40%;left:40%;transform:translate(-50%,-50%);animation-delay:1s;">
+              </div>
+              <div
+                style="position:absolute;top:10px;left:50%;transform:translateX(-50%);background:rgba(43,111,212,.9);color:#fff;font-size:12px;font-weight:700;padding:6px 16px;border-radius:999px;">
+                🔊 SIMULATION MODE ACTIVE</div>
+            </div>
+
+            <div id="sceneObjects"
+              style="position:absolute;bottom:10px;left:10px;display:flex;flex-wrap:wrap;gap:6px;max-width:300px;">
+            </div>
+
+            <div class="gizmo">
+              <div class="gizmo-axis gizmo-x">X</div>
+              <div class="gizmo-axis gizmo-y">Y</div>
+              <div class="gizmo-axis gizmo-z">Z</div>
+            </div>
+
+            <div id="gridOverlay"
+              style="display:none;position:absolute;inset:0;background-image:linear-gradient(rgba(43,111,212,.1) 1px,transparent 1px),linear-gradient(90deg,rgba(43,111,212,.1) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;">
+            </div>
+          </div>
+        </div>
+
+        <div class="editor-bottom">
+          <div class="timeline-controls">
+            <button class="play-btn" onclick="togglePlay(this)">▶</button>
+          </div>
+          <div class="timeline-track" onclick="scrubTimeline(event,this)">
+            <div class="timeline-fill" id="timelineFill"></div>
+            <div class="timeline-head" id="timelineHead"></div>
+          </div>
+          <div class="sim-toggle">
+            <span style="font-size:13px;font-weight:600;">Lighting</span>
+            <div class="toggle-switch" onclick="toggleSim(this,'light')"></div>
+          </div>
+          <div class="sim-toggle">
+            <span style="font-size:13px;font-weight:600;">Sound</span>
+            <div class="toggle-switch on" onclick="toggleSim(this,'sound')"></div>
+          </div>
+          <div class="sim-toggle">
+            <span style="font-size:13px;font-weight:600;">Crowd</span>
+            <div class="toggle-switch" onclick="toggleSim(this,'crowd')"></div>
+          </div>
+          <button class="btn btn-ghost btn-sm" onclick="showToast('📐','Auto-measuring scene dimensions...')">📐
+            Measure</button>
+          <button class="btn btn-ghost btn-sm" onclick="showModal('costModal')">💰 Est. Cost</button>
+        </div>
+      </div>
+
+      <div class="editor-right">
+        <div class="props-header">
+          <div class="props-title" id="propsTitle">Expo Hall · Main Stage</div>
+          <div class="props-subtitle">3D Object Selected</div>
+        </div>
+        <div class="props-section">
+          <div class="props-section-label">TRANSFORM</div>
+          <div class="prop-row"><span class="prop-label">Position</span>
+            <div class="prop-xyz"><span class="prop-label-sm" style="color:#e74c3c;">X</span><input class="prop-input"
+                value="0.0"><span class="prop-label-sm" style="color:#2ecc71;">Y</span><input class="prop-input"
+                value="0.0"><span class="prop-label-sm" style="color:#3498db;">Z</span><input class="prop-input"
+                value="0.0"></div>
+          </div>
+          <div class="prop-row"><span class="prop-label">Rotation</span>
+            <div class="prop-xyz"><input class="prop-input" value="0°"><input class="prop-input" value="0°"><input
+                class="prop-input" value="0°"></div>
+          </div>
+          <div class="prop-row"><span class="prop-label">Scale</span>
+            <div class="prop-xyz"><input class="prop-input" value="1.0"><input class="prop-input" value="1.0"><input
+                class="prop-input" value="1.0"></div>
+          </div>
+        </div>
+        <div class="props-section">
+          <div class="props-section-label">MATERIALS</div>
+          <div class="prop-row"><span class="prop-label">Color</span>
+            <div class="color-swatch" style="background:#2b6fd4;" onclick="showToast('🎨','Color picker opened')"></div>
+          </div>
+          <div class="material-swatches">
+            <div class="mat-swatch active" style="background:#2b6fd4;"></div>
+            <div class="mat-swatch" style="background:#1d5bb5;"></div>
+            <div class="mat-swatch" style="background:#fff;border:1px solid #e2e8f2;"></div>
+            <div class="mat-swatch" style="background:#1a1a2e;"></div>
+            <div class="mat-swatch" style="background:linear-gradient(135deg,silver,#ccc);"></div>
+            <div class="mat-swatch" style="background:linear-gradient(135deg,#f4d03f,#e67e22);"></div>
+          </div>
+          <div style="margin-top:12px;">
+            <div class="prop-label" style="margin-bottom:8px;font-size:12px;">Reflectivity</div>
+            <div class="slider-row"><input type="range" min="0" max="100" value="30"
+                oninput="this.nextElementSibling.textContent=this.value+'%'"><span class="slider-val">30%</span></div>
+          </div>
+        </div>
+        <div class="props-section">
+          <div class="props-section-label">LIGHTING</div>
+          <div class="prop-label" style="margin-bottom:8px;font-size:12px;">Intensity</div>
+          <div class="slider-row"><input type="range" min="0" max="100" value="85"
+              oninput="this.nextElementSibling.textContent=this.value"><span class="slider-val">85</span></div>
+          <div class="prop-label" style="margin-bottom:8px;margin-top:12px;font-size:12px;">Beam Angle</div>
+          <div class="slider-row"><input type="range" min="5" max="120" value="45"
+              oninput="this.nextElementSibling.textContent=this.value+'°'"><span class="slider-val">45°</span></div>
+          <div class="prop-row" style="margin-top:12px;"><span class="prop-label text-sm">Light Color</span>
+            <div class="color-swatch" style="background:#FFD700;" onclick="showToast('🎨','Light color picker')"></div>
+          </div>
+        </div>
+        <div class="props-section">
+          <div class="props-section-label">BRANDING</div>
+          <button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:8px;"
+            onclick="showToast('🖼','Upload logo — will auto-map to selected surface')">📎 Apply Logo to
+            Surface</button>
+          <button class="btn btn-ghost btn-sm" style="width:100%;"
+            onclick="showToast('✂️','Logo ungrouping AI running...')">✨ AI Ungroup Logo</button>
+        </div>
+        <div class="ai-chat-editor">
+          <div class="ai-chat-header" onclick="toggleAiChat()">
+            <span style="font-size:16px;">🤖</span>
+            <span style="font-size:13px;font-weight:700;">Novira Studio Assistant</span>
+            <div class="ai-badge">GPT-4</div>
+            <span style="margin-left:auto;font-size:14px;color:var(--silver);" id="aiChevron">▼</span>
+          </div>
+          <div class="ai-chat-body" id="aiChatBody">
+            <div class="ai-message">💡 <span class="ai-tip">Tip:</span> Your stage lighting could use front wash. Want
+              me to auto-add it?</div>
+            <div class="ai-input-row">
+              <input placeholder="Ask anything about your scene..." id="aiInput"
+                onkeydown="if(event.key==='Enter')sendAiMsg()">
+              <button class="ai-send" onclick="sendAiMsg()">➤</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-ai-studio">
+    <div class="ai-studio">
+      <div class="section-label">Nov studio</div>
+      <div class="section-header">
+        <h2 class="section-title" style="margin:0;">Generate. Remix. Create.</h2>
+        <div class="flex gap-8">
+          <div class="ai-int-badge">
+            <div class="ai-int-dot"></div>Meshy AI
+          </div>
+          <div class="ai-int-badge">
+            <div class="ai-int-dot"></div>Luma AI
+          </div>
+          <div class="ai-int-badge">
+            <div class="ai-int-dot"></div>Kaedim
+          </div>
+          <div class="ai-int-badge">
+            <div class="ai-int-dot"></div>ChatGPT
+          </div>
+        </div>
+      </div>
+      <div class="ai-studio-grid">
+
+        <div class="ai-card">
+          <h3>🏗 AI 3D Model Generator</h3>
+          <p>Describe what you need. Get a production-ready 3D model in seconds.</p>
+          <textarea class="prompt-box" id="aiPrompt3d"
+            placeholder="Futuristic banking summit stage with curved LED wall and floating panels..."></textarea>
+          <div class="style-chips" id="styleChips">
+            <div class="style-chip active" onclick="toggleChip(this)">Modern</div>
+            <div class="style-chip" onclick="toggleChip(this)">Corporate</div>
+            <div class="style-chip" onclick="toggleChip(this)">Luxury</div>
+            <div class="style-chip" onclick="toggleChip(this)">Minimal</div>
+            <div class="style-chip" onclick="toggleChip(this)">Futuristic</div>
+            <div class="style-chip" onclick="toggleChip(this)">Industrial</div>
+          </div>
+          <button class="btn btn-primary" style="width:100%;margin-top:12px;" onclick="simulateGenerate3D()">⚡ Generate
+            3D Model</button>
+          <div id="studioGenResults" style="display:none;margin-top:16px;">
+            <div class="generated-grid" style="grid-template-columns:repeat(3,1fr);">
+              <div class="gen-item" style="font-size:36px;" onclick="showToast('✅','Model added to scene!')">🏗<span
+                  class="gen-label">Concept A</span>
+                <div class="gen-add">+</div>
+              </div>
+              <div class="gen-item" style="font-size:36px;" onclick="showToast('✅','Model added to scene!')">🏢<span
+                  class="gen-label">Concept B</span>
+                <div class="gen-add">+</div>
+              </div>
+              <div class="gen-item" style="font-size:36px;" onclick="showToast('✅','Model added to scene!')">🏛<span
+                  class="gen-label">Concept C</span>
+                <div class="gen-add">+</div>
+              </div>
+            </div>
+            <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:10px;" onclick="showPage('editor')">→ Open
+              in Editor</button>
+          </div>
+        </div>
+
+        <div class="ai-card">
+          <h3>🎨 AI Logo & Artwork Studio</h3>
+          <p>Import your logo. AI remixes it for 3D surfaces, LED screens, and print.</p>
+          <div class="logo-remix-area" onclick="showToast('📤','Upload logo — supported: SVG, PNG, AI, PDF')">
+            <div style="font-size:36px;margin-bottom:8px;">🖼</div>
+            <div style="font-size:14px;font-weight:600;margin-bottom:4px;">Drop logo here or click to upload</div>
+            <div style="font-size:12px;color:var(--silver);">SVG, PNG, AI, PDF — AI auto-ungrouping included</div>
+          </div>
+          <div
+            style="margin-top:16px;font-size:12px;font-weight:700;color:var(--silver);letter-spacing:1px;margin-bottom:8px;">
+            AI REMIX STYLES</div>
+          <div class="logo-remix-grid">
+            <div class="logo-remix-item" onclick="showToast('✨','Generating 3D Embossed version...')">
+              <div style="font-size:20px;">🔵</div>
+              <div class="remix-label">3D Emboss</div>
+            </div>
+            <div class="logo-remix-item" onclick="showToast('✨','Generating Metallic version...')">
+              <div style="font-size:20px;">🌟</div>
+              <div class="remix-label">Metallic</div>
+            </div>
+            <div class="logo-remix-item" onclick="showToast('✨','Generating Neon Glow version...')">
+              <div style="font-size:20px;">💜</div>
+              <div class="remix-label">Neon Glow</div>
+            </div>
+            <div class="logo-remix-item" onclick="showToast('✨','Simplifying for 3D mapping...')">
+              <div style="font-size:20px;">⬛</div>
+              <div class="remix-label">Simplify</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="ai-card">
+          <h3>🧠 Smart Layout Assistant</h3>
+          <p>Describe your event. AI auto-places all elements with optimal spacing, sightlines and crowd flow.</p>
+          <textarea class="prompt-box"
+            placeholder="Corporate summit for 300 guests. Needs stage, 20 exhibition booths, dining area and 2 networking zones..."
+            style="margin-bottom:12px;"></textarea>
+          <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;">
+            <select
+              style="flex:1;padding:8px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;">
+              <option>Exhibition</option>
+              <option>Conference</option>
+              <option>Gala Dinner</option>
+              <option>Concert</option>
+              <option>Wedding</option>
+              <option>Product Launch</option>
+            </select>
+            <input type="number" placeholder="Guests"
+              style="width:90px;padding:8px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;outline:none;">
+          </div>
+          <button class="btn btn-primary" style="width:100%;"
+            onclick="showToast('🧠','AI analyzing optimal layout for your event...')">🤖 Auto-Layout My Event</button>
+          <div style="margin-top:16px;background:var(--blue-pale);border-radius:10px;padding:12px;font-size:13px;">
+            <div style="font-weight:700;margin-bottom:6px;color:var(--blue);">💡 AI Insights</div>
+            <div style="color:var(--ink-light);">For 300 guests, consider a 40×30m hall. Stage at 1/3 position maximizes
+              sightlines. Add 2 sound arrays for even coverage.</div>
+          </div>
+        </div>
+
+        <div class="cost-estimator">
+          <h3>💰 Instant Cost Estimator</h3>
+          <div style="font-size:14px;opacity:.8;margin-bottom:20px;">Auto-calculated from your current scene</div>
+          <div class="cost-row"><span>LED Screen (32 sqm)</span><span>$6,400</span></div>
+          <div class="cost-row"><span>Truss System (45m)</span><span>$2,250</span></div>
+          <div class="cost-row"><span>Carpet (200 sqm)</span><span>$1,800</span></div>
+          <div class="cost-row"><span>Lighting Rig (12 units)</span><span>$3,600</span></div>
+          <div class="cost-row"><span>Furniture Package</span><span>$4,200</span></div>
+          <div class="cost-row"><span>Printing & Signage</span><span>$1,950</span></div>
+          <div class="cost-row"><span>Labor (est. 3 days)</span><span>$8,400</span></div>
+          <div style="margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.3);">
+            <div style="font-size:13px;opacity:.7;">ESTIMATED TOTAL</div>
+            <div class="cost-total">$28,600</div>
+          </div>
+          <button class="btn"
+            style="background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.3);margin-top:16px;width:100%;"
+            onclick="showToast('📄','Generating cost report PDF...')">📄 Export Cost Report</button>
+        </div>
+
+        <div class="ai-card">
+          <h3>📸 Photo → 3D</h3>
+          <p>Snap a photo of a venue or booth. AI reconstructs it as a 3D model you can edit.</p>
+          <div class="logo-remix-area" onclick="showToast('📸','Photo-to-3D: Upload image to begin AI reconstruction')">
+            <div style="font-size:36px;margin-bottom:8px;">📸</div>
+            <div style="font-size:14px;font-weight:600;margin-bottom:4px;">Upload Venue Photo</div>
+            <div style="font-size:12px;color:var(--silver);">AI extracts objects and creates 3D spatial model</div>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;">
+            <div
+              style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:12px;font-weight:600;">
+              Phase 1<br><span style="color:var(--blue);">Object Detection</span></div>
+            <div
+              style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;text-align:center;font-size:12px;font-weight:600;">
+              Phase 2<br><span style="color:var(--blue);">Mesh Generation</span></div>
+          </div>
+        </div>
+
+        <div class="export-panel">
+          <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px;">📤 Export & Share
+          </div>
+          <div style="font-size:14px;color:var(--silver);margin-bottom:4px;">Professional outputs for every use case
+          </div>
+          <div class="export-options">
+            <div class="export-option" onclick="showToast('🖼','Rendering 4K image (cloud render queue: 2 min)...')">
+              <div class="exp-icon">🖼</div>
+              <div class="exp-label">4K Render</div>
+              <div class="exp-sub">PNG/JPG</div>
+            </div>
+            <div class="export-option" onclick="showToast('🎥','Generating cinematic walkthrough video...')">
+              <div class="exp-icon">🎥</div>
+              <div class="exp-label">Video Tour</div>
+              <div class="exp-sub">MP4/WebM</div>
+            </div>
+            <div class="export-option" onclick="showToast('🌐','Generating 360° interactive panorama...')">
+              <div class="exp-icon">🌐</div>
+              <div class="exp-label">360° Tour</div>
+              <div class="exp-sub">Interactive</div>
+            </div>
+            <div class="export-option" onclick="showToast('🥽','Preparing VR Walkthrough...')">
+              <div class="exp-icon">🥽</div>
+              <div class="exp-label">VR View</div>
+              <div class="exp-sub">Immersive</div>
+            </div>
+            <div class="export-option" onclick="showToast('📐','Exporting CAD + technical drawings...')">
+              <div class="exp-icon">📐</div>
+              <div class="exp-label">CAD Export</div>
+              <div class="exp-sub">DWG/DXF</div>
+            </div>
+            <div class="export-option" onclick="showToast('📊','Generating client presentation deck...')">
+              <div class="exp-icon">📊</div>
+              <div class="exp-label">Client Deck</div>
+              <div class="exp-sub">PDF/PPTX</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-marketplace">
+    <div class="marketplace">
+      <div class="section-label">TEMPLATE LIBRARY</div>
+      <div class="section-header">
+        <h2 class="section-title" style="margin:0;">Browse 2,000+ Event Templates</h2>
+        <div class="flex gap-8 items-center">
+          <input
+            style="padding:8px 14px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;outline:none;width:200px;"
+            placeholder="🔍 Search templates...">
+          <button class="btn btn-primary btn-sm" onclick="showPage('designer')">+ Upload Design</button>
+        </div>
+      </div>
+      <div class="market-filters">
+        <div class="filter-chip active" onclick="setFilter(this)">All</div>
+        <div class="filter-chip" onclick="setFilter(this)">Exhibition Halls</div>
+        <div class="filter-chip" onclick="setFilter(this)">Conference</div>
+        <div class="filter-chip" onclick="setFilter(this)">Gala Dinner</div>
+        <div class="filter-chip" onclick="setFilter(this)">Wedding</div>
+        <div class="filter-chip" onclick="setFilter(this)">Concert</div>
+        <div class="filter-chip" onclick="setFilter(this)">Booth Packs</div>
+        <div class="filter-chip" onclick="setFilter(this)">Stage Designs</div>
+        <div class="filter-chip" onclick="setFilter(this)">Lighting Presets</div>
+        <div class="filter-chip" onclick="setFilter(this)">Free</div>
+      </div>
+      <div class="market-grid" id="marketGrid">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="page" id="page-designer">
+    <div class="designer-portal">
+      <div class="section-label">DESIGNER PORTAL</div>
+      <div class="section-header">
+        <h2 class="section-title" style="margin:0;">Share Your Designs. Earn Revenue.</h2>
+        <div class="cert-badge" style="padding:8px 16px;">
+          <span class="cert-icon">🏅</span>
+          <div class="cert-text">
+            <h4>Certified Designer</h4>
+            <p>Alex Mbeki · Top Creator</p>
+          </div>
+        </div>
+      </div>
+      <div class="portal-grid">
+        <div>
+
+          <div class="upload-zone" onclick="showToast('📤','Select your 3D file to upload (GLB, FBX, OBJ, GLTF)')">
+            <div class="upload-icon">📦</div>
+            <h3>Upload New Design</h3>
+            <p>Share your halls, booth templates, lighting presets or stage designs with 12,000+ Novira users</p>
+            <button class="btn btn-primary">Choose File to Upload</button>
+          </div>
+
+          <div style="margin-top:20px;">
+            <div style="font-size:13px;font-weight:700;margin-bottom:10px;">Select Category</div>
+            <div class="category-selector">
+              <div class="cat-item active" onclick="setCategory(this)">🏛 Exhibition Hall</div>
+              <div class="cat-item" onclick="setCategory(this)">📦 Booth Pack</div>
+              <div class="cat-item" onclick="setCategory(this)">🎭 Stage Design</div>
+              <div class="cat-item" onclick="setCategory(this)">💡 Lighting Set</div>
+              <div class="cat-item" onclick="setCategory(this)">🪑 Furniture Pack</div>
+              <div class="cat-item" onclick="setCategory(this)">🎨 Branding Kit</div>
+            </div>
+          </div>
+
+          <div
+            style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:24px;margin-top:20px;">
+            <div style="font-size:16px;font-weight:700;margin-bottom:16px;">Design Details</div>
+            <div class="form-group"><label class="form-label">Design Name</label><input class="form-input"
+                placeholder="Modern Corporate Exhibition Hall"></div>
+            <div class="form-group"><label class="form-label">Description</label><textarea class="form-input" rows="3"
+                placeholder="Perfect for tech expos and corporate events..."></textarea></div>
+            <div class="form-row">
+              <div class="form-group" style="flex:1"><label class="form-label">Price (USD)</label><input
+                  class="form-input" type="number" placeholder="49" value="49"></div>
+              <div class="form-group" style="flex:1"><label class="form-label">License</label>
+                <select class="form-input">
+                  <option>Standard</option>
+                  <option>Extended</option>
+                  <option>Free</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="width:100%;"
+              onclick="showToast('🎉','Submitted for review! Approval within 24h.')">Submit for Review</button>
+          </div>
+        </div>
+
+        <div>
+          <div class="analytics-card">
+            <h3>📊 Your Performance</h3>
+            <div class="mini-chart">
+              <div class="bar" style="height:30%;background:var(--blue-mid);"></div>
+              <div class="bar" style="height:55%;"></div>
+              <div class="bar" style="height:45%;"></div>
+              <div class="bar" style="height:70%;background:var(--blue);"></div>
+              <div class="bar" style="height:85%;background:var(--blue);"></div>
+              <div class="bar" style="height:75%;background:var(--blue);"></div>
+              <div class="bar" style="height:90%;background:var(--blue);"></div>
+            </div>
+            <div class="metric-row"><span class="metric-label">Total Downloads</span><span
+                class="metric-val">1,247</span></div>
+            <div class="metric-row"><span class="metric-label">Revenue (30d)</span><span
+                class="metric-val">$3,841</span></div>
+            <div class="metric-row"><span class="metric-label">Avg. Rating</span><span class="metric-val">⭐ 4.8</span>
+            </div>
+            <div class="metric-row"><span class="metric-label">Active Designs</span><span class="metric-val">12</span>
+            </div>
+            <div class="metric-row"><span class="metric-label">Pending Review</span><span class="metric-val">2</span>
+            </div>
+          </div>
+
+          <div class="cert-badge" style="margin-top:16px;">
+            <span class="cert-icon">🏅</span>
+            <div class="cert-text">
+              <h4>Certified Designer Status</h4>
+              <p>Unlocks priority listing, higher commission (70%), and direct client connections</p>
+            </div>
+          </div>
+
+          <div
+            style="background:var(--white);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-top:16px;">
+            <div style="font-weight:700;margin-bottom:12px;">💳 Payout Settings</div>
+            <div style="font-size:13px;color:var(--silver);margin-bottom:12px;">Next payout: March 15 · $1,247 pending
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" style="width:62%;"></div>
+            </div>
+            <div style="font-size:12px;color:var(--silver);margin-top:6px;">$1,247 of $2,000 minimum reached</div>
+            <button class="btn btn-ghost btn-sm" style="width:100%;margin-top:12px;"
+              onclick="showToast('💸','Payout settings updated')">Edit Payout Method</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="signupModal" onclick="closeModal('signupModal',event)">
+    <div class="modal modal-wrap">
+      <div class="modal-close" onclick="closeModal('signupModal')">✕</div>
+      <div style="text-align:center;margin-bottom:24px;">
+        <div style="display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:8px;">
+          <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:22px;">Novira</div>
+        </div>
+        <div style="font-size:12px;color:var(--silver);">Where Ideas Take Shape</div>
+      </div>
+      <h2>Start Designing for Free</h2>
+      <p>No credit card required. Full access to free tier.</p>
+      <div class="form-group"><label class="form-label">Full Name</label><input class="form-input"
+          placeholder="Alex Mbeki"></div>
+      <div class="form-group"><label class="form-label">Email</label><input class="form-input" type="email"
+          placeholder="alex@company.com"></div>
+      <div class="form-group"><label class="form-label">Password</label><input class="form-input" type="password"
+          placeholder="Create password"></div>
+      <div class="modal-actions">
+        <button class="btn btn-primary" style="flex:1;"
+          onclick="closeModal('signupModal');showPage('dashboard');showToast('🎉','Welcome to Novira! Your workspace is ready.')">Create
+          Account</button>
+      </div>
+      <div style="text-align:center;margin-top:12px;font-size:13px;color:var(--silver);">Already have an account? <span
+          style="color:var(--blue);cursor:pointer;font-weight:600;">Sign in</span></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="newProjectModal" onclick="closeModal('newProjectModal',event)">
+    <div class="modal modal-wrap" style="max-width:560px;">
+      <div class="modal-close" onclick="closeModal('newProjectModal')">✕</div>
+      <h2>Create New Project</h2>
+      <p>Start with a template or from scratch</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;">
+        <div
+          style="border:2px solid var(--blue);border-radius:12px;padding:16px;text-align:center;cursor:pointer;background:var(--blue-pale);">
+          <div style="font-size:28px;margin-bottom:8px;">🏛</div>
+          <div style="font-weight:700;font-size:14px;">Choose Template</div>
+          <div style="font-size:12px;color:var(--silver);">200+ pre-built halls</div>
+        </div>
+        <div style="border:1.5px solid var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;"
+          onclick="showPage('editor');closeModal('newProjectModal');showToast('✏️','Blank canvas ready!')">
+          <div style="font-size:28px;margin-bottom:8px;">⬜</div>
+          <div style="font-weight:700;font-size:14px;">Blank Canvas</div>
+          <div style="font-size:12px;color:var(--silver);">Start from scratch</div>
+        </div>
+        <div style="border:1.5px solid var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;"
+          onclick="showPage('ai-studio');closeModal('newProjectModal')">
+          <div style="font-size:28px;margin-bottom:8px;">🤖</div>
+          <div style="font-weight:700;font-size:14px;">AI Magic Design</div>
+          <div style="font-size:12px;color:var(--silver);">Describe → auto-layout</div>
+        </div>
+        <div style="border:1.5px solid var(--border);border-radius:12px;padding:16px;text-align:center;cursor:pointer;"
+          onclick="showToast('📐','Upload floor plan (PNG/PDF/DWG)...')">
+          <div style="font-size:28px;margin-bottom:8px;">📐</div>
+          <div style="font-weight:700;font-size:14px;">Import Floor Plan</div>
+          <div style="font-size:12px;color:var(--silver);">Convert to 3D auto</div>
+        </div>
+      </div>
+      <div class="form-group"><label class="form-label">Project Name</label><input class="form-input"
+          placeholder="Novira Expo Hall 2026"></div>
+      <button class="btn btn-primary" style="width:100%;margin-top:8px;"
+        onclick="showPage('editor');closeModal('newProjectModal');showToast('🚀','New project created!')">Create Project
+        →</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="exportModal" onclick="closeModal('exportModal',event)">
+    <div class="modal modal-wrap">
+      <div class="modal-close" onclick="closeModal('exportModal')">✕</div>
+      <h2>Export Project</h2>
+      <p>Choose your export format</p>
+      <div class="export-options">
+        <div class="export-option"
+          onclick="closeModal('exportModal');showToast('🖼','4K render queued! Ready in ~2 min.')">
+          <div class="exp-icon">🖼</div>
+          <div class="exp-label">4K Render</div>
+          <div class="exp-sub">PNG · 3840×2160</div>
+        </div>
+        <div class="export-option" onclick="closeModal('exportModal');showToast('🎥','Generating cinematic video...')">
+          <div class="exp-icon">🎥</div>
+          <div class="exp-label">Video Walk</div>
+          <div class="exp-sub">MP4 · 60fps</div>
+        </div>
+        <div class="export-option" onclick="closeModal('exportModal');showToast('🌐','360° panorama generating...')">
+          <div class="exp-icon">🌐</div>
+          <div class="exp-label">360° Tour</div>
+          <div class="exp-sub">Interactive link</div>
+        </div>
+        <div class="export-option" onclick="closeModal('exportModal');showToast('📄','Generating PDF client deck...')">
+          <div class="exp-icon">📄</div>
+          <div class="exp-label">Client PDF</div>
+          <div class="exp-sub">With cost report</div>
+        </div>
+        <div class="export-option" onclick="closeModal('exportModal');showToast('📐','Exporting CAD files...')">
+          <div class="exp-icon">📐</div>
+          <div class="exp-label">CAD/DWG</div>
+          <div class="exp-sub">Technical drawing</div>
+        </div>
+        <div class="export-option" onclick="closeModal('exportModal');showToast('📦','Exporting GLB 3D file...')">
+          <div class="exp-icon">📦</div>
+          <div class="exp-label">3D File</div>
+          <div class="exp-sub">GLB/GLTF</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="costModal" onclick="closeModal('costModal',event)">
+    <div class="modal modal-wrap">
+      <div class="modal-close" onclick="closeModal('costModal')">✕</div>
+      <h2>💰 Cost Estimate</h2>
+      <p>Auto-calculated from your current scene</p>
+      <div style="background:var(--surface);border-radius:12px;padding:16px;margin-bottom:16px;">
+        <div
+          style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;">
+          <span>LED Screen (32 sqm)</span><span style="font-weight:700;">$6,400</span>
+        </div>
+        <div
+          style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;">
+          <span>Truss System (45m)</span><span style="font-weight:700;">$2,250</span>
+        </div>
+        <div
+          style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;">
+          <span>Carpet (200 sqm)</span><span style="font-weight:700;">$1,800</span>
+        </div>
+        <div
+          style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;">
+          <span>Lighting Rig</span><span style="font-weight:700;">$3,600</span>
+        </div>
+        <div
+          style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;">
+          <span>Furniture</span><span style="font-weight:700;">$4,200</span>
+        </div>
+        <div
+          style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:14px;">
+          <span>Printing & Signage</span><span style="font-weight:700;">$1,950</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;padding:8px 0;font-size:14px;"><span>Labor (3
+            days)</span><span style="font-weight:700;">$8,400</span></div>
+      </div>
+      <div style="background:var(--blue);color:#fff;border-radius:12px;padding:16px;text-align:center;">
+        <div style="font-size:12px;opacity:.8;margin-bottom:4px;">TOTAL ESTIMATED COST</div>
+        <div style="font-family:'Syne',sans-serif;font-size:32px;font-weight:800;">$28,600</div>
+        <div style="font-size:12px;opacity:.7;margin-top:4px;">Based on Novira market rates · 2026</div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" style="flex:1;" onclick="closeModal('costModal')">Close</button>
+        <button class="btn btn-primary" style="flex:1;"
+          onclick="closeModal('costModal');showToast('📄','Cost report PDF generated!')">Export PDF</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <span class="toast-icon" id="toastIcon">✅</span>
+    <span id="toastMsg">Action completed</span>
+  </div>
+
+  <script>
+    // ─── NAVIGATION ───
+    function showPage(id) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.querySelector('#page-' + id).classList.add('active');
+      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+      if (id === 'editor') document.getElementById('navAvatars').style.display = 'flex';
+      else document.getElementById('navAvatars').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    // ─── MODAL ───
+    function showModal(id) {
+      document.getElementById(id).classList.add('active');
+    }
+    function closeModal(id, e) {
+      if (!e || e.target === document.getElementById(id)) {
+        document.getElementById(id).classList.remove('active');
+      }
+    }
+
+    // ─── TOAST ───
+    let toastTimer;
+    function showToast(icon, msg) {
+      const t = document.getElementById('toast');
+      document.getElementById('toastIcon').textContent = icon;
+      document.getElementById('toastMsg').textContent = msg;
+      t.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // ─── SIDEBAR ───
+    function setActive(el) {
+      el.closest('.sidebar').querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // ─── EDITOR TABS ───
+    function switchEditorTab(el, tab) {
+      el.closest('.editor-tabs').querySelectorAll('.editor-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+      ['assets', '2d-art', 'ai-gen'].forEach(t => {
+        const panel = document.getElementById('tab-' + t);
+        if (panel) panel.style.display = (t === tab) ? 'block' : 'none';
+      });
+    }
+
+    // ─── TOOLBAR ───
+    function setTool(el) {
+      el.closest('.editor-toolbar').querySelectorAll('.tool-btn').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      const tools = { '▼': 'Select', '✥': 'Move', '↻': 'Rotate', '⤢': 'Scale' };
+      const t = tools[el.textContent] || 'Tool';
+      if (t !== 'Select') showToast('🔧', t + ' mode active');
+    }
+    function setMode(el, mode) {
+      el.closest('.toolbar-mode').querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      el.classList.add('active');
+      const simOverlay = document.getElementById('simOverlay');
+      if (mode === 'Simulate') { simOverlay.classList.add('active'); showToast('🔬', 'Simulation mode: sound & lighting active'); }
+      else { simOverlay.classList.remove('active'); }
+      if (mode === 'Present') showToast('🎬', 'Presentation mode: clean view enabled');
+    }
+
+    // ─── SCENE MANAGEMENT ───
+    const sceneItems = [];
+    function addToScene(name, icon) {
+      sceneItems.push({ name, icon });
+      const container = document.getElementById('sceneObjects');
+      const tag = document.createElement('div');
+      tag.style.cssText = 'background:rgba(255,255,255,.9);border:1px solid var(--border);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px;cursor:pointer;backdrop-filter:blur(6px);';
+      tag.innerHTML = icon + ' ' + name + ' <span style="color:#e74c3c;font-size:14px;margin-left:2px;" onclick="this.parentElement.remove()">×</span>';
+      tag.onclick = function (e) {
+        if (e.target.tagName !== 'SPAN') {
+          document.getElementById('propsTitle').textContent = name;
+          showToast('📍', name + ' selected');
+        }
+      };
+      container.appendChild(tag);
+      showToast('➕', name + ' added to scene');
+    }
+
+    function startDrag(name) { showToast('🤏', 'Drag ' + name + ' into the scene'); }
+    function handleDrop(e) { showToast('✅', 'Item placed in scene!'); }
+    function duplicateSelected() { showToast('⧉', 'Object duplicated'); }
+    function deleteSelected() { showToast('🗑', 'Object deleted'); }
+
+    // ─── GRID ───
+    function toggleGrid(btn) {
+      btn.classList.toggle('active');
+      const grid = document.getElementById('gridOverlay');
+      grid.style.display = grid.style.display === 'none' ? 'block' : 'none';
+      showToast('⊞', grid.style.display === 'block' ? 'Grid shown' : 'Grid hidden');
+    }
+
+    // ─── SIMULATION ───
+    function toggleSim(el, type) {
+      el.classList.toggle('on');
+      const on = el.classList.contains('on');
+      const labels = { light: '💡 Lighting simulation', sound: '🔊 Sound visualization', crowd: '👥 Crowd flow simulation' };
+      showToast(on ? '✅' : '⭕', labels[type] + (on ? ' ON' : ' OFF'));
+      if (type === 'sound') {
+        document.getElementById('simOverlay').classList.toggle('active', on);
+      }
+    }
+
+    // ─── TIMELINE ───
+    let playing = false, animFrame;
+    function togglePlay(btn) {
+      playing = !playing;
+      btn.textContent = playing ? '⏸' : '▶';
+      if (playing) { animTimeline(); showToast('▶', 'Timeline playing — 12s total'); }
+      else { cancelAnimationFrame(animFrame); showToast('⏸', 'Timeline paused'); }
+    }
+    let tPos = 0;
+    function animTimeline() {
+      tPos = (tPos + 0.001) % 1;
+      const pct = (tPos * 100) + '%';
+      document.getElementById('timelineFill').style.width = pct;
+      document.getElementById('timelineHead').style.left = pct;
+      animFrame = requestAnimationFrame(animTimeline);
+    }
+    function scrubTimeline(e, el) {
+      const rect = el.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      tPos = pct;
+      document.getElementById('timelineFill').style.width = (pct * 100) + '%';
+      document.getElementById('timelineHead').style.left = (pct * 100) + '%';
+    }
+
+    // ─── AI CHAT ───
+    let aiOpen = true;
+    function toggleAiChat() {
+      aiOpen = !aiOpen;
+      document.getElementById('aiChatBody').style.display = aiOpen ? 'block' : 'none';
+      document.getElementById('aiChevron').textContent = aiOpen ? '▼' : '▶';
+    }
+    const aiResponses = [
+      "For optimal sightlines, angle your main stage 5° toward center-left. 87% of venues with this layout report better engagement.",
+      "Your sound system coverage shows a dead zone near the back-right corner. Adding one delay speaker there will resolve it.",
+      "Consider LED wall brightness at 800 nits for daytime, 400 nits for evening events. This saves 35% on power costs.",
+      "Booth A and B spacing at 2.4m exceeds fire code minimums. You have room to expand booth width by 0.6m.",
+      "For 300 guests: current layout fits 280 comfortable. Add 2 high-top cocktail tables near entrance for remaining 20.",
+      "Your truss configuration supports 450kg. Current lighting load is 220kg — you have 230kg headroom for additional fixtures."
+    ];
+    let aiIdx = 0;
+    function sendAiMsg() {
+      const input = document.getElementById('aiInput');
+      if (!input.value.trim()) return;
+      const body = document.getElementById('aiChatBody');
+      const userMsg = document.createElement('div');
+      userMsg.style.cssText = 'background:var(--blue);color:#fff;border-radius:10px;padding:8px 12px;font-size:13px;margin-bottom:8px;text-align:right;';
+      userMsg.textContent = input.value;
+      body.insertBefore(userMsg, body.lastElementChild);
+      input.value = '';
+      setTimeout(() => {
+        const aiMsg = document.createElement('div');
+        aiMsg.className = 'ai-message';
+        aiMsg.innerHTML = '🤖 <span class="ai-tip">Novira Studio:</span> ' + aiResponses[aiIdx % aiResponses.length];
+        aiIdx++;
+        body.insertBefore(aiMsg, body.lastElementChild);
+        body.scrollTop = body.scrollHeight;
+      }, 800);
+    }
+
+    // ─── AI GENERATE ───
+    function simulateGenerate() {
+      const btn = event.currentTarget;
+      btn.textContent = '⏳ Generating...';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = '⚡ Generate 3D';
+        btn.disabled = false;
+        document.getElementById('genResults').style.display = 'block';
+        showToast('🎉', '3 concepts generated by Meshy AI');
+      }, 2000);
+    }
+    function simulateGenerate3D() {
+      const btn = event.currentTarget;
+      btn.textContent = '⏳ Generating...';
+      btn.disabled = true;
+      setTimeout(() => {
+        btn.textContent = '⚡ Generate 3D Model';
+        btn.disabled = false;
+        document.getElementById('studioGenResults').style.display = 'block';
+        showToast('🎉', '3 concepts generated by Meshy AI');
+      }, 2000);
+    }
+
+    // ─── STYLE CHIPS ───
+    function toggleChip(el) {
+      el.classList.toggle('active');
+    }
+
+    // ─── MARKETPLACE ───
+    const templates = [
+      { name: 'Grand Exhibition Hall', type: 'Exhibition', designer: 'Mavan Design', price: 'Free', stars: '★★★★★', emoji: '🏛', c1: '#dce8ff', c2: '#b8d0f8', badge: 'Popular' },
+      { name: 'Corporate Ballroom A', type: 'Conference', designer: 'Alex Studio', price: '$49', stars: '★★★★☆', emoji: '🏟', c1: '#d4edff', c2: '#a8d4f8', badge: null },
+      { name: 'Tech Summit Stage', type: 'Conference', designer: 'Novira3D', price: '$79', stars: '★★★★★', emoji: '💠', c1: '#dcf0ff', c2: '#b0dcf8', badge: 'New' },
+      { name: 'Wedding Pavilion', type: 'Wedding', designer: 'EventPro', price: '$59', stars: '★★★★★', emoji: '🌸', c1: '#fff0f5', c2: '#ffd6e7', badge: null },
+      { name: 'Concert Arena', type: 'Concert', designer: 'StageArt', price: '$89', stars: '★★★★☆', emoji: '🎵', c1: '#f3e8ff', c2: '#ddd6fe', badge: 'Premium' },
+      { name: 'Outdoor Festival', type: 'Concert', designer: 'FestDesign', price: 'Free', stars: '★★★★★', emoji: '⛺', c1: '#dcffe4', c2: '#b8f0c8', badge: null },
+      { name: 'Gala Dinner Hall', type: 'Gala Dinner', designer: 'LuxEvents', price: '$69', stars: '★★★★★', emoji: '🍷', c1: '#fef3c7', c2: '#fde68a', badge: 'Featured' },
+      { name: 'Modular Booth Pack', type: 'Booth Packs', designer: 'BoothCo', price: '$39', stars: '★★★★☆', emoji: '📦', c1: '#e0f2fe', c2: '#bae6fd', badge: null },
+      { name: 'Premium LED Stage', type: 'Stage Designs', designer: 'LED Masters', price: '$99', stars: '★★★★★', emoji: '💡', c1: '#fce7f3', c2: '#fbcfe8', badge: 'Top Rated' },
+      { name: 'Minimal Conference', type: 'Conference', designer: 'MinimArt', price: 'Free', stars: '★★★★☆', emoji: '📋', c1: '#f5f3ff', c2: '#ede9fe', badge: null },
+      { name: 'Glass Corner Booth', type: 'Booth Packs', designer: 'ClearSpace', price: '$45', stars: '★★★★★', emoji: '🪟', c1: '#ecfdf5', c2: '#d1fae5', badge: 'New' },
+      { name: 'Sunset Terrace', type: 'Wedding', designer: 'SunEvent', price: '$55', stars: '★★★★☆', emoji: '🌅', c1: '#fff7ed', c2: '#fed7aa', badge: null },
+    ];
+
+    function renderMarket(filter = 'All') {
+      const grid = document.getElementById('marketGrid');
+      const items = filter === 'All' ? templates : templates.filter(t => t.type === filter);
+      grid.innerHTML = items.map(t => `
+    <div class="market-card" onclick="showPage('editor');showToast('🏛','Loading template: ${t.name}...')">
+      <div class="market-thumb" style="--c1:${t.c1};--c2:${t.c2};">
+        ${t.emoji}
+        ${t.badge ? `<div class="market-badge">${t.badge}</div>` : ''}
+      </div>
+      <div class="market-info">
+        <div class="market-name">${t.name}</div>
+        <div class="market-meta">
+          <span class="market-designer">${t.designer}</span>
+          <span class="${t.price === 'Free' ? 'market-free' : 'market-price'}">${t.price}</span>
+        </div>
+        <div class="market-stars" style="margin-top:4px;">${t.stars}</div>
+      </div>
+    </div>
+  `).join('');
+    }
+
+    function setFilter(el) {
+      document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+      renderMarket(el.textContent);
+    }
+
+    // ─── DESIGNER PORTAL ───
+    function setCategory(el) {
+      document.querySelectorAll('.cat-item').forEach(c => c.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    // ─── INIT ───
+    renderMarket();
+
+    // Auto-animate venue scene with subtle micro-interactions
+    setTimeout(() => {
+      const booths = document.querySelectorAll('.v-booth');
+      booths.forEach((b, i) => {
+        b.style.transition = 'all .3s';
+        b.style.cursor = 'pointer';
+        b.addEventListener('click', () => {
+          document.getElementById('propsTitle').textContent = b.textContent;
+          b.style.boxShadow = '0 0 0 3px var(--blue), 0 0 0 6px rgba(43,111,212,.3)';
+          setTimeout(() => b.style.boxShadow = '', 2000);
+          showToast('📍', b.textContent + ' selected');
+        });
+      });
+      const tables = document.querySelectorAll('.v-table');
+      tables.forEach(t => {
+        t.style.cursor = 'pointer';
+        t.addEventListener('click', () => { showToast('📍', 'Round Table selected'); });
+      });
+      document.getElementById('stageEl').style.cursor = 'pointer';
+      document.getElementById('stageEl').addEventListener('click', () => {
+        document.getElementById('propsTitle').textContent = 'Main Stage';
+        showToast('📍', 'Main Stage selected — see properties panel');
+      });
+    }, 100);
+
+    // Keyboard shortcuts
+    document.addEventListener('keydown', e => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      if (e.key === 'Escape') document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('active'));
+      if (e.key === 'g') { document.getElementById('gridOverlay').style.display = document.getElementById('gridOverlay').style.display === 'none' ? 'block' : 'none'; }
+      if (e.key === ' ') { e.preventDefault(); }
+      if (e.key === 'Delete') showToast('🗑', 'Selected object deleted');
+      if (e.ctrlKey && e.key === 's') { e.preventDefault(); showToast('💾', 'Project saved!'); }
+      if (e.ctrlKey && e.key === 'z') showToast('↩', 'Undo');
+      if (e.ctrlKey && e.key === 'e') { e.preventDefault(); showModal('exportModal'); }
+    });
+  </script>
+</body>
+
+</html>

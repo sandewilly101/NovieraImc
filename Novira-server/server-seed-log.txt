@@ -1,0 +1,446 @@
+[2026-03-19T08:05:58.808Z] ADMIN SEED: Connecting to novira, Total users: 10
+[2026-03-19T08:05:58.834Z] ADMIN SEED: Connecting to novira, Total users: 10
+[2026-03-19T08:05:58.835Z] ADMIN SEED: Connecting to novira, Total users: 10
+[2026-03-19T08:05:59.026Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-19T08:05:59.052Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-19T08:05:59.053Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-19T08:08:42.961Z] ADMIN SEED: Connecting to novira, Total users: 10
+[2026-03-19T08:08:42.965Z] ADMIN SEED: Connecting to novira, Total users: 10
+[2026-03-19T08:08:43.090Z] ADMIN SEED: Connecting to novira, Total users: 10
+[2026-03-19T08:08:43.180Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-19T08:08:43.183Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-19T08:08:43.306Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-19T10:38:57.492Z] ADMIN SEED: Connecting to novira, Total users: 10
+[2026-03-19T10:38:57.974Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-19T10:41:13.841Z] ADMIN SEED: Connecting to novira, Total users: 10
+[2026-03-19T10:41:14.320Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-19T10:43:15.221Z] ADMIN SEED: Connecting to novira, Total users: 10
+[2026-03-19T10:43:15.737Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-19T11:29:03.118Z] ADMIN SEED: Connecting to novira, Total users: 10
+[2026-03-19T11:29:03.293Z] ADMIN SEED: Connecting to novira, Total users: 10
+[2026-03-19T11:29:03.633Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-19T11:29:03.819Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-20T07:01:53.215Z] ADMIN SEED: Connecting to novira, Total users: 0
+[2026-03-20T07:01:53.418Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-20T07:50:04.046Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-03-20T07:50:04.278Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-20T18:20:43.365Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-03-20T18:20:43.613Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-24T12:04:32.333Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-03-24T12:04:32.589Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-25T06:56:02.773Z] ADMIN SEED: Connecting to novira, Total users: 3
+[2026-03-25T06:56:02.978Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-26T14:29:27.952Z] ADMIN SEED: Connecting to novira, Total users: 3
+[2026-03-26T14:29:28.174Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-03-27T07:26:42.299Z] ADMIN SEED: Connecting to novira, Total users: 3
+[2026-03-27T07:26:42.502Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-09T08:43:36.642Z] ADMIN SEED: Connecting to novira, Total users: 3
+[2026-04-09T08:43:36.851Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-09T08:43:58.975Z] ADMIN SEED: Connecting to novira, Total users: 3
+[2026-04-09T08:43:59.178Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-09T10:43:49.445Z] ADMIN SEED: Connecting to novira, Total users: 3
+[2026-04-09T10:43:49.696Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-09T10:50:20.638Z] ADMIN SEED: Connecting to novira, Total users: 3
+[2026-04-09T10:50:20.840Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-09T10:56:27.491Z] ADMIN SEED: Connecting to novira, Total users: 3
+[2026-04-09T10:56:27.695Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-13T05:17:39.048Z] ADMIN SEED: Connecting to novira, Total users: 0
+[2026-04-13T05:17:39.432Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-13T05:38:41.144Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-13T05:38:41.485Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-13T05:41:07.229Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-13T05:41:07.681Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-13T05:43:09.088Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-13T05:43:09.429Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-13T05:48:22.217Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-13T05:48:22.565Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T09:44:48.361Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T09:44:48.800Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T09:45:34.189Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T09:45:34.632Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T09:59:49.605Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T09:59:50.077Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T10:08:45.978Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T10:08:46.315Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T10:12:38.419Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T10:12:38.769Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T10:51:47.420Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T10:51:47.855Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T11:21:50.853Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T11:21:51.320Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T12:14:17.357Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T12:14:17.821Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T12:14:54.616Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T12:14:55.059Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T19:40:06.253Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T19:40:06.601Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T19:47:49.716Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T19:47:50.074Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T19:50:16.686Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T19:50:17.046Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T19:56:50.028Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T19:56:50.384Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-14T19:58:49.674Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-14T19:58:50.033Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-15T15:47:17.812Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-15T15:47:18.167Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-15T18:08:06.596Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-15T18:08:06.943Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-15T20:35:18.529Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-15T20:35:18.890Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-15T23:03:31.471Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-15T23:03:31.963Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T09:13:05.673Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T09:13:06.154Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T09:57:45.257Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T09:57:45.787Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T09:58:20.843Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T09:58:21.205Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:00:29.122Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:00:29.476Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:01:49.244Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:01:49.596Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:03:30.998Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:03:31.350Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:05:00.502Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:05:00.868Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:06:12.994Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:06:13.375Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:13:02.926Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:13:03.282Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:15:06.004Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:15:06.358Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:16:50.256Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:16:50.613Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:18:01.190Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:18:01.545Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:21:51.797Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:21:52.147Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:33:38.676Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:33:39.032Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T10:34:38.873Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T10:34:39.229Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:00:12.941Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:00:13.299Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:04:27.056Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:04:27.445Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:05:30.830Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:05:31.189Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:07:23.627Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:07:23.982Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:10:04.292Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:10:04.717Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:14:24.922Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:14:25.333Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:25:01.937Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:25:02.319Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:28:08.860Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:28:09.220Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:42:14.600Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:42:14.955Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:43:42.330Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:43:42.709Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:46:44.204Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:46:44.611Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T11:58:44.785Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T11:58:45.882Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T12:07:01.454Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T12:07:01.812Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T13:11:07.669Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T13:11:08.022Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T13:15:15.725Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T13:15:16.084Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T13:17:35.463Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T13:17:35.844Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T13:23:46.097Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T13:23:46.450Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T13:23:57.288Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T13:23:57.655Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T13:32:52.895Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T13:32:53.252Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T13:34:31.645Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T13:34:31.994Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T13:41:12.279Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T13:41:12.638Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T14:30:59.102Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T14:30:59.448Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T14:48:38.333Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T14:48:38.686Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T14:51:46.873Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T14:51:47.227Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T15:00:23.669Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T15:00:24.014Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T15:00:53.249Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T15:00:53.595Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T15:02:17.094Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T15:02:17.441Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T15:10:22.343Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T15:10:22.687Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T15:49:21.789Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T15:49:22.136Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T16:27:30.220Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T16:27:30.557Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T16:27:34.471Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T16:27:34.812Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T16:31:29.729Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T16:31:30.072Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-16T19:21:45.067Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-16T19:21:45.421Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T05:46:17.342Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T05:46:17.797Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T07:13:38.295Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T07:13:38.653Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T08:31:39.477Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T08:31:39.962Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T09:32:22.529Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T09:32:22.876Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T09:50:15.193Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T09:50:15.606Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T10:01:30.994Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T10:01:31.346Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T10:06:28.352Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T10:06:28.707Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T10:13:36.062Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T10:13:36.411Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T10:16:06.590Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T10:16:06.946Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T10:21:42.917Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T10:21:43.264Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T13:35:36.456Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T13:35:36.812Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T13:43:34.267Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T13:43:34.620Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T14:30:40.238Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T14:30:40.581Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T14:50:23.662Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T14:50:24.120Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T15:02:28.402Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T15:02:28.864Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T15:16:33.625Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T15:16:34.067Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T15:23:58.728Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T15:23:59.175Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T16:12:32.742Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T16:12:33.093Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T17:27:43.833Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T17:27:44.192Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T17:52:53.365Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T17:52:53.717Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T19:17:23.511Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T19:17:23.860Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T19:50:17.704Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T19:50:18.048Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T22:11:18.964Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T22:11:19.404Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T22:18:42.244Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T22:18:42.709Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T22:41:49.849Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T22:41:50.207Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T22:44:05.432Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T22:44:05.797Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T22:47:29.017Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T22:47:29.368Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T22:51:22.987Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T22:51:23.348Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T23:26:12.504Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T23:26:12.861Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-17T23:32:48.484Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-17T23:32:48.826Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-18T01:28:05.096Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-18T01:28:05.604Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-18T06:59:57.480Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-18T06:59:57.915Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-18T07:19:39.648Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-18T07:19:40.016Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-18T08:13:52.059Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-18T08:13:52.443Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-18T09:07:02.620Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-18T09:07:02.970Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-18T09:35:35.282Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-18T09:35:35.633Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-18T09:50:27.209Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-18T09:50:27.561Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-18T11:33:40.880Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-18T11:33:41.234Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-18T13:12:43.795Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-18T13:12:44.172Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-20T08:03:25.655Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-20T08:03:26.295Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-21T07:40:44.155Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-21T07:40:44.680Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-21T07:58:03.268Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-21T07:58:03.636Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-21T11:39:40.771Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-21T11:39:41.143Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-21T14:12:35.945Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-21T14:12:36.307Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-21T22:06:13.957Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-21T22:06:14.497Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-23T07:18:00.604Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-23T07:18:01.080Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-23T13:35:00.179Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-23T13:35:00.609Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T07:05:39.038Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T07:05:39.474Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T07:58:22.526Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T07:58:22.957Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T08:10:48.069Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T08:10:48.417Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T08:20:04.230Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T08:20:04.573Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T08:24:10.334Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T08:24:10.679Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T08:28:23.164Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T08:28:23.506Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T08:32:11.714Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T08:32:12.059Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T08:36:22.095Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T08:36:22.440Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T08:43:37.093Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T08:43:37.443Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T08:48:46.126Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T08:48:46.475Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T08:52:47.861Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T08:52:48.211Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T08:58:29.963Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T08:58:30.308Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T10:12:42.925Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T10:12:43.271Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T16:09:07.964Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T16:09:08.318Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T16:17:26.063Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T16:17:26.404Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T16:24:13.562Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T16:24:13.908Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-24T16:29:02.688Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-24T16:29:03.043Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-26T16:22:58.705Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-26T16:22:59.217Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-26T18:30:14.337Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-26T18:30:14.683Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T05:05:44.459Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T05:05:46.218Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T05:36:27.845Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T05:36:28.375Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T06:40:33.911Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T06:40:34.270Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T07:10:57.880Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T07:10:58.231Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T07:13:13.781Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T07:13:14.138Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T07:18:30.956Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T07:18:31.347Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T07:23:58.006Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T07:23:58.403Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T07:32:08.350Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T07:32:08.722Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T07:43:02.944Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T07:43:03.357Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T07:45:35.715Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T07:45:36.077Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T07:48:40.962Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T07:48:41.364Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T13:17:40.063Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T13:17:40.507Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-27T15:26:12.435Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-27T15:26:12.754Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T02:25:56.508Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T02:25:56.862Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T02:39:43.763Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T02:39:44.119Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T02:45:12.752Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T02:45:13.123Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T03:08:46.638Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T03:08:47.120Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T03:09:59.517Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T03:09:59.968Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T04:31:31.821Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T04:31:32.294Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T04:36:51.384Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T04:36:51.835Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T04:47:53.971Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T04:47:54.344Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T05:01:21.462Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T05:01:21.809Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T05:03:45.650Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T05:03:45.996Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T05:26:19.967Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T05:26:20.499Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T05:34:58.235Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T05:34:58.700Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T05:37:17.687Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T05:37:18.147Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T05:42:00.751Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T05:42:01.222Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T05:47:56.430Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T05:47:56.875Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T05:50:07.702Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T05:50:08.145Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T05:58:04.047Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T05:58:04.405Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:01:45.009Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:01:45.358Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:03:03.992Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:03:04.351Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:04:43.886Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:04:44.239Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:05:18.627Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:05:18.976Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:06:10.857Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:06:11.204Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:07:24.436Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:07:24.800Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:08:24.094Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:08:24.448Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:10:53.312Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:10:53.662Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:12:48.195Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:12:48.557Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:13:00.784Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:13:01.132Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:16:10.478Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:16:10.824Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:23:05.018Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:23:05.368Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T06:54:54.248Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T06:54:54.597Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T07:02:04.357Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T07:02:04.708Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T07:07:21.443Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T07:07:21.888Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T07:12:17.876Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T07:12:18.315Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T07:19:34.254Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T07:19:34.704Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T07:35:11.147Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T07:35:11.640Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T07:42:11.999Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T07:42:12.488Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T08:20:51.279Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T08:20:51.626Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T08:31:32.635Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T08:31:32.989Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T08:34:30.114Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T08:34:30.457Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T08:42:43.932Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T08:42:44.305Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T08:48:58.279Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T08:48:58.776Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T08:56:14.048Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T08:56:14.491Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T08:58:21.377Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T08:58:21.805Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T09:00:13.850Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T09:00:14.286Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-28T10:40:08.214Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-28T10:40:08.576Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-29T10:34:55.059Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-29T10:34:55.417Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-29T11:00:53.197Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-29T11:00:53.619Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-29T11:26:11.984Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-29T11:26:12.422Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-29T13:04:18.584Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-29T13:04:18.950Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
+[2026-04-30T09:39:37.253Z] ADMIN SEED: Connecting to novira, Total users: 1
+[2026-04-30T09:39:37.600Z] ADMIN SEED: Verified User: novira, Role: superadmin, PW Length: 60
